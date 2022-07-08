@@ -69,14 +69,24 @@ if __name__ == '__main__':
     task_1a_devtest_2022 = pd.read_csv(task_1a_devtest_2022_path, sep='\t', dtype=str)
     task_1a_test_2022 = pd.read_csv(task_1a_test_2022_path, sep='\t', dtype=str)
 
-    sets = [[task_1a_train_2021, 'task_1a_train_2021'], [task_1a_dev_2021, 'task_1a_dev_2021'],
-            [task_1a_test_2021, 'task_1a_test_2021'], [task_1a_train_2022, 'task_1a_train_2022'],
-            [task_1a_dev_2022, 'task_1a_dev_2022'], [task_1a_devtest_2022, 'task_1a_devtest_2022'],
-            [task_1a_test_2022, 'task_1a_test_2022']]
+    dastasets = [[task_1a_train_2021, 'task_1a_train_2021'], [task_1a_dev_2021, 'task_1a_dev_2021'],
+                 [task_1a_test_2021, 'task_1a_test_2021'], [task_1a_train_2022, 'task_1a_train_2022'],
+                 [task_1a_dev_2022, 'task_1a_dev_2022'], [task_1a_devtest_2022, 'task_1a_devtest_2022'],
+                 [task_1a_test_2022, 'task_1a_test_2022']]
 
-    for i in range(0, len(sets)):
-        for j in range(i + 1, len(sets)):
-            compare(sets[i][0], sets[j][0], sets[i][1], sets[j][1])
+    for i in range(0, len(dastasets)):
+        for j in range(i + 1, len(dastasets)):
+            compare(dastasets[i][0], dastasets[j][0], dastasets[i][1], dastasets[j][1])
 
-    # compare(task_1a_train_2021, task_1a_train_2022, 'task_1a_train_2021', 'task_1a_train_2022')
-    # compare(task_1a_dev_2021, task_1a_train_2022, 'task_1a_dev_2021', 'task_1a_dev_2022')
+    print("\n\n============================================")
+
+    task_1a_2021 = pd.concat([task_1a_train_2021, task_1a_dev_2021, task_1a_test_2021])
+    task_1a_2022 = pd.concat([task_1a_train_2022, task_1a_dev_2022, task_1a_devtest_2022])
+
+    for dataset in dastasets:
+        try:
+            print('label distribute of {}'.format(dataset[1]))
+            print(dataset[0]['class_label'].value_counts())
+        except:
+            print('{} have no label data'.format(dataset[1]))
+        print("===========================================")
