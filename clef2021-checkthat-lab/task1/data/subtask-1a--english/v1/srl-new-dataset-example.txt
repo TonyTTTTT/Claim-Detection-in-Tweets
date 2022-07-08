@@ -1,0 +1,4 @@
+topic_id	tweet_id	tweet_url	tweet_text	check_worthiness
+covid-19	1234964653014384644	https://twitter.com/EricTrump/status/1234964653014384644	@realDonaldTrump  is once again donating his salary back to the United States Government	1
+covid-19	1234869939720216578	https://twitter.com/RealJamesWoods/status/1234869939720216578	Here’s a handy little (unintentional) demo to spread #coronavirus in America.	0
+covid-19	1234873136304267267	https://twitter.com/hayxsmith/status/1234873136304267267	The corona virus only kills the disabled, elderly, chornically-ill, and immunocompromised	0
