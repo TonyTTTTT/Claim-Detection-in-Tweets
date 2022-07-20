@@ -7,7 +7,8 @@ from allennlp.predictors.predictor import Predictor
 class SRLPredictor():
     def __init__(self):
         self.srl_predictor = Predictor.from_path(
-            "https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz")
+            "https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz"
+        )
         self.srl_predictor._model = self.srl_predictor._model.cuda()
 
     def compute(self, sample, claim_db, k, encoder, prepend_title_sentence=True, prepend_title_frame=True):

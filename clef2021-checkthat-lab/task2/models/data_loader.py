@@ -6,7 +6,6 @@ import pickle
 
 train_dev_iclaim = '../data/subtask-2a--english/v1/train/tweets-train-dev.tsv'
 test_iclaim = '../test-gold/subtask-2a--english/subtask-2a--english/tweets-test.tsv'
-iclaims_path = test_iclaim
 vclaims_dir = '../data/subtask-2a--english/v1/train/vclaims/'
 
 qrels_train_path = '../data/subtask-2a--english/v1/train/qrels-train.tsv'
@@ -15,7 +14,7 @@ qrels_test_path = '../test-gold/subtask-2a--english/subtask-2a--english/qrels-te
 
 
 class DataLoader:
-    def __init__(self):
+    def __init__(self, iclaims_path):
         self.iclaims_df = pd.read_csv(iclaims_path, sep='\t', names=['id', 'text'])
         self.iclaims = self.iclaims_to_dict(self.iclaims_df)
         self.qrels_train = pd.read_csv(qrels_train_path, sep='\t', names=['iclaim_id', 'nonsense', 'vclaim_id', 'relevance'])
@@ -78,6 +77,6 @@ class DataLoader:
 
 
 if __name__ == '__main__':
-    data_loader = DataLoader()
+    data_loader = DataLoader(train_dev_iclaim)
     iclaims = data_loader.get_iclaims()
     vclaims = data_loader.get_vclaims()

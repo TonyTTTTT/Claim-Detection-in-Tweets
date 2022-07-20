@@ -21,8 +21,9 @@ class SimilarityCalculator:
         j_max = -1
         for i in range(0, len(iclaim_frames_encoding)):
             for j in range(0, len(vclaim_frames_encoding)):
-                sim = np.dot(iclaim_frames_encoding[i], vclaim_frames_encoding[j]) / (
-                        norm(iclaim_frames_encoding[i]) * norm(vclaim_frames_encoding[j]))
+                # sim = np.dot(iclaim_frames_encoding[i], vclaim_frames_encoding[j]) / (
+                #         norm(iclaim_frames_encoding[i]) * norm(vclaim_frames_encoding[j]))
+                sim = np.dot(iclaim_frames_encoding[i], vclaim_frames_encoding[j])
                 # print('sim: {}'.format(sim))
                 if sim > sim_max:
                     sim_max = sim
@@ -62,8 +63,10 @@ class SimilarityCalculator:
 
 
 if __name__ == '__main__':
-    data_loader = DataLoader()
+    train_dev_iclaim = '../data/subtask-2a--english/v1/train/tweets-train-dev.tsv'
+    test_iclaim = '../test-gold/subtask-2a--english/subtask-2a--english/tweets-test.tsv'
+    data_loader = DataLoader(train_dev_iclaim)
     iclaims = data_loader.get_iclaims()
     vclaims = data_loader.get_vclaims()
-    similarity_calculator = SimilarityCalculator('test-SBERT-SRL-ARG0.tsv')
+    similarity_calculator = SimilarityCalculator('SBERT-SRL-ARG0.tsv')
     similarity_calculator.sim_calculate(iclaims, vclaims)
