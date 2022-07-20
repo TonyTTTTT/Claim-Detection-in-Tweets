@@ -10,7 +10,7 @@ def get_key(val, my_dict):
     return "key doesn't exist"
 
 
-with open('sbert-srl-clef-2021-2a-train.pkl','rb') as f:
+with open('sbert-srl.pkl','rb') as f:
     retrieval_results = pickle.load(f)
 
 with open('claims_id_to_idx.json', 'r') as f:
@@ -20,7 +20,7 @@ with open('iclaims_id.pkl', 'rb') as f:
     iclaims_id = pickle.load(f)
 
 
-f = open('SBERT-SRL-FCCKB.tsv', 'w')
+f = open('SBERT-SRL-FCCKB-new.tsv', 'w')
 iclaim_id_idx = 0
 for retrieval_result in retrieval_results:
     iclaim_id = iclaims_id[iclaim_id_idx]
