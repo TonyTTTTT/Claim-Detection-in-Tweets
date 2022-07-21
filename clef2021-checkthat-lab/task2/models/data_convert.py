@@ -19,6 +19,7 @@ if __name__ == '__main__':
     vclaims = data_loader.get_vclaims()
     qrels_train = data_loader.get_qrels_train()
     qrels_dev = data_loader.get_qrels_dev()
+    qrels_test = data_loader.get_qrels_test()
 
     iclaims_id = []
     for iclaim_id in iclaims:
@@ -35,7 +36,7 @@ if __name__ == '__main__':
         idx += 1
 
     evidence = []
-    for row in qrels_train.iterrows():
+    for row in qrels_test.iterrows():
         tmp_dict = {}
         tmp_dict['evidence-id'] = row[1]['iclaim_id']
         tmp_dict['sentence'] = iclaims[tmp_dict['evidence-id']]
