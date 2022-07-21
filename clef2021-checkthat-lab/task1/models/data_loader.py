@@ -5,6 +5,7 @@ from TweetNormalizer import normalizeTweet
 import torch
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from data_preprocess_methods import *
+import pickle
 
 
 train_path = '../data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
