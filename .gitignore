@@ -1,6 +1,7 @@
 # virtual env
 **.env
 coconut-env
+**/venv
 
 # IDE stuff
 **.idea

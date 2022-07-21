@@ -14,7 +14,7 @@ qrels_test_path = '../test-gold/subtask-2a--english/subtask-2a--english/qrels-te
 
 if __name__ == '__main__':
     predictor = SRLPredictor()
-    data_loader = DataLoader(train_dev_iclaim)
+    data_loader = DataLoader(test_iclaim)
     iclaims = data_loader.get_iclaims()
     vclaims = data_loader.get_vclaims()
     qrels_train = data_loader.get_qrels_train()
@@ -46,8 +46,8 @@ if __name__ == '__main__':
 
     result = {'evidence': evidence, 'claim': claims}
 
-    with open('json/claims_id_to_idx.json', 'w') as f:
+    with open('json/claims_id_to_idx_test.json', 'w') as f:
         json.dump(claims_id_to_idx, f)
 
-    with open('json/clef20212a-FCCKB-format.json', 'w') as f:
+    with open('json/clef20212a-FCCKB-format-test.json', 'w') as f:
         json.dump(result, f)
