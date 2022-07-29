@@ -1,3 +1,5 @@
+import os.path
+
 from srl_predictor import SRLPredictor
 import encoders
 from numpy.linalg import norm
@@ -55,6 +57,8 @@ class SimilarityCalculator:
             sim_list = sorted(sim_list, key=lambda item: item[1], reverse=True)
 
             # Save the ranking result into tsv file
+            if os.path.exists(self.tsv_file_name):
+                os.remove(self.tsv_file_name)
             with open(self.tsv_file_name, 'a') as f:
                 for i in range(0, 20):
                     f.write('{}\t0\t{}\t1\t{}\tSBERT\n'.format(iclaim_id, sim_list[i][0], sim_list[i][1]))
@@ -68,5 +72,5 @@ if __name__ == '__main__':
     data_loader = DataLoader(train_dev_iclaim)
     iclaims = data_loader.get_iclaims()
     vclaims = data_loader.get_vclaims()
-    similarity_calculator = SimilarityCalculator('SBERT-SRL-ARG0.tsv')
+    similarity_calculator = SimilarityCalculator('SBERT-SRL-ARG0-0727.tsv')
     similarity_calculator.sim_calculate(iclaims, vclaims)

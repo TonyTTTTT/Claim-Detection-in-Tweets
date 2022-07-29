@@ -50,5 +50,5 @@ if __name__ == '__main__':
     with open('json/claims_id_to_idx_test.json', 'w') as f:
         json.dump(claims_id_to_idx, f)
 
-    with open('json/clef20212a-FCCKB-format-test.json', 'w') as f:
+    with open('json/clef20212a-FCCKB-format-data-for-FCCKB.json', 'w') as f:
         json.dump(result, f)
