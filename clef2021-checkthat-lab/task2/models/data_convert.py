@@ -24,7 +24,7 @@ if __name__ == '__main__':
     iclaims_id = []
     for iclaim_id in iclaims:
         iclaims_id.append(iclaim_id)
-    with open('json/iclaims_id.pkl', 'wb') as f:
+    with open('json/iclaims-id-test.pkl', 'wb') as f:
         pickle.dump(iclaims_id, f)
 
     claims_id_to_idx = {}
@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
     result = {'evidence': evidence, 'claim': claims}
 
-    with open('json/claims_id_to_idx_test.json', 'w') as f:
+    with open('json/claims-id-to-idx-test.json', 'w') as f:
         json.dump(claims_id_to_idx, f)
 
-    with open('json/clef20212a-FCCKB-format-data-for-FCCKB.json', 'w') as f:
+    with open('json/clef20212a-FCCKB-format.json', 'w') as f:
         json.dump(result, f)
