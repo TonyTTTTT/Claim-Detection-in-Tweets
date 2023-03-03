@@ -5,10 +5,6 @@ coconut-env
 # IDE stuff
 .idea
 
-# model weight, logs
-models/results
-models/logs
-
 # cache
 **/__pycache__
 
