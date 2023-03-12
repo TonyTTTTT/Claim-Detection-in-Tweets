@@ -3,16 +3,12 @@ import torch.utils.data
 from transformers import AutoTokenizer
 from TweetNormalizer import normalizeTweet
 import torch
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
 from data_preprocess_methods import *
 import pickle
 from model_config import model_path
 
 
-tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
-
-# if model_max_length < 64, it will occur error when training with bertweet
-tokenizer.model_max_length = 64
 
 
 class CheckThatDataset(torch.utils.data.Dataset):
@@ -40,6 +36,7 @@ class DataLoader:
         self.train_dataset = []
         self.dev_dataset = []
         self.test_dataset = []
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
 
         if dataset == 'CLEF2021':
             self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
@@ -54,8 +51,15 @@ class DataLoader:
                               'CT22_english_1A_checkworthy_dev.tsv'
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                                 'CT22_english_1A_checkworthy_test_gold.tsv'
+        elif dataset == 'CLEF20221b':
+            self.train_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
+                              'CT22_english_1B_claim_train.tsv'
+            self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
+                            'CT22_english_1B_claim_dev.tsv'
+            self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
+                             'CT22_english_1B_claim_test_gold.tsv'
 
-        self.read_data()
+        self.read_data(dataset)
 
     @staticmethod
     def read_df_to_lists(data):
@@ -82,7 +86,7 @@ class DataLoader:
             ids.append(row[1].values[1])
         return ids, topic_ids, texts, labels
 
-    def read_data(self):
+    def read_data(self, dataset):
         train_data = pd.read_csv(self.train_path, sep='\t')
         dev_data = pd.read_csv(self.dev_path, sep='\t')
         test_data = pd.read_csv(self.test_path, sep='\t')
@@ -91,17 +95,32 @@ class DataLoader:
         dev_ids, dev_topic_ids, dev_texts_raw, dev_labels = self.read_df_to_lists(dev_data)
         test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
 
-        train_texts_raw = normalizeTweet(train_texts_raw, do_demojize=False)
-        dev_texts_raw = normalizeTweet(dev_texts_raw, do_demojize=False)
-        test_texts_raw = normalizeTweet(test_texts_raw, do_demojize=False)
+        train_texts_raw = normalizeTweet(train_texts_raw)
+        dev_texts_raw = normalizeTweet(dev_texts_raw)
+        test_texts_raw = normalizeTweet(test_texts_raw)
 
-        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels)
-        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels)
-        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids, test_texts_raw, test_labels)
+        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train')
+        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev')
+        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids, test_texts_raw, test_labels, dataset+'_test')
 
-        train_encodings = tokenizer(train_texts, truncation=True, padding='max_length')
-        dev_encodings = tokenizer(dev_texts, truncation=True, padding='max_length')
-        test_encodings = tokenizer(test_texts, truncation=True, padding='max_length')
+        if model_path == "vinai/bertweet-covid19-base-uncased":
+            # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is
+            # the max_lenght of bertweet
+            self.tokenizer.model_max_length = 64
+
+            train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
+            dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
+            test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
+        else:
+            # self.tokenizer.model_max_length = 256
+            #
+            # train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
+            # dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
+            # test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
+
+            train_encodings = self.tokenizer(train_texts, truncation=True, padding='longest')
+            dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='longest')
+            test_encodings = self.tokenizer(test_texts, truncation=True, padding='longest')
 
         self.train_dataset = CheckThatDataset(train_encodings, train_ids, train_topic_ids, train_labels)
         self.dev_dataset = CheckThatDataset(dev_encodings, dev_ids, dev_topic_ids, dev_labels)
@@ -118,6 +137,7 @@ def compute_metrics(pred):
     labels = pred.label_ids
     preds = pred.predictions.argmax(-1)
     precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='binary')
+    confusionMatrix = confusion_matrix(labels, preds)
     # PR = precision_recall_curve(labels, preds)
     acc = accuracy_score(labels, preds)
     # ROC = roc_curve(labels, preds)
@@ -126,11 +146,13 @@ def compute_metrics(pred):
         'f1': f1,
         'precision': precision,
         'recall': recall,
+        'confusion_matrix': confusionMatrix.tolist(),
         # 'PR': PR,
         # 'ROC': ROC
     }
 
 
 if __name__ == '__main__':
-    dataloader = DataLoader(preprocess_function=none_operation)
+    dataset = 'CLEF2022'
+    dataloader = DataLoader(preprocess_function=concate_all_frames, dataset=dataset)
     train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)

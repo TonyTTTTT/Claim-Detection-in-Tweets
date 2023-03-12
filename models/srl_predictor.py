@@ -47,15 +47,16 @@ class SRLPredictor():
             )
             words = res["words"]
             for frame in res["verbs"]:
-                arg_exist = False
+                arg_cnt = 0
                 buffer = []
+
                 for word, tag in zip(words, frame["tags"]):
                     if tag != "O":
                         buffer.append(word)
-                    if 'ARG0' in tag or 'ARG1' in tag:
-                        arg_exist = True
+                    if 'ARG' in tag:
+                        arg_cnt += 1
 
-                if arg_exist:
+                if arg_cnt >= 2:
                     frames.append(" ".join(buffer))
         except Exception as e:
             print(e)
@@ -70,17 +71,19 @@ class SRLPredictor():
             )
             words = res["words"]
             for frame in res["verbs"]:
-                arg_exist = False
+                arg_cnt = 0
                 buffer = []
+
                 for word, tag in zip(words, frame["tags"]):
                     if tag != "O":
-                        buffer.append(tag)
-                    if 'ARG0' in tag:
-                        arg_exist = True
+                        buffer.append(word)
+                    if 'ARG' in tag:
+                        arg_cnt += 1
 
-                if arg_exist:
-                    # buffer.append("|")
+                if arg_cnt >= 2:
+                    buffer.append(".")
                     frames.append(" ".join(buffer))
+
         except Exception as e:
             print(e)
 
@@ -89,4 +92,4 @@ class SRLPredictor():
 
 if __name__ == '__main__':
     predictor = SRLPredictor()
-    r = predictor.get_frames('The worst thing about this Corona virus outbreak isn\'t that sickens and kills . It \'s that the outbreak brings out the ugliest human behavior : the ignorance , stupidity , racism , and phobias , the blame game , the tight-lipped arrogance , the complacence , existing all once .')
+    r = predictor.get_frames("The Navajo Nation has surpassed its goal of administering 100,000 COVID-19 vaccines by the end of February, a figure that represents over half of its residents. Our work to increase supply, increase places to get vaccinated, and increase vaccinators is making a difference.")

@@ -1,17 +1,34 @@
-from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig
+import os
+import random
+from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig,\
+    BertForSequenceClassification
 from data_loader import DataLoader, compute_metrics
-from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_all_frames
-from model_config import model_path
+from model_config import model_path, dataset, num_train_epochs, preprocess_function
 import transformers
 import torch
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
+    concate_all_frames, convert_to_srl_tag
 
 
-dataset = 'CLEF2022'
-dataloader = DataLoader(preprocess_function=extract_all_frames, dataset=dataset)
-train_dataset, test_dataset = dataloader.get_dataset()
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset)
+train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+
+
+def set_seed(seed: int = None):
+    """Set all seeds to make results reproducible (deterministic mode).
+       When seed is None, disables deterministic mode.
+    :param seed: an integer to your choosing
+    """
+    if seed is not None:
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
+        np.random.seed(seed)
+        random.seed(seed)
+        os.environ['PYTHONHASHSEED'] = str(seed)
 
 
 def model_init():
@@ -36,7 +53,6 @@ def model_init():
     return model
 
 
-num_train_epochs = 20
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 training_args = TrainingArguments(
@@ -51,10 +67,10 @@ training_args = TrainingArguments(
     per_device_train_batch_size=per_device_train_batch_size,
     # per_device_eval_batch_size=64,
 
-    # learning_rate=5e-4,
+    # learning_rate=3e-5,
     num_train_epochs=num_train_epochs,
     # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset.ids)/per_device_train_batch_size) * 2,
+    warmup_steps=(len(train_dataset.ids)/per_device_train_batch_size) * 7,
     # weight_decay=0.01,
     # no_cuda=True,
     lr_scheduler_type=lr_scheduler_type,
@@ -69,6 +85,8 @@ trainer = Trainer(
     compute_metrics=compute_metrics
 )
 
+
+# set_seed(17)
 trainer.train()
 # trainer.hyperparameter_search()
 print("==========================")
@@ -100,6 +118,7 @@ if dataloader.preprocess_function == extract_all_frames:
     predictions = np.array(predictions)
 
     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
+    print('f1 at article-level: {}'.format(f1))
 
 # trainer.save_model('results/final')
 
