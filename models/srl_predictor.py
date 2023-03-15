@@ -47,17 +47,16 @@ class SRLPredictor():
             )
             words = res["words"]
             for frame in res["verbs"]:
-                arg_cnt = 0
                 buffer = []
 
-                for word, tag in zip(words, frame["tags"]):
-                    if tag != "O":
-                        buffer.append(word)
-                    if 'ARG' in tag:
-                        arg_cnt += 1
-
+                arg_cnt = len([i for i in range(len(frame['description'])) if frame['description'].startswith('ARG', i)])
                 if arg_cnt >= 2:
+                    for word, tag in zip(words, frame["tags"]):
+                        if tag != "O":
+                            buffer.append(word)
+
                     frames.append(" ".join(buffer))
+
         except Exception as e:
             print(e)
 
@@ -92,4 +91,4 @@ class SRLPredictor():
 
 if __name__ == '__main__':
     predictor = SRLPredictor()
-    r = predictor.get_frames("The Navajo Nation has surpassed its goal of administering 100,000 COVID-19 vaccines by the end of February, a figure that represents over half of its residents. Our work to increase supply, increase places to get vaccinated, and increase vaccinators is making a difference.")
+    r = predictor.get_frames("As part of the ongoing nationwide vaccination rollout that has seen more than 230,000 people vaccinated, President Kagame and First Lady Jeannette Kagame received their #COVID-19 vaccines at King Faisal Hospital.  HTTPURL")

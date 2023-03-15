@@ -23,4 +23,4 @@ per_device_train_batch_size = 1
 
 dataset = 'CLEF2022'
 
-preprocess_function = none_operation
+preprocess_function = concate_all_frames
