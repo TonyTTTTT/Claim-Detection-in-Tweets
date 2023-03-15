@@ -39,10 +39,13 @@ def delToken(token):
             return token
 
 
-def normalizeTweet(tweets, do_demojize=True):
+def normalizeTweet(tweets):
     if type(tweets) != list:
         tweets = [tweets]
 
+    subject_word_list = ['He', 'he', 'She', 'she', 'It', 'it', 'That', 'that', 'There', 'there', 'I', 'They', 'they',
+                         'This', 'this', 'These', 'these', 'Who', 'who', 'How', 'how', 'What', 'what', 'Where',
+                         'where', 'When', 'when', 'Why', 'why']
     tweets_norm = []
     for tweet in tweets:
         tokens = tokenizer.tokenize(tweet.replace("’", "'").replace("…", "..."))
@@ -54,8 +57,16 @@ def normalizeTweet(tweets, do_demojize=True):
             .replace("n't", " not")
             .replace("n 't", " not")
             .replace("ca n't", "can not")
+            .replace("can't", "can not")
             .replace("ai n't", "am not")
+            .replace("ain't", "am not")
         )
+
+        # for word in subject_word_list:
+        #     normTweet = (
+        #         normTweet.replace(word+"'s", word+" is")
+        #     )
+
         normTweet = (
             normTweet.replace("'m", " am")
             .replace("'re", " are")
@@ -64,6 +75,7 @@ def normalizeTweet(tweets, do_demojize=True):
             .replace("'d", " had")
             .replace("'ve", " have")
         )
+
         normTweet = (
             normTweet.replace(" p . m .", "  p.m.")
             .replace(" p . m ", " p.m ")
@@ -75,7 +87,7 @@ def normalizeTweet(tweets, do_demojize=True):
 
 
 # if do_demojize=False del all emoji
-def normalizeTweet_old(tweets):
+def normalizeTweet_origin(tweets):
     if type(tweets) != list:
         tweets = [tweets]
 

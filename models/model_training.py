@@ -3,7 +3,7 @@ import random
 from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig,\
     BertForSequenceClassification
 from data_loader import DataLoader, compute_metrics
-from model_config import model_path, dataset, num_train_epochs, preprocess_function
+from model_config import *
 import transformers
 import torch
 import numpy as np
@@ -53,8 +53,6 @@ def model_init():
     return model
 
 
-lr_scheduler_type = "linear"
-per_device_train_batch_size = 4
 training_args = TrainingArguments(
     output_dir='results',  # model save dir
     logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
@@ -63,14 +61,15 @@ training_args = TrainingArguments(
     logging_strategy='epoch',
     # save_steps=10000,
     save_strategy="no",
+    logging_first_step=True,
 
     per_device_train_batch_size=per_device_train_batch_size,
     # per_device_eval_batch_size=64,
 
-    # learning_rate=3e-5,
+    learning_rate=learning_rate,
     num_train_epochs=num_train_epochs,
     # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset.ids)/per_device_train_batch_size) * 7,
+    warmup_steps=(len(train_dataset.ids)/per_device_train_batch_size) * warm_up_epochs,
     # weight_decay=0.01,
     # no_cuda=True,
     lr_scheduler_type=lr_scheduler_type,
@@ -122,24 +121,28 @@ if dataloader.preprocess_function == extract_all_frames:
 
 # trainer.save_model('results/final')
 
-# with open('add-srl-longest-tag-64-bertweet-pred-test.tsv', 'w') as f:
-#     pred = output[0]
-#     pred_argmax = pred.argmax(-1)
-#     # score_sum = 0
-#     # frame_cnt = 0
-#     for idx in range(0, len(pred)):
-#         # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
-#         #     score_avg = score_sum/frame_cnt
-#         #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
-#         #     score_sum = 0
-#         #     frame_cnt = 0
-#         score = pred[idx][pred_argmax[idx]]
-#         if pred_argmax[idx] == 0:
-#             # if the score of label0 is bigger, that it be negative, for create final score
-#             score = -1 * score
-#         f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-#         # score_sum += score
-#         # frame_cnt += 1
-#         # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-#
-#     # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+with open('none-operation-64-bertweet-test.tsv', 'w') as f:
+    pred = output[0]
+    pred_argmax = pred.argmax(-1)
+    f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
+    # score_sum = 0
+    # frame_cnt = 0
+    for idx in range(0, len(pred)):
+        # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
+        #     score_avg = score_sum/frame_cnt
+        #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+        #     score_sum = 0
+        #     frame_cnt = 0
+
+        # score = pred[idx][pred_argmax[idx]]
+        # if pred_argmax[idx] == 0:
+        #     # if the score of label0 is bigger, that it be negative, for create final score
+        #     score = -1 * score
+
+        score = pred[idx].argmax()
+        f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+        # score_sum += score
+        # frame_cnt += 1
+        # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+
+    # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))

@@ -9,10 +9,17 @@ model_path = "vinai/bertweet-covid19-base-uncased"
 
 # model_path = 'roberta-base'
 
+# model_path = 'roberta-large'
+
 # model_path = 'bert-base-uncased'
 
+learning_rate = 5e-5
+num_train_epochs = 10
+warm_up_epochs = 2
 
-num_train_epochs = 15
+# ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
+lr_scheduler_type = "linear"
+per_device_train_batch_size = 1
 
 dataset = 'CLEF2022'
 

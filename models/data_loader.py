@@ -86,6 +86,42 @@ class DataLoader:
             ids.append(row[1].values[1])
         return ids, topic_ids, texts, labels
 
+    def balance_class(self, ids, topic_ids, texts, labels):
+        cnt_0 = 0
+        cnt_1 = 0
+        for label in labels:
+            if label == 0:
+                cnt_0 += 1
+            else: # label == 1:
+                cnt_1 += 1
+
+        cnt_less = min(cnt_0, cnt_1)
+        cnt_0 = 0
+        cnt_1 = 0
+        ids_balanced = []
+        topic_ids_balanced = []
+        texts_balanced = []
+        labels_balanced = []
+
+        idx = 0
+        while cnt_0 < cnt_less or cnt_1 < cnt_less:
+            if labels[idx] == 0 and cnt_0 < cnt_less:
+                cnt_0 += 1
+                ids_balanced.append(ids[idx])
+                topic_ids_balanced.append(topic_ids[idx])
+                texts_balanced.append(texts[idx])
+                labels_balanced.append(labels[idx])
+            elif labels[idx] == 1 and cnt_1 < cnt_less:
+                cnt_1 += 1
+                ids_balanced.append(ids[idx])
+                topic_ids_balanced.append(topic_ids[idx])
+                texts_balanced.append(texts[idx])
+                labels_balanced.append(labels[idx])
+
+            idx += 1
+
+        return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
+
     def read_data(self, dataset):
         train_data = pd.read_csv(self.train_path, sep='\t')
         dev_data = pd.read_csv(self.dev_path, sep='\t')
@@ -94,6 +130,9 @@ class DataLoader:
         train_ids, train_topic_ids, train_texts_raw, train_labels = self.read_df_to_lists(train_data)
         dev_ids, dev_topic_ids, dev_texts_raw, dev_labels = self.read_df_to_lists(dev_data)
         test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
+
+        # train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
+        #                                                                                train_texts_raw, train_labels)
 
         train_texts_raw = normalizeTweet(train_texts_raw)
         dev_texts_raw = normalizeTweet(dev_texts_raw)
@@ -106,7 +145,7 @@ class DataLoader:
         if model_path == "vinai/bertweet-covid19-base-uncased":
             # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is
             # the max_lenght of bertweet
-            self.tokenizer.model_max_length = 64
+            self.tokenizer.model_max_length = 128
 
             train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
             dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
