@@ -201,8 +201,14 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
         else:
             frame_concate = ''
             res = discard_similar_frame(res)
+
+            frame_cnt = 0
             for frame in res:
-                frame_concate += frame+' . '
+                if frame_cnt >= 2:
+                    break
+                frame_concate += frame+'. '
+                frame_cnt += 1
+
             texts_aug.append(frame_concate)
             ids_aug.append(ids[i])
             topic_ids_aug.append(topic_ids[i])
