@@ -5,11 +5,11 @@ from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, e
 # tokenizer不同會導致encoding長度(tokens個數)不一樣 (應該是vocabulary的問題)
 
 # model input length limit: 128
-model_path = "vinai/bertweet-covid19-base-uncased"
+# model_path = "vinai/bertweet-covid19-base-uncased"
 
 # model_path = 'roberta-base'
 
-# model_path = 'roberta-large'
+model_path = 'roberta-large'
 
 # model_path = 'bert-base-uncased'
 

@@ -200,8 +200,9 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
             labels_aug.append(labels[i])
         else:
             frame_concate = ''
+            res = discard_similar_frame(res)
             for frame in res:
-                frame_concate += frame+'. '
+                frame_concate += frame+' . '
             texts_aug.append(frame_concate)
             ids_aug.append(ids[i])
             topic_ids_aug.append(topic_ids[i])
@@ -214,12 +215,39 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
 
 
+def too_similar(frame_short, frame_long):
+    frame_short_list = frame_short.split(' ')
+    frame_long_list = frame_long.split(' ')
+    overlap = [word for word in frame_short_list if word in frame_long_list]
+    overlap_rate = len(overlap) / len(frame_short_list)
+
+    if overlap_rate > 0.5:
+        return True
+    else:
+        return False
+
+
+def discard_similar_frame(frames):
+    frames_reduced = []
+    frames.sort(key=len, reverse=True)
+
+    for frame in frames:
+        add_flag = True
+        for frame_reduced in frames_reduced:
+            add_flag = not too_similar(frame, frame_reduced)
+            if add_flag == False:
+                break
+
+        if add_flag:
+            frames_reduced.append(frame)
+
+    return frames_reduced
+
+
 if __name__ == '__main__':
     ids = [1]
     topic_ids = ['pig']
-    texts = ['Just watched half an hour of @CNN coverage of massive nationwide protests. There was no mention of '
-             'coronavirus or need for social distancing. Literally zero. The pandemic hasn’t gone away. '
-             'Well over 100,000 have died. There’s no vaccine. We have to do better on this.']
+    texts = ["India is gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL"]
     labels = [0]
     dataset = 'GGG'
-    ids_aug, topic_ids_aug, texts_aug, labels_aug = convert_to_srl_tag(ids, topic_ids, texts, labels, dataset)
+    ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_all_frames(ids, topic_ids, texts, labels, dataset)

@@ -10,14 +10,17 @@ def normalizeToken(token):
     if token.startswith("@"):
         return "@USER"
     elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
-        return "HTTPURL"
+        return ""
     elif len(token) <= 2:
         if token == "’":
             return "'"
         elif token == "…":
             return "..."
         else:
-            return demojize(token)
+            if len(demojize(token)) > 2:
+                return ""
+            else:
+                return token
     else:
         return token
         
@@ -62,15 +65,15 @@ def normalizeTweet(tweets):
             .replace("ain't", "am not")
         )
 
-        # for word in subject_word_list:
-        #     normTweet = (
-        #         normTweet.replace(word+"'s", word+" is")
-        #     )
+        for word in subject_word_list:
+            normTweet = (
+                normTweet.replace(word+"'s", word+" is")
+            )
 
         normTweet = (
             normTweet.replace("'m", " am")
             .replace("'re", " are")
-            .replace("'s", " is")
+            .replace("'s", " 's")
             .replace("'ll", " will")
             .replace("'d", " had")
             .replace("'ve", " have")
