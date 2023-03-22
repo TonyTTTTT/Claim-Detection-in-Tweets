@@ -202,13 +202,10 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
             frame_concate = ''
             res = discard_similar_frame(res)
 
-            frame_cnt = 0
             for frame in res:
-                if frame_cnt >= 2:
-                    break
                 frame_concate += frame+'. '
-                frame_cnt += 1
 
+            frame_concate = frame_concate.strip()
             texts_aug.append(frame_concate)
             ids_aug.append(ids[i])
             topic_ids_aug.append(topic_ids[i])
@@ -233,19 +230,40 @@ def too_similar(frame_short, frame_long):
         return False
 
 
+def len_of_frame(frame):
+    return len(frame[0])
+
+
+def order_of_frame(frame):
+    return frame[1]
+
+
 def discard_similar_frame(frames):
     frames_reduced = []
-    frames.sort(key=len, reverse=True)
 
+    for i in range(0, len(frames)):
+        frames[i] = [frames[i], i]
+
+    frames.sort(key=len_of_frame, reverse=True)
+
+    frame_cnt = 0
     for frame in frames:
         add_flag = True
         for frame_reduced in frames_reduced:
-            add_flag = not too_similar(frame, frame_reduced)
-            if add_flag == False:
+            add_flag = not too_similar(frame[0], frame_reduced[0])
+            if not add_flag:
                 break
 
         if add_flag:
+            if frame_cnt >= 2:
+                break
             frames_reduced.append(frame)
+            frame_cnt += 1
+
+    frames_reduced.sort(key=order_of_frame)
+
+    for i in range(0, len(frames_reduced)):
+        frames_reduced[i] = frames_reduced[i][0]
 
     return frames_reduced
 
@@ -253,7 +271,7 @@ def discard_similar_frame(frames):
 if __name__ == '__main__':
     ids = [1]
     topic_ids = ['pig']
-    texts = ["India is gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL"]
+    texts = ["India 's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL"]
     labels = [0]
     dataset = 'GGG'
     ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_all_frames(ids, topic_ids, texts, labels, dataset)

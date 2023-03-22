@@ -56,13 +56,11 @@ def normalizeTweet(tweets):
         # normTweet = " ".join([delToken(token) for token in tokens])
 
         normTweet = (
-            normTweet.replace("cannot ", "can not ")
+            normTweet.replace("cannot", "can not")
+            .replace("can't", "can not")
+            .replace("ain't", "am not")
             .replace("n't", " not")
             .replace("n 't", " not")
-            .replace("ca n't", "can not")
-            .replace("can't", "can not")
-            .replace("ai n't", "am not")
-            .replace("ain't", "am not")
         )
 
         for word in subject_word_list:
