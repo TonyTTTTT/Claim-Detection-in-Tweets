@@ -9,8 +9,6 @@ import pickle
 from model_config import model_path
 
 
-
-
 class CheckThatDataset(torch.utils.data.Dataset):
     def __init__(self, encodings, ids, topic_ids, labels=None):
         self.encodings = encodings

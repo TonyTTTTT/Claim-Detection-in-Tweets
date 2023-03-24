@@ -10,7 +10,7 @@ def normalizeToken(token):
     if token.startswith("@"):
         return "@USER"
     elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
-        return ""
+        return "HTTPURL"
     elif len(token) <= 2:
         if token == "’":
             return "'"

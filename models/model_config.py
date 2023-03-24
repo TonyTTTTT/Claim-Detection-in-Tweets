@@ -1,5 +1,5 @@
 from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_all_frames, convert_to_srl_tag
+    concate_all_frames, convert_to_srl_tag, summary_by_GPT
 
 
 # tokenizer不同會導致encoding長度(tokens個數)不一樣 (應該是vocabulary的問題)
@@ -13,14 +13,14 @@ model_path = 'roberta-large'
 
 # model_path = 'bert-base-uncased'
 
-learning_rate = 5e-5
-num_train_epochs = 10
+learning_rate = 3e-5
+num_train_epochs = 20
 warm_up_epochs = 2
 
 # ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
 lr_scheduler_type = "linear"
-per_device_train_batch_size = 1
+per_device_train_batch_size = 8
 
 dataset = 'CLEF2022'
 
-preprocess_function = concate_all_frames
+preprocess_function = summary_by_GPT

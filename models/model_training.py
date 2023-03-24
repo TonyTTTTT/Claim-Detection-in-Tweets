@@ -121,28 +121,28 @@ if dataloader.preprocess_function == extract_all_frames:
 
 # trainer.save_model('results/final')
 
-with open('none-operation-64-bertweet-test.tsv', 'w') as f:
-    pred = output[0]
-    pred_argmax = pred.argmax(-1)
-    f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
-    # score_sum = 0
-    # frame_cnt = 0
-    for idx in range(0, len(pred)):
-        # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
-        #     score_avg = score_sum/frame_cnt
-        #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
-        #     score_sum = 0
-        #     frame_cnt = 0
-
-        # score = pred[idx][pred_argmax[idx]]
-        # if pred_argmax[idx] == 0:
-        #     # if the score of label0 is bigger, that it be negative, for create final score
-        #     score = -1 * score
-
-        score = pred[idx].argmax()
-        f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-        # score_sum += score
-        # frame_cnt += 1
-        # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-
-    # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+# with open('none-operation-64-bertweet-test.tsv', 'w') as f:
+#     pred = output[0]
+#     pred_argmax = pred.argmax(-1)
+#     f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
+#     # score_sum = 0
+#     # frame_cnt = 0
+#     for idx in range(0, len(pred)):
+#         # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
+#         #     score_avg = score_sum/frame_cnt
+#         #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+#         #     score_sum = 0
+#         #     frame_cnt = 0
+#
+#         # score = pred[idx][pred_argmax[idx]]
+#         # if pred_argmax[idx] == 0:
+#         #     # if the score of label0 is bigger, that it be negative, for create final score
+#         #     score = -1 * score
+#
+#         score = pred[idx].argmax()
+#         f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+#         # score_sum += score
+#         # frame_cnt += 1
+#         # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+#
+#     # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
