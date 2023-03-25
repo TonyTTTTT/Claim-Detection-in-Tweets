@@ -142,7 +142,7 @@ class DataLoader:
 
         if model_path == "vinai/bertweet-covid19-base-uncased":
             # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is
-            # the max_lenght of bertweet
+            # the max_length of bertweet
             self.tokenizer.model_max_length = 128
 
             train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')

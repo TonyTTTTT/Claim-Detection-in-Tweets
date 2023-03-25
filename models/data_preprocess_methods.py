@@ -205,25 +205,25 @@ def extract_all_frames(ids, topic_ids, texts, labels, dataset):
 
 
 def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
-    if os.path.exists('preprocess_datasets_tsv/{}_summary_by_GPT.tsv'.format(dataset)):
-        data = pd.read_csv('preprocess_datasets_tsv/{}_summary_by_GPT.tsv'.format(dataset), sep='\t')
+    if os.path.exists('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset)):
+        data = pd.read_csv('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("load from preprocess_datasets_tsv/{}_summary_by_GPT.tsv".format(dataset))
+        print("load from preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv".format(dataset))
         return ids, topic_ids, texts, labels
 
     chatgpt = ChatGPT()
     texts_rewrite = []
     for i in range(0, len(texts)):
         messages = [
-            # {"role": "system", "content": "content summarizer"},
-            {"role": "user", "content": texts[i] + "\nsummary:"},
+            {"role": "system", "content": "You are a summarizer"},
+            {"role": "user", "content": texts[i]},
         ]
         res = chatgpt.get_response(messages)
 
         texts_rewrite.append(res)
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
-    df.to_csv('preprocess_datasets_tsv/{}_summary_by_GPT.tsv'.format(dataset), sep='\t', index=False)
+    df.to_csv('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
 
