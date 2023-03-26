@@ -314,6 +314,7 @@ def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
         texts_rewrite.append(res)
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    df['tweet_id'] = df['tweet_id'].astype(str)
     df.to_csv('preprocess_datasets_tsv/{}_simplify_by_GPT.tsv'.format(dataset), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
