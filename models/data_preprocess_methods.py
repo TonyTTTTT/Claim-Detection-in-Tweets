@@ -204,30 +204,6 @@ def extract_all_frames(ids, topic_ids, texts, labels, dataset):
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
 
 
-def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
-    if os.path.exists('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset)):
-        data = pd.read_csv('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset), sep='\t')
-        ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("load from preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv".format(dataset))
-        return ids, topic_ids, texts, labels
-
-    chatgpt = ChatGPT()
-    texts_rewrite = []
-    for i in range(0, len(texts)):
-        messages = [
-            {"role": "system", "content": "You are a summarizer"},
-            {"role": "user", "content": texts[i]},
-        ]
-        res = chatgpt.get_response(messages)
-
-        texts_rewrite.append(res)
-
-    df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
-    df.to_csv('preprocess_datasets_tsv/{}_summary_by_GPT_v2.tsv'.format(dataset), sep='\t', index=False)
-
-    return ids, topic_ids, texts_rewrite, labels
-
-
 def concate_all_frames(ids, topic_ids, texts, labels, dataset):
     '''
     extract all frames, cocate them and return
@@ -319,10 +295,34 @@ def discard_similar_frame(frames):
     return frames_reduced
 
 
+def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
+    if os.path.exists('preprocess_datasets_tsv/{}_simplify_by_GPT.tsv'.format(dataset)):
+        data = pd.read_csv('preprocess_datasets_tsv/{}_simplify_by_GPT.tsv'.format(dataset), sep='\t')
+        ids, topic_ids, texts, labels = read_df_to_lists(data)
+        print("load from preprocess_datasets_tsv/{}_simplify_by_GPT.tsv".format(dataset))
+        return ids, topic_ids, texts, labels
+
+    chatgpt = ChatGPT()
+    texts_rewrite = []
+    for i in range(0, len(texts)):
+        messages = [
+            # {"role": "system", "content": "You are a summarizer"},
+            {"role": "user", "content": texts[i] + '\nsimplify:'},
+        ]
+        res = chatgpt.get_response(messages)
+
+        texts_rewrite.append(res)
+
+    df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    df.to_csv('preprocess_datasets_tsv/{}_simplify_by_GPT.tsv'.format(dataset), sep='\t', index=False)
+
+    return ids, topic_ids, texts_rewrite, labels
+
+
 if __name__ == '__main__':
     ids = [23423, 1161]
     topic_ids = ['pig', 'cat']
-    texts = ["India 's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL",
+    texts = ["India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL",
              "We donât yet have all the tools we need to fight COVID-19. This is an important step toward having treatments, while we also explore vaccines and diagnostics. Thanks to @wellcometrust and @mastercard for launching this effort with us. https://t.co/M8AJ3083zK"]
     labels = [0, 1]
     dataset = 'GGG'

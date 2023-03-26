@@ -132,9 +132,9 @@ class DataLoader:
         # train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
         #                                                                                train_texts_raw, train_labels)
 
-        train_texts_raw = normalizeTweet(train_texts_raw)
-        dev_texts_raw = normalizeTweet(dev_texts_raw)
-        test_texts_raw = normalizeTweet(test_texts_raw)
+        # train_texts_raw = normalizeTweet(train_texts_raw)
+        # dev_texts_raw = normalizeTweet(dev_texts_raw)
+        # test_texts_raw = normalizeTweet(test_texts_raw)
 
         train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train')
         dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev')
