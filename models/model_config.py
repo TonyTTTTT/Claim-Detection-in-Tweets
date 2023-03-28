@@ -7,8 +7,12 @@ from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, e
 # model input length limit: 128
 # model_path = "vinai/bertweet-covid19-base-uncased"
 
+# size of GPT3: 175 billion
+
+# size: 123 million
 # model_path = 'roberta-base'
 
+# size: 354 million
 model_path = 'roberta-large'
 
 # model_path = 'bert-base-uncased'

@@ -296,10 +296,10 @@ def discard_similar_frame(frames):
 
 
 def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
-    if os.path.exists('preprocess_datasets_tsv/{}_explain_by_GPT_concatenated.tsv'.format(dataset)):
-        data = pd.read_csv('preprocess_datasets_tsv/{}_explain_by_GPT_concatenated.tsv'.format(dataset), sep='\t')
+    if os.path.exists('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset)):
+        data = pd.read_csv('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("load from preprocess_datasets_tsv/{}_explain_by_GPT_concatenated.tsv".format(dataset))
+        print("load from preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv".format(dataset))
         return ids, topic_ids, texts, labels
 
     chatgpt = ChatGPT()
@@ -307,15 +307,16 @@ def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
     for i in range(0, len(texts)):
         messages = [
             # {"role": "system", "content": "You are a summarizer"},
-            {"role": "user", "content": texts[i] + '\nPlease explain the claim made in the article above:'},
+            {"role": "user", "content": 'Please help me find the claim made in the article. Your answer should be exactly from the article I given.\n' + texts[i]},
         ]
         res = chatgpt.get_response(messages)
-
+        res = res.split('\n')[0]
+        print('res split by next line: {}'.format(res))
         texts_rewrite.append(res)
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
     df['tweet_id'] = df['tweet_id'].astype(str)
-    df.to_csv('preprocess_datasets_tsv/{}_explain_by_GPT_concatenated.tsv'.format(dataset), sep='\t', index=False)
+    df.to_csv('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
 
