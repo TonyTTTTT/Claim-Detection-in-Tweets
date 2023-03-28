@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import torch.utils.data
 from transformers import AutoTokenizer
@@ -175,6 +176,8 @@ def compute_metrics(pred):
     preds = pred.predictions.argmax(-1)
     precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='binary')
     confusionMatrix = confusion_matrix(labels, preds)
+    agree = preds == labels
+    wrong_predicted_idx = np.where(agree == False)[0].tolist()
     # PR = precision_recall_curve(labels, preds)
     acc = accuracy_score(labels, preds)
     # ROC = roc_curve(labels, preds)
@@ -184,6 +187,7 @@ def compute_metrics(pred):
         'precision': precision,
         'recall': recall,
         'confusion_matrix': confusionMatrix.tolist(),
+        'wrong_predicted_idx': wrong_predicted_idx
         # 'PR': PR,
         # 'ROC': ROC
     }
