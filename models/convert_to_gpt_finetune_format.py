@@ -51,13 +51,16 @@ def read_df_to_lists(data):
 
 
 train_data = pd.read_csv(train_path, sep='\t', dtype=str)
+dev_data = pd.read_csv(dev_path, sep='\t', dtype=str)
 test_data = pd.read_csv(test_path, sep='\t', dtype=str)
 
 train_data[train_data.columns[-1]] = train_data[train_data.columns[-1]].astype(int)
+dev_data[dev_data.columns[-1]] = dev_data[dev_data.columns[-1]].astype(int)
 test_data[test_data.columns[-1]] = test_data[test_data.columns[-1]].astype(int)
 
 
 train_ids, train_topic_ids, train_texts, train_labels = read_df_to_lists(train_data)
+dev_ids, dev_topic_ids, dev_texts, dev_labels = read_df_to_lists(dev_data)
 test_ids, test_topic_ids, test_texts, test_labels = read_df_to_lists(test_data)
 
 
