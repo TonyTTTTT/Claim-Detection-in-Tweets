@@ -7,8 +7,9 @@ class FineTunedGPT:
 
     def get_response(self, prompt):
         res = openai.Completion.create(
-          model="davinci:ft-personal:clef2022-1a-2023-03-27-19-32-15",
-          prompt=prompt + '\ncheckworthy:'
+            # model="davinci:ft-personal:clef2022-1a-2023-03-27-19-32-15",
+            model="davinci:ft-personal:clef2022-1a-ep10-2023-03-28-04-07-27",
+            prompt=prompt + '\ncheckworthy:'
         )
         print('chat input: {}'.format((prompt + '\ncheckworthy:')))
         print('chat response: {}'.format(res.choices[0].text))
@@ -17,7 +18,7 @@ class FineTunedGPT:
 
 
 if __name__ == '__main__':
-    prompt = "NEW: Justice Sonia Sotomayor said during oral arguments today that “we have over 100,000 children, which we’ve never had before, in serious condition, and many on ventilators” due to the coronavirus. That's False. https://t.co/9itoVd1s1L https://t.co/zX8Nf6Bx8r"
+    prompt = "Sorry Dr Fauci and other fearmongers, new study shows vaccines and naturally acquired immunity DO effectively neutralize COVID variants. Good news for everyone but bureaucrats and petty tyrants! Neutralizing Antibodies Against SARS-CoV-2 Variants https://t.co/k4SKSfxLJh"
     chatgpt = FineTunedGPT()
     res = chatgpt.get_response(prompt)
     pass
