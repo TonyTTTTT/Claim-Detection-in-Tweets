@@ -1,5 +1,5 @@
 from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_all_frames, convert_to_srl_tag, summary_by_GPT
+    concate_all_frames, convert_to_srl_tag, rewrite_by_GPT
 
 
 # tokenizer不同會導致encoding長度(tokens個數)不一樣 (應該是vocabulary的問題)
@@ -27,4 +27,4 @@ per_device_train_batch_size = 4
 
 dataset = 'CLEF2022'
 
-preprocess_function = summary_by_GPT
+preprocess_function = none_operation

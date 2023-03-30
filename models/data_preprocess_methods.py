@@ -295,11 +295,12 @@ def discard_similar_frame(frames):
     return frames_reduced
 
 
-def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
-    if os.path.exists('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset)):
-        data = pd.read_csv('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset), sep='\t')
+def rewrite_by_GPT(ids, topic_ids, texts, labels, dataset):
+    rewrite_method = 'extract_precise_by_GPT'
+    if os.path.exists('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method)):
+        data = pd.read_csv('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("load from preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv".format(dataset))
+        print("load from preprocess_datasets_tsv/{}_{}.tsv".format(dataset, rewrite_method))
         return ids, topic_ids, texts, labels
 
     chatgpt = ChatGPT()
@@ -316,7 +317,7 @@ def summary_by_GPT(ids, topic_ids, texts, labels, dataset):
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
     df['tweet_id'] = df['tweet_id'].astype(str)
-    df.to_csv('preprocess_datasets_tsv/{}_extract_precise_by_GPT.tsv'.format(dataset), sep='\t', index=False)
+    df.to_csv('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
 
@@ -328,4 +329,4 @@ if __name__ == '__main__':
              "We donât yet have all the tools we need to fight COVID-19. This is an important step toward having treatments, while we also explore vaccines and diagnostics. Thanks to @wellcometrust and @mastercard for launching this effort with us. https://t.co/M8AJ3083zK"]
     labels = [0, 1]
     dataset = 'GGG'
-    ids_aug, topic_ids_aug, texts_aug, labels_aug = summary_by_GPT(ids, topic_ids, texts, labels, dataset)
+    ids_aug, topic_ids_aug, texts_aug, labels_aug = rewrite_by_GPT(ids, topic_ids, texts, labels, dataset)
