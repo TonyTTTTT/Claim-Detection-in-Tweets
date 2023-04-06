@@ -27,4 +27,5 @@ per_device_train_batch_size = 4
 
 dataset = 'CLEF2022'
 
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
+do_normalize = False

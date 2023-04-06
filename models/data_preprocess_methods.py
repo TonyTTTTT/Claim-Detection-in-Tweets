@@ -296,7 +296,7 @@ def discard_similar_frame(frames):
 
 
 def rewrite_by_GPT(ids, topic_ids, texts, labels, dataset):
-    rewrite_method = 'extract_precise_by_GPT'
+    rewrite_method = 'rewrite_to_understandable_by_GPT'
     if os.path.exists('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method)):
         data = pd.read_csv('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
@@ -308,11 +308,11 @@ def rewrite_by_GPT(ids, topic_ids, texts, labels, dataset):
     for i in range(0, len(texts)):
         messages = [
             # {"role": "system", "content": "You are a summarizer"},
-            {"role": "user", "content": 'Please help me find the claim made in the article. Your answer should be exactly from the article I given.\n' + texts[i]},
+            {"role": "user", "content": 'Please help me rewrite the article to be more understandable.\n' + texts[i]},
         ]
         res = chatgpt.get_response(messages)
-        res = res.split('\n')[0]
-        print('res split by next line: {}'.format(res))
+        # res = res.split('\n')[0]
+        # print('res split by next line: {}'.format(res))
         texts_rewrite.append(res)
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])

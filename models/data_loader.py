@@ -30,7 +30,7 @@ class CheckThatDataset(torch.utils.data.Dataset):
 
 
 class DataLoader:
-    def __init__(self, preprocess_function, dataset):
+    def __init__(self, preprocess_function, dataset, do_normalize):
         self.preprocess_function = preprocess_function
         self.train_dataset = []
         self.dev_dataset = []
@@ -58,7 +58,7 @@ class DataLoader:
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
 
-        self.read_data(dataset)
+        self.read_data(dataset, do_normalize)
 
     @staticmethod
     def read_df_to_lists(data):
@@ -85,7 +85,8 @@ class DataLoader:
             ids.append(row[1].values[1])
         return ids, topic_ids, texts, labels
 
-    def balance_class(self, ids, topic_ids, texts, labels):
+    @staticmethod
+    def balance_class(ids, topic_ids, texts, labels):
         cnt_0 = 0
         cnt_1 = 0
         for label in labels:
@@ -121,7 +122,7 @@ class DataLoader:
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
-    def read_data(self, dataset):
+    def read_data(self, dataset, do_normalize):
         train_data = pd.read_csv(self.train_path, sep='\t', dtype=str)
         dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str)
         test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
@@ -137,9 +138,10 @@ class DataLoader:
         # train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
         #                                                                                train_texts_raw, train_labels)
 
-        # train_texts_raw = normalizeTweet(train_texts_raw)
-        # dev_texts_raw = normalizeTweet(dev_texts_raw)
-        # test_texts_raw = normalizeTweet(test_texts_raw)
+        if do_normalize:
+            train_texts_raw = normalizeTweet(train_texts_raw)
+            dev_texts_raw = normalizeTweet(dev_texts_raw)
+            test_texts_raw = normalizeTweet(test_texts_raw)
 
         train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train')
         dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev')

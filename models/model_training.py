@@ -12,7 +12,7 @@ from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, e
     concate_all_frames, convert_to_srl_tag
 
 
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset)
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 
 
