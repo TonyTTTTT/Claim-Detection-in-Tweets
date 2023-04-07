@@ -10,10 +10,10 @@ from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, e
 # size of GPT3: 175 billion
 
 # size: 123 million
-# model_path = 'roberta-base'
+model_path = 'roberta-base'
 
 # size: 354 million
-model_path = 'roberta-large'
+# model_path = 'roberta-large'
 
 # model_path = 'bert-base-uncased'
 
@@ -25,7 +25,7 @@ warm_up_epochs = 5
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 
-dataset = 'CLEF2022'
+dataset = 'rewrite_to_understandable_by_GPT'
 
-preprocess_function = rewrite_by_GPT
+preprocess_function = concate_all_frames
 do_normalize = False

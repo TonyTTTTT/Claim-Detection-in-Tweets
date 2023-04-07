@@ -251,7 +251,7 @@ def too_similar(frame_short, frame_long):
     overlap = [word for word in frame_short_list if word in frame_long_list]
     overlap_rate = len(overlap) / len(frame_short_list)
 
-    if overlap_rate > 0.5:
+    if overlap_rate > 0.7:
         return True
     else:
         return False
@@ -325,8 +325,8 @@ def rewrite_by_GPT(ids, topic_ids, texts, labels, dataset):
 if __name__ == '__main__':
     ids = [23423, 1161]
     topic_ids = ['pig', 'cat']
-    texts = ["India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. HTTPURL",
+    texts = ["India has sent 100,000 doses of COVID-19 vaccines to Barbados, and they arrived earlier today. This is a significant and meaningful gesture, and the people of Barbados are grateful to the Prime Minister of India, Mr. Modi, for his prompt and generous decision to send these vaccines. Thank you, Mr. Modi.",
              "We donât yet have all the tools we need to fight COVID-19. This is an important step toward having treatments, while we also explore vaccines and diagnostics. Thanks to @wellcometrust and @mastercard for launching this effort with us. https://t.co/M8AJ3083zK"]
     labels = [0, 1]
     dataset = 'GGG'
-    ids_aug, topic_ids_aug, texts_aug, labels_aug = rewrite_by_GPT(ids, topic_ids, texts, labels, dataset)
+    ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_all_frames(ids, topic_ids, texts, labels, dataset)

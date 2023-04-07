@@ -57,6 +57,10 @@ class DataLoader:
                             'CT22_english_1B_claim_dev.tsv'
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
+        else:
+            self.train_path = 'preprocess_datasets_tsv/CLEF2022_train_' + dataset + '.tsv'
+            self.dev_path = 'preprocess_datasets_tsv/CLEF2022_dev_' + dataset + '.tsv'
+            self.test_path = 'preprocess_datasets_tsv/CLEF2022_test_' + dataset + '.tsv'
 
         self.read_data(dataset, do_normalize)
 
@@ -70,7 +74,7 @@ class DataLoader:
         if data.columns[-1] != 'class_label' and data.columns[-1] != 'check_worthiness':
             for row in data.iterrows():
                 # get the tweet_text field
-                texts.append(row[1].values[3])
+                texts.append(row[1].values[-1])
                 # get teh check_worthiness field
                 topic_ids.append(row[1].values[0])
                 ids.append(row[1].values[1])
@@ -78,7 +82,7 @@ class DataLoader:
 
         for row in data.iterrows():
             # get the tweet_text field
-            texts.append(row[1].values[3])
+            texts.append(row[1].values[-2])
             # get teh check_worthiness field
             labels.append(row[1].values[-1])
             topic_ids.append(row[1].values[0])

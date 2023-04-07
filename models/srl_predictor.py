@@ -91,4 +91,4 @@ class SRLPredictor():
 
 if __name__ == '__main__':
     predictor = SRLPredictor()
-    r = predictor.get_frames("As part of the ongoing nationwide vaccination rollout that has seen more than 230,000 people vaccinated, President Kagame and First Lady Jeannette Kagame received their #COVID-19 vaccines at King Faisal Hospital.  HTTPURL")
+    r = predictor.get_frames("India has sent 100,000 doses of COVID-19 vaccines to Barbados, and they arrived earlier today. This is a significant and meaningful gesture, and the people of Barbados are grateful to the Prime Minister of India, Mr. Modi, for his prompt and generous decision to send these vaccines. Thank you, Mr. Modi.")
