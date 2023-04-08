@@ -40,7 +40,11 @@ def check_if_exist(dataset):
     return False
 
 
-def none_operation(ids, topic_ids, texts, labels, dataset):
+def none_operation(*args):
+    ids = args[0]
+    topic_ids = args[1]
+    texts = args[2]
+    labels = args[3]
     return ids, topic_ids, texts, labels
 
 
@@ -204,11 +208,19 @@ def extract_all_frames(ids, topic_ids, texts, labels, dataset):
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
 
 
-def concate_all_frames(ids, topic_ids, texts, labels, dataset):
+def concate_frames(*args):
     '''
     extract all frames, cocate them and return
     '''
-    preprocessed_dataset = check_if_exist(dataset)
+    ids = args[0]
+    topic_ids = args[1]
+    texts = args[2]
+    labels = args[3]
+    dataset = args[4]
+    concate_frames_num = args[5]
+    preprocess_dataset_name = dataset + '_top_' + str(concate_frames_num)
+
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name)
     if preprocessed_dataset:
         return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3]
 
@@ -227,7 +239,7 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
             labels_aug.append(labels[i])
         else:
             frame_concate = ''
-            res = discard_similar_frame(res)
+            res = discard_similar_frame(res, concate_frames_num)
 
             for frame in res:
                 frame_concate += frame+'. '
@@ -238,8 +250,8 @@ def concate_all_frames(ids, topic_ids, texts, labels, dataset):
             topic_ids_aug.append(topic_ids[i])
             labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
-    with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
+    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(preprocess_dataset_name, sys._getframe(0).f_code.co_name))
+    with open('preprocess_datasets/{}_{}.pkl'.format(preprocess_dataset_name, sys._getframe(0).f_code.co_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
@@ -265,7 +277,7 @@ def order_of_frame(frame):
     return frame[1]
 
 
-def discard_similar_frame(frames):
+def discard_similar_frame(frames, concate_frames_num):
     frames_reduced = []
 
     for i in range(0, len(frames)):
@@ -282,7 +294,7 @@ def discard_similar_frame(frames):
                 break
 
         if add_flag:
-            if frame_cnt >= 2:
+            if frame_cnt >= concate_frames_num:
                 break
             frames_reduced.append(frame)
             frame_cnt += 1
@@ -295,7 +307,13 @@ def discard_similar_frame(frames):
     return frames_reduced
 
 
-def rewrite_by_GPT(ids, topic_ids, texts, labels, dataset):
+def rewrite_by_GPT(*args):
+    ids = args[0]
+    topic_ids = args[1]
+    texts = args[2]
+    labels = args[3]
+    dataset = args[4]
+
     rewrite_method = 'rewrite_to_understandable_by_GPT'
     if os.path.exists('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method)):
         data = pd.read_csv('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method), sep='\t')
@@ -329,4 +347,4 @@ if __name__ == '__main__':
              "We donât yet have all the tools we need to fight COVID-19. This is an important step toward having treatments, while we also explore vaccines and diagnostics. Thanks to @wellcometrust and @mastercard for launching this effort with us. https://t.co/M8AJ3083zK"]
     labels = [0, 1]
     dataset = 'GGG'
-    ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_all_frames(ids, topic_ids, texts, labels, dataset)
+    ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_frames(ids, topic_ids, texts, labels, dataset)

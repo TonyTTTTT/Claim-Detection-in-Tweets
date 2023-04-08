@@ -30,7 +30,7 @@ class CheckThatDataset(torch.utils.data.Dataset):
 
 
 class DataLoader:
-    def __init__(self, preprocess_function, dataset, do_normalize):
+    def __init__(self, preprocess_function, dataset, do_normalize, concate_frames_num):
         self.preprocess_function = preprocess_function
         self.train_dataset = []
         self.dev_dataset = []
@@ -62,7 +62,7 @@ class DataLoader:
             self.dev_path = 'preprocess_datasets_tsv/CLEF2022_dev_' + dataset + '.tsv'
             self.test_path = 'preprocess_datasets_tsv/CLEF2022_test_' + dataset + '.tsv'
 
-        self.read_data(dataset, do_normalize)
+        self.read_data(dataset, do_normalize, concate_frames_num)
 
     @staticmethod
     def read_df_to_lists(data):
@@ -126,7 +126,7 @@ class DataLoader:
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
-    def read_data(self, dataset, do_normalize):
+    def read_data(self, dataset, do_normalize, concate_frames_num):
         train_data = pd.read_csv(self.train_path, sep='\t', dtype=str)
         dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str)
         test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
@@ -147,9 +147,9 @@ class DataLoader:
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)
 
-        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train')
-        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev')
-        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids, test_texts_raw, test_labels, dataset+'_test')
+        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train', concate_frames_num)
+        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev', concate_frames_num)
+        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids, test_texts_raw, test_labels, dataset+'_test', concate_frames_num)
 
         if model_path == "vinai/bertweet-covid19-base-uncased":
             # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is
@@ -205,5 +205,5 @@ def compute_metrics(pred):
 
 if __name__ == '__main__':
     dataset = 'CLEF2022'
-    dataloader = DataLoader(preprocess_function=concate_all_frames, dataset=dataset)
+    dataloader = DataLoader(preprocess_function=concate_frames, dataset=dataset)
     train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)

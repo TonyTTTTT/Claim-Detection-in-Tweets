@@ -9,10 +9,10 @@ import torch
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_all_frames, convert_to_srl_tag
+    concate_frames, convert_to_srl_tag
 
 
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize)
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 
 
