@@ -25,7 +25,7 @@ warm_up_epochs = 5
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 
-dataset = 'rewrite_to_understandable_by_GPT'
+dataset = 'extract_by_GPT'
 
 preprocess_function = concate_all_frames
 do_normalize = False
