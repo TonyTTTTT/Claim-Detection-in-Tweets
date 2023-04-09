@@ -50,7 +50,7 @@ class DataLoader:
                               'CT22_english_1A_checkworthy_dev.tsv'
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                                 'CT22_english_1A_checkworthy_test_gold.tsv'
-        elif dataset == 'CLEF20221b':
+        elif dataset == 'CLEF2022_1b':
             self.train_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
                               'CT22_english_1B_claim_train.tsv'
             self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
