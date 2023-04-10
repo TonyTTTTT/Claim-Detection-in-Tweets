@@ -18,14 +18,16 @@ class ChatGPT:
             messages=messages,
             # temperature=0,
         )
-        print('chat input: {}'.format((messages)))
-        print('chat response: {}'.format(res.choices[0].message.content.strip()))
+        print('GPT input: {}'.format((messages)))
+        print('GPT input #words: {}'.format(len(messages[-1]['content'].split())))
+        print('GPT response: {}'.format(res.choices[0].message.content.strip()))
+        print('GPT response #words: {}'.format(len(res.choices[0].message.content.strip().split())))
 
         return res.choices[0].message.content.strip()
 
 
 if __name__ == '__main__':
-    content = "Show me who all the selfish and sick people are after they have been shown countless lives being lost from the new Covid-19 vaccines (hopefully newer CV vaccines are safer), whenever they post 💉 📸 online."
+    content = "@kraekerc @BonitaEdu @CassanoraL @axelbroad @RandomSusla @OttawaDaddy @berylrcohen @mariann6668 @danrosenbergnet @amelialibertuc1 @jdouglaslittle @DaddabboM @josanchez65 @jhengstler @noasbobs @ESL_fairy @TLMarkides @mrfusco @mkbtuc @the_dramamama @ZackTeitel @JBradshaw01 @BBFarhadi @PowerLrn @DrLauraPinto @munakadri @JCasaTodd @RamonaMeharg @rolandvo @heidi_allum @sarahsanders33 @CoachJCummings @CarolCampbell4 @Educhatter @Stephen_Hurley @BCGovNews @uhwuhna @Joe_Sheik @MarionMoynihan @miketamasi @DirFisherTVDSB @PaulSydor @fordnation @Sflecce @cristina_CP24 @ETFOeducators @osstf @liberal_party @ASPphysician Dr. Peter Jüni said that although vaccines are effective and Ontario’s rollout has insulated vulnerable people from the chance of death, their deployment would not be fast enough to prevent a third lockdown. “We need firmer restrictions than before. https://t.co/Vfm5Dzk1vj"
     messages_summary = [
         # {"role": "system", "content": "content summarizer"},
         {"role": "user", "content": content+"\nsummary:"},
@@ -37,7 +39,7 @@ if __name__ == '__main__':
         {"role": "user", "content": content+"\nsimplify:"}
     ]
     messages_extract = [
-        {"role": "system", "content": "Rewrite the following article to be more concise and understandable."},
+        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please aim for around 50 words."},
         {"role": "user", "content": content}
     ]
     chatgpt = ChatGPT()
@@ -45,3 +47,4 @@ if __name__ == '__main__':
     # res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     res_extract = chatgpt.get_response(messages_extract)
+    res_extract_split = res_extract.split()
