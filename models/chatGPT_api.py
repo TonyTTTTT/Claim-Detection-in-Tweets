@@ -14,8 +14,9 @@ class ChatGPT:
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
         res = openai.ChatCompletion.create(
-          model="gpt-3.5-turbo",
-          messages=messages
+            model="gpt-3.5-turbo",
+            messages=messages,
+            # temperature=0,
         )
         print('chat input: {}'.format((messages)))
         print('chat response: {}'.format(res.choices[0].message.content.strip()))
@@ -24,7 +25,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "Two weekâ   s sick pay : ð   ¬ ð   § UK Â £ 188.50 What youâ   d get if you lived in : ð   ¦ ð   ¹ Austria Â £ 574.70 ð   ð   ªGermany Â £ 574.70 ð   ¸ ð   ªSweden Â £ 459.76 ð   ³ ð   ± Netherlands Â £ 402.29 ð   ªð   ¸ Spain Â £ 241.37 Statutory sick pay in the UK isnâ   t enough to live on . RT if you want decent #SickPayForAll #Coronavirus #Ridge #Marr"
+    content = "Show me who all the selfish and sick people are after they have been shown countless lives being lost from the new Covid-19 vaccines (hopefully newer CV vaccines are safer), whenever they post 💉 📸 online."
     messages_summary = [
         # {"role": "system", "content": "content summarizer"},
         {"role": "user", "content": content+"\nsummary:"},
@@ -35,7 +36,12 @@ if __name__ == '__main__':
     messages_simplify = [
         {"role": "user", "content": content+"\nsimplify:"}
     ]
+    messages_extract = [
+        {"role": "system", "content": "Rewrite the following article to be more concise and understandable."},
+        {"role": "user", "content": content}
+    ]
     chatgpt = ChatGPT()
-    res_summary = chatgpt.get_response(messages_summary)
-    res_explain = chatgpt.get_response(messages_explain)
-    res_simplify = chatgpt.get_response(messages_simplify)
+    # res_summary = chatgpt.get_response(messages_summary)
+    # res_explain = chatgpt.get_response(messages_explain)
+    # res_simplify = chatgpt.get_response(messages_simplify)
+    res_extract = chatgpt.get_response(messages_extract)
