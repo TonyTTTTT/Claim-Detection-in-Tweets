@@ -27,12 +27,13 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "BREAKING: Trump just told the press that a Coronavirus vaccine will be ready in 3-4 months. Seconds later, in the same exact room, an expert tells the press that a vaccine will be ready in 12-18 months at the earliest. THIS IS A PROBLEM! Trump is a train wreck!"
+    content = "JUST IN: Russia begins production of coronavirus vaccine"
     messages_summary = [
         # {"role": "system", "content": "content summarizer"},
         {"role": "user", "content": content+"\nsummary:"},
     ]
     messages_explain = [
+        {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
         {"role": "user", "content": content+"\nexplain:"}
     ]
     messages_simplify = [
@@ -40,11 +41,11 @@ if __name__ == '__main__':
     ]
     messages_extract = [
         {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 30 words."},
-        {"role": "user", "content": content}
+        {"role": "user", "content": content+'\nrephrase'}
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    # res_explain = chatgpt.get_response(messages_explain)
+    res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     res_extract = chatgpt.get_response(messages_extract)
-    res_extract_split = res_extract.split()
+    res_split = res_explain.split()
