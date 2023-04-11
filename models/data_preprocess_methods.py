@@ -314,7 +314,7 @@ def rewrite_by_GPT(*args):
     labels = args[3]
     dataset = args[4]
 
-    rewrite_method = 'rewrite_by_GPT_50_words'
+    rewrite_method = 'rewrite_by_GPT_20_words'
     if os.path.exists('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method)):
         data = pd.read_csv('preprocess_datasets_tsv/{}_{}.tsv'.format(dataset, rewrite_method), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
@@ -325,7 +325,7 @@ def rewrite_by_GPT(*args):
     texts_rewrite = []
     for i in range(0, len(texts)):
         messages = [
-            {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please aim for around 50 words."},
+            {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please aim for around 20 words."},
             {"role": "user", "content": texts[i]},
         ]
         res = chatgpt.get_response(messages)

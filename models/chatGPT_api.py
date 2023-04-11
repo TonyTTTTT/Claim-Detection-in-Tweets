@@ -27,7 +27,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "@kraekerc @BonitaEdu @CassanoraL @axelbroad @RandomSusla @OttawaDaddy @berylrcohen @mariann6668 @danrosenbergnet @amelialibertuc1 @jdouglaslittle @DaddabboM @josanchez65 @jhengstler @noasbobs @ESL_fairy @TLMarkides @mrfusco @mkbtuc @the_dramamama @ZackTeitel @JBradshaw01 @BBFarhadi @PowerLrn @DrLauraPinto @munakadri @JCasaTodd @RamonaMeharg @rolandvo @heidi_allum @sarahsanders33 @CoachJCummings @CarolCampbell4 @Educhatter @Stephen_Hurley @BCGovNews @uhwuhna @Joe_Sheik @MarionMoynihan @miketamasi @DirFisherTVDSB @PaulSydor @fordnation @Sflecce @cristina_CP24 @ETFOeducators @osstf @liberal_party @ASPphysician Dr. Peter Jüni said that although vaccines are effective and Ontario’s rollout has insulated vulnerable people from the chance of death, their deployment would not be fast enough to prevent a third lockdown. “We need firmer restrictions than before. https://t.co/Vfm5Dzk1vj"
+    content = "BREAKING: Trump just told the press that a Coronavirus vaccine will be ready in 3-4 months. Seconds later, in the same exact room, an expert tells the press that a vaccine will be ready in 12-18 months at the earliest. THIS IS A PROBLEM! Trump is a train wreck!"
     messages_summary = [
         # {"role": "system", "content": "content summarizer"},
         {"role": "user", "content": content+"\nsummary:"},
@@ -39,7 +39,7 @@ if __name__ == '__main__':
         {"role": "user", "content": content+"\nsimplify:"}
     ]
     messages_extract = [
-        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please aim for around 50 words."},
+        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 30 words."},
         {"role": "user", "content": content}
     ]
     chatgpt = ChatGPT()
