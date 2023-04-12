@@ -27,9 +27,9 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "JUST IN: Russia begins production of coronavirus vaccine"
+    content = "No offense but the corona virus disappearing before April actually sucks"
     messages_summary = [
-        # {"role": "system", "content": "content summarizer"},
+        {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummary:"},
     ]
     messages_explain = [
@@ -40,7 +40,11 @@ if __name__ == '__main__':
         {"role": "user", "content": content+"\nsimplify:"}
     ]
     messages_extract = [
-        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 30 words."},
+        {"role": "system", "content": "What is the main argument or point being made in the statement?"},
+        {"role": "user", "content": content}
+    ]
+    messages_rewrite = [
+        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 20 words."},
         {"role": "user", "content": content+'\nrephrase'}
     ]
     chatgpt = ChatGPT()
@@ -48,4 +52,6 @@ if __name__ == '__main__':
     res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     res_extract = chatgpt.get_response(messages_extract)
-    res_split = res_explain.split()
+    # messages_rewrite = chatgpt.get_response(messages_extract)
+
+    # res_split = res_extract.split()

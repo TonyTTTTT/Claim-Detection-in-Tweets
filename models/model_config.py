@@ -17,7 +17,9 @@ model_path = 'roberta-large'
 
 # model_path = 'bert-base-uncased'
 
-learning_rate = 3e-5
+
+learning_rate = 3e-5 # clef2022 1a
+# learning_rate = 2e-5 # clef2022 1b
 num_train_epochs = 50
 warm_up_epochs = 5
 
@@ -25,8 +27,8 @@ warm_up_epochs = 5
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 
-dataset = 'CLEF2022'
+dataset = 'explain_by_GPT_100_words_augmented'
 
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 3
 do_normalize = False
