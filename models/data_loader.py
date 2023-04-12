@@ -58,15 +58,15 @@ class DataLoader:
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
         else:
-            self.train_path = 'preprocess_datasets_tsv/CLEF2022_train_' + dataset + '.tsv'
+            self.train_path = 'preprocess_datasets_tsv/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':
                 self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/' \
                                 'CT22_english_1A_checkworthy_dev.tsv'
                 self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                                  'CT22_english_1A_checkworthy_test_gold.tsv'
             else:
-                self.dev_path = 'preprocess_datasets_tsv/CLEF2022_dev_' + dataset + '.tsv'
-                self.test_path = 'preprocess_datasets_tsv/CLEF2022_test_' + dataset + '.tsv'
+                self.dev_path = 'preprocess_datasets_tsv/' + dataset + '_dev.tsv'
+                self.test_path = 'preprocess_datasets_tsv/' + dataset + '_test.tsv'
 
         self.read_data(dataset, do_normalize, concate_frames_num)
 

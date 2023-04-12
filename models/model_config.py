@@ -27,7 +27,7 @@ warm_up_epochs = 5
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 
-dataset = 'explain_by_GPT_100_words_augmented'
+dataset = 'CLEF2022_1b_explain_by_GPT_100_words'
 
 preprocess_function = none_operation
 concate_frames_num = 3
