@@ -58,7 +58,12 @@ if __name__ == '__main__':
     task_1a_train_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/CT22_english_1A_checkworthy_train.tsv'
     task_1a_dev_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/CT22_english_1A_checkworthy_dev.tsv'
     task_1a_devtest_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/CT22_english_1A_checkworthy_dev_test.tsv'
-    task_1a_test_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/test/CT22_english_1A_checkworthy_test.tsv'
+    task_1a_test_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/test/CT22_english_1A_checkworthy_test_gold.tsv'
+
+    task_1b_train_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/CT22_english_1B_claim_train.tsv'
+    task_1b_dev_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/CT22_english_1B_claim_dev.tsv'
+    task_1b_devtest_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/CT22_english_1B_claim_dev_test.tsv'
+    task_1b_test_2022_path = 'clef2022-checkthat-lab/task1/data/subtasks-english/test/CT22_english_1B_claim_test_gold.zip'
 
     task_1a_train_2021 = pd.read_csv(task_1a_train_2021_path, sep='\t', dtype=str)
     task_1a_dev_2021 = pd.read_csv(task_1a_dev_2021_path, sep='\t', dtype=str)
@@ -69,10 +74,17 @@ if __name__ == '__main__':
     task_1a_devtest_2022 = pd.read_csv(task_1a_devtest_2022_path, sep='\t', dtype=str)
     task_1a_test_2022 = pd.read_csv(task_1a_test_2022_path, sep='\t', dtype=str)
 
+    task_1b_train_2022 = pd.read_csv(task_1b_train_2022_path, sep='\t', dtype=str)
+    task_1b_dev_2022 = pd.read_csv(task_1b_dev_2022_path, sep='\t', dtype=str)
+    task_1b_devtest_2022 = pd.read_csv(task_1b_devtest_2022_path, sep='\t', dtype=str)
+    task_1b_test_2022 = pd.read_csv(task_1b_test_2022_path, sep='\t', dtype=str)
+
     dastasets = [[task_1a_train_2021, 'task_1a_train_2021'], [task_1a_dev_2021, 'task_1a_dev_2021'],
                  [task_1a_test_2021, 'task_1a_test_2021'], [task_1a_train_2022, 'task_1a_train_2022'],
                  [task_1a_dev_2022, 'task_1a_dev_2022'], [task_1a_devtest_2022, 'task_1a_devtest_2022'],
-                 [task_1a_test_2022, 'task_1a_test_2022']]
+                 [task_1a_test_2022, 'task_1a_test_2022'], [task_1b_train_2022, 'task_1b_train_2022'],
+                 [task_1b_dev_2022, 'task_1b_dev_2022'], [task_1b_devtest_2022, 'task_1b_devtest_2022'],
+                 [task_1b_test_2022, 'task_1b_test_2022']]
 
     for i in range(0, len(dastasets)):
         for j in range(i + 1, len(dastasets)):
@@ -81,7 +93,8 @@ if __name__ == '__main__':
     print("\n\n============================================")
 
     task_1a_2021 = pd.concat([task_1a_train_2021, task_1a_dev_2021, task_1a_test_2021])
-    task_1a_2022 = pd.concat([task_1a_train_2022, task_1a_dev_2022, task_1a_devtest_2022])
+    task_1a_2022 = pd.concat([task_1a_train_2022, task_1a_dev_2022, task_1a_devtest_2022, task_1a_test_2022])
+    task_1b_2022 = pd.concat([task_1b_train_2022, task_1b_dev_2022, task_1b_devtest_2022, task_1b_test_2022])
 
     for dataset in dastasets:
         try:
