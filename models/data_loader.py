@@ -153,9 +153,17 @@ class DataLoader:
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)
 
-        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids, train_texts_raw, train_labels, dataset+'_train', concate_frames_num)
-        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw, dev_labels, dataset+'_dev', concate_frames_num)
-        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids, test_texts_raw, test_labels, dataset+'_test', concate_frames_num)
+        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids,
+                                                                                         train_texts_raw, train_labels,
+                                                                                         dataset, 'train',
+                                                                                         concate_frames_num)
+        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw,
+                                                                                 dev_labels, dataset, 'dev',
+                                                                                 concate_frames_num)
+        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids,
+                                                                                     test_texts_raw, test_labels,
+                                                                                     dataset, 'test',
+                                                                                     concate_frames_num)
 
         if model_path == "vinai/bertweet-covid19-base-uncased":
             # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is

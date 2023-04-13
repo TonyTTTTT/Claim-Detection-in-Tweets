@@ -1,5 +1,4 @@
-from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_frames, convert_to_srl_tag, rewrite_by_GPT
+from data_preprocess_methods import none_operation, concate_frames, rewrite_by_GPT
 
 
 # tokenizer不同會導致encoding長度(tokens個數)不一樣 (應該是vocabulary的問題)
@@ -27,8 +26,8 @@ warm_up_epochs = 5
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 
-dataset = 'CLEF2022_1b_explain_by_GPT_100_words'
+dataset = 'CLEF2022'
 
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
 concate_frames_num = 3
 do_normalize = False

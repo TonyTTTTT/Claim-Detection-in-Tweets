@@ -8,8 +8,6 @@ import transformers
 import torch
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
-from data_preprocess_methods import insert_srl_tag, extract_to_sentence_level, extract_all_frames, none_operation, \
-    concate_frames, convert_to_srl_tag
 
 
 dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
@@ -93,34 +91,35 @@ result = trainer.evaluate()
 print("==========================")
 output = trainer.predict(test_dataset)
 
-if dataloader.preprocess_function == extract_all_frames:
-    current_id = None
-    predction_sum = None
-    predictions = []
-    labels = []
-    current_id = test_dataset.ids[0]
-    predction_sum = np.array(output.predictions[0])
-    cnt = 1
-    for i in range(1, len(test_dataset.ids)):
-        if test_dataset.ids[i] != current_id:
-            predictions.append(predction_sum/cnt)
-            labels.append(test_dataset.labels[i-1])
-            current_id = test_dataset.ids[i]
-            cnt = 1
-            predction_sum = np.array(output.predictions[i])
-        else:
-            cnt += 1
-            predction_sum += np.array(output.predictions[i])
-
-    predictions.append(predction_sum / cnt)
-    labels.append(test_dataset.labels[i])
-    predictions = np.array(predictions)
-
-    precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
-    print('f1 at article-level: {}'.format(f1))
+# if dataloader.preprocess_function == extract_all_frames:
+#     current_id = None
+#     predction_sum = None
+#     predictions = []
+#     labels = []
+#     current_id = test_dataset.ids[0]
+#     predction_sum = np.array(output.predictions[0])
+#     cnt = 1
+#     for i in range(1, len(test_dataset.ids)):
+#         if test_dataset.ids[i] != current_id:
+#             predictions.append(predction_sum/cnt)
+#             labels.append(test_dataset.labels[i-1])
+#             current_id = test_dataset.ids[i]
+#             cnt = 1
+#             predction_sum = np.array(output.predictions[i])
+#         else:
+#             cnt += 1
+#             predction_sum += np.array(output.predictions[i])
+#
+#     predictions.append(predction_sum / cnt)
+#     labels.append(test_dataset.labels[i])
+#     predictions = np.array(predictions)
+#
+#     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
+#     print('f1 at article-level: {}'.format(f1))
 
 # trainer.save_model('results/final')
 
+# write result to clef evaluation format
 # with open('none-operation-64-bertweet-test.tsv', 'w') as f:
 #     pred = output[0]
 #     pred_argmax = pred.argmax(-1)
