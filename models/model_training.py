@@ -14,21 +14,6 @@ dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 
 
-def set_seed(seed: int = None):
-    """Set all seeds to make results reproducible (deterministic mode).
-       When seed is None, disables deterministic mode.
-    :param seed: an integer to your choosing
-    """
-    if seed is not None:
-        torch.manual_seed(seed)
-        torch.cuda.manual_seed_all(seed)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-        np.random.seed(seed)
-        random.seed(seed)
-        os.environ['PYTHONHASHSEED'] = str(seed)
-
-
 def model_init():
     configuration = AutoConfig.from_pretrained(model_path)
     # configuration.hidden_dropout_prob = 0.3
@@ -71,6 +56,7 @@ training_args = TrainingArguments(
     # weight_decay=0.01,
     # no_cuda=True,
     lr_scheduler_type=lr_scheduler_type,
+    seed=17,
 )
 
 # No1 team treat dev dataset as eval_dataset, so here I do the same
@@ -83,7 +69,6 @@ trainer = Trainer(
 )
 
 
-# set_seed(17)
 trainer.train()
 # trainer.hyperparameter_search()
 print("==========================")
