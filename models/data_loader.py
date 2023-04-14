@@ -149,6 +149,7 @@ class DataLoader:
         #                                                                                train_texts_raw, train_labels)
 
         if do_normalize:
+            print("============\nNormalizeing...\n==================")
             train_texts_raw = normalizeTweet(train_texts_raw)
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)

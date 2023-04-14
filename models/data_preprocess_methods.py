@@ -33,7 +33,8 @@ def read_df_to_lists(data):
 
 def check_if_exist(dataset):
     if os.path.exists('preprocess_datasets/{}.pkl'.format(dataset)):
-        print('load pkl from preprocess_datasets/{}.pkl'.format(dataset))
+        print('======================\nload pkl from preprocess_datasets/{}.pkl'
+              '\n======================='.format(dataset))
         with open('preprocess_datasets/{}.pkl'.format(dataset), 'rb') as f:
             preprocessed_dataset = pickle.load(f)
         return preprocessed_dataset
@@ -92,7 +93,8 @@ def concate_frames(*args):
             topic_ids_aug.append(topic_ids[i])
             labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}.pkl'.format(preprocess_dataset_name))
+    print('=====================\nwrite pkl to preprocess_datasets/{}.pkl'
+          '\n============================='.format(preprocess_dataset_name))
     with open('preprocess_datasets/{}.pkl'.format(preprocess_dataset_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
@@ -163,7 +165,8 @@ def rewrite_by_GPT(*args):
     if os.path.exists('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name)):
         data = pd.read_csv('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name), sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("load from preprocess_datasets_tsv/{}.tsv".format(preprocess_dataset_name))
+        print("===================\nload from preprocess_datasets_tsv/{}.tsv"
+              "\n=====================".format(preprocess_dataset_name))
         return ids, topic_ids, texts, labels
 
     chatgpt = ChatGPT()
@@ -180,6 +183,8 @@ def rewrite_by_GPT(*args):
 
     df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
     df['tweet_id'] = df['tweet_id'].astype(str)
+    print('=====================\nwrite tsv to preprocess_datasets_tsv/{}.pkl'
+          '\n============================='.format(preprocess_dataset_name))
     df.to_csv('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
