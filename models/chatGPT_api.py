@@ -27,7 +27,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "No offense but the corona virus disappearing before April actually sucks"
+    content = "As a member of @ETHPnews, we’re proud to share we are operating two #COVID19 Immunization Clinics that, this week, will administer vaccines to eligible priority populations in #EastToronto, including health care workers and adults 80+. Learn more: https://t.co/t890KePvBG https://t.co/We2EdhFitS"
     messages_summary = [
         {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummary:"},
@@ -44,14 +44,14 @@ if __name__ == '__main__':
         {"role": "user", "content": content}
     ]
     messages_rewrite = [
-        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 20 words."},
-        {"role": "user", "content": content+'\nrephrase'}
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 20 words."},
+        {"role": "user", "content": content+'\nrewrite'}
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    res_explain = chatgpt.get_response(messages_explain)
+    # res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
-    res_extract = chatgpt.get_response(messages_extract)
-    # messages_rewrite = chatgpt.get_response(messages_extract)
+    # res_extract = chatgpt.get_response(messages_extract)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
 
     # res_split = res_extract.split()

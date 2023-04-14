@@ -194,11 +194,11 @@ if __name__ == '__main__':
     ids = [23423, 1161]
     topic_ids = ['pig', 'cat']
     texts = ["India has sent 100,000 doses of COVID-19 vaccines to Barbados, and they arrived earlier today. This is a significant and meaningful gesture, and the people of Barbados are grateful to the Prime Minister of India, Mr. Modi, for his prompt and generous decision to send these vaccines. Thank you, Mr. Modi.",
-             "We donât yet have all the tools we need to fight COVID-19. This is an important step toward having treatments, while we also explore vaccines and diagnostics. Thanks to @wellcometrust and @mastercard for launching this effort with us. https://t.co/M8AJ3083zK"]
+             "Being a part of @ETHPnews, we are delighted to announce that we have established two #COVID19 Immunization Clinics in #EastToronto. This week, these clinics will provide vaccines to eligible priority groups, such as health care workers and individuals over 80 years old. For more information, please visit: https://t.co/t890KePvBG https://t.co/We2EdhFitS."]
     labels = [0, 1]
     dataset = 'GGG'
     part = 'train'
-    concate_frames_num = 2
+    concate_frames_num = 5
 
     ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_frames(ids, topic_ids, texts, labels, dataset,
                                                                    part, concate_frames_num)

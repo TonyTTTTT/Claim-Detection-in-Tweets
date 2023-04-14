@@ -7,9 +7,9 @@ tokenizer = TweetTokenizer()
 
 def normalizeToken(token):
     lowercased_token = token.lower()
-    if token.startswith("@"):
-        return "@USER"
-    elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
+    # if token.startswith("@"):
+    #     return "@USER"
+    if lowercased_token.startswith("http") or lowercased_token.startswith("www"):
         return "HTTPURL"
     elif len(token) <= 2:
         if token == "’":
@@ -17,10 +17,11 @@ def normalizeToken(token):
         elif token == "…":
             return "..."
         else:
-            if len(demojize(token)) > 2:
-                return ""
-            else:
-                return token
+            return demojize(token)
+            # if len(demojize(token)) > 2:
+            #     return ""
+            # else:
+            #     return token
     else:
         return token
         
@@ -42,7 +43,7 @@ def delToken(token):
             return token
 
 
-def normalizeTweet(tweets):
+def normalizeTweet_mine(tweets):
     if type(tweets) != list:
         tweets = [tweets]
 
@@ -88,7 +89,7 @@ def normalizeTweet(tweets):
 
 
 # if do_demojize=False del all emoji
-def normalizeTweet_origin(tweets):
+def normalizeTweet(tweets):
     if type(tweets) != list:
         tweets = [tweets]
 
