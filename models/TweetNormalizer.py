@@ -17,11 +17,11 @@ def normalizeToken(token):
         elif token == "…":
             return "..."
         else:
-            return demojize(token)
-            # if len(demojize(token)) > 2:
-            #     return ""
-            # else:
-            #     return token
+            # return demojize(token)
+            if len(demojize(token)) > 2:
+                return ""
+            else:
+                return token
     else:
         return token
         

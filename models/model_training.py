@@ -56,7 +56,7 @@ training_args = TrainingArguments(
     # weight_decay=0.01,
     # no_cuda=True,
     lr_scheduler_type=lr_scheduler_type,
-    seed=17,
+    seed=42,
 )
 
 # No1 team treat dev dataset as eval_dataset, so here I do the same
