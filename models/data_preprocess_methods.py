@@ -159,7 +159,7 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    rewrite_method = 'rewrite_by_GPT'
+    rewrite_method = 'normalize_then_explain_by_GPT'
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     if os.path.exists('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name)):
@@ -174,7 +174,7 @@ def rewrite_by_GPT(*args):
     for i in range(0, len(texts)):
         messages = [
             # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
-            {"role": "user", "content": texts[i] + "\nrewrite:"}
+            {"role": "user", "content": texts[i] + "\nexplain:"}
         ]
         res = chatgpt.get_response(messages)
         # res = res.split('\n')[0]

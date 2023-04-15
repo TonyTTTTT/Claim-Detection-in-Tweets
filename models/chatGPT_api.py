@@ -27,13 +27,13 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "As a member of @ETHPnews, we’re proud to share we are operating two #COVID19 Immunization Clinics that, this week, will administer vaccines to eligible priority populations in #EastToronto, including health care workers and adults 80+. Learn more: https://t.co/t890KePvBG https://t.co/We2EdhFitS"
+    content = "As a member of @ETHPnews, we’re proud to share we are operating two #COVID19 Immunization Clinics that, this week, will administer vaccines to eligible priority populations in #EastToronto, including health care workers and adults 80+. Learn more: HTTPURL HTTPURL"
     messages_summary = [
         {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummary:"},
     ]
     messages_explain = [
-        {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
+        # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
         {"role": "user", "content": content+"\nexplain:"}
     ]
     messages_simplify = [
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    # res_explain = chatgpt.get_response(messages_explain)
+    res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     # res_extract = chatgpt.get_response(messages_extract)
     messages_rewrite = chatgpt.get_response(messages_rewrite)
