@@ -73,6 +73,7 @@ def concate_frames(*args):
     texts_aug = []
     labels_aug = []
 
+    print('=======================\nExtracting SRL frames\n========================')
     for i in range(0, len(texts)):
         res = predictor.get_frames(texts[i])
         if res == []:
@@ -159,7 +160,7 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    rewrite_method = 'normalize_then_explain_by_GPT'
+    rewrite_method = 'normalize_then_rephrase_by_GPT'
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     if os.path.exists('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name)):
@@ -173,8 +174,8 @@ def rewrite_by_GPT(*args):
     texts_rewrite = []
     for i in range(0, len(texts)):
         messages = [
-            # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
-            {"role": "user", "content": texts[i] + "\nexplain:"}
+            {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+            {"role": "user", "content": texts[i] + '\nrephrase:'}
         ]
         res = chatgpt.get_response(messages)
         # res = res.split('\n')[0]

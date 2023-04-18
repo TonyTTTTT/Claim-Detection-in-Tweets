@@ -17,14 +17,15 @@ model_path = 'roberta-large'
 # model_path = 'bert-base-uncased'
 
 
-learning_rate = 3e-5 # clef2022 1a
-# learning_rate = 2e-5 # clef2022 1b
+# learning_rate = 3e-5 # clef2022 1a
+learning_rate = 2e-5 # clef2022 1b
 num_train_epochs = 50
-warm_up_epochs = 5
+warm_up_epochs = 10
 
 # ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
 lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
+device_num = 2
 
 dataset = 'CLEF2022_1b'
 

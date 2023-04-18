@@ -44,12 +44,12 @@ if __name__ == '__main__':
         {"role": "user", "content": content}
     ]
     messages_rewrite = [
-        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to read? Please do not exceed 20 words."},
-        {"role": "user", "content": content+'\nrewrite'}
+        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user", "content": content + '\nrephrase:'}
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    res_explain = chatgpt.get_response(messages_explain)
+    # res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     # res_extract = chatgpt.get_response(messages_extract)
     messages_rewrite = chatgpt.get_response(messages_rewrite)

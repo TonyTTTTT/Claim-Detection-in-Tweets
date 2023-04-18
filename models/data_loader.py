@@ -175,15 +175,15 @@ class DataLoader:
             dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
             test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
         else:
-            # self.tokenizer.model_max_length = 256
-            #
-            # train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
-            # dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
-            # test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
+            self.tokenizer.model_max_length = 128
 
-            train_encodings = self.tokenizer(train_texts, truncation=True, padding='longest')
-            dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='longest')
-            test_encodings = self.tokenizer(test_texts, truncation=True, padding='longest')
+            train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
+            dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
+            test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
+
+            # train_encodings = self.tokenizer(train_texts, truncation=True, padding='longest')
+            # dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='longest')
+            # test_encodings = self.tokenizer(test_texts, truncation=True, padding='longest')
 
         self.train_dataset = CheckThatDataset(train_encodings, train_ids, train_topic_ids, train_labels)
         self.dev_dataset = CheckThatDataset(dev_encodings, dev_ids, dev_topic_ids, dev_labels)
