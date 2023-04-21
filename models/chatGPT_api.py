@@ -29,8 +29,8 @@ class ChatGPT:
 if __name__ == '__main__':
     content = "India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt"
     messages_summary = [
-        {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
-        {"role": "user", "content": content+"\nsummary:"},
+        # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
+        {"role": "user", "content": content+"\nsummarize:"},
     ]
     messages_explain = [
         # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
@@ -48,10 +48,10 @@ if __name__ == '__main__':
         {"role": "user", "content": content + '\nrewrite:'}
     ]
     chatgpt = ChatGPT()
-    # res_summary = chatgpt.get_response(messages_summary)
+    res_summary = chatgpt.get_response(messages_summary)
     # res_explain = chatgpt.get_response(messages_explain)
     # res_simplify = chatgpt.get_response(messages_simplify)
     # res_extract = chatgpt.get_response(messages_extract)
-    messages_rewrite = chatgpt.get_response(messages_rewrite)
+    # messages_rewrite = chatgpt.get_response(messages_rewrite)
 
     # res_split = res_extract.split()
