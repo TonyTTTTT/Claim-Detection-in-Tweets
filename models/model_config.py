@@ -18,9 +18,9 @@ model_path = 'roberta-large'
 
 
 # learning_rate = 3e-5 # clef2022 1a
-learning_rate = 2e-5 # clef2022 1b
+learning_rate = 1e-5 # clef2022 1b
 num_train_epochs = 50
-warm_up_epochs = 10
+warm_up_epochs = 5
 
 # ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
 lr_scheduler_type = "linear"
@@ -30,5 +30,5 @@ device_num = 2
 dataset = 'CLEF2022_1b'
 
 preprocess_function = rewrite_by_GPT
-concate_frames_num = 3
-do_normalize = True
+concate_frames_num = 5
+do_normalize = False

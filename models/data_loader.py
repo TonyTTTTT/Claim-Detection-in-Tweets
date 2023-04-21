@@ -175,7 +175,7 @@ class DataLoader:
             dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')
             test_encodings = self.tokenizer(test_texts, truncation=True, padding='max_length')
         else:
-            self.tokenizer.model_max_length = 128
+            self.tokenizer.model_max_length = 256
 
             train_encodings = self.tokenizer(train_texts, truncation=True, padding='max_length')
             dev_encodings = self.tokenizer(dev_texts, truncation=True, padding='max_length')

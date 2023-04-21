@@ -16,7 +16,7 @@ class ChatGPT:
         res = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=messages,
-            # temperature=0,
+            temperature=0,
         )
         print('GPT input: {}'.format((messages)))
         print('GPT input #words: {}'.format(len(messages[-1]['content'].split())))
@@ -27,7 +27,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "As a member of @ETHPnews, we’re proud to share we are operating two #COVID19 Immunization Clinics that, this week, will administer vaccines to eligible priority populations in #EastToronto, including health care workers and adults 80+. Learn more: HTTPURL HTTPURL"
+    content = "India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt"
     messages_summary = [
         {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummary:"},
@@ -44,8 +44,8 @@ if __name__ == '__main__':
         {"role": "user", "content": content}
     ]
     messages_rewrite = [
-        {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
-        {"role": "user", "content": content + '\nrephrase:'}
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user", "content": content + '\nrewrite:'}
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
