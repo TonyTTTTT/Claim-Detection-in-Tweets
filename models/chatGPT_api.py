@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "Y’all dirty mfs brought corona home from Miami &amp; now it’s increased by 88% in 48HRS ...."
+    content = "FRIENDS. The stuff about nature healing and wildlife returning because of COVID-19 is fake. https://t.co/IlVdiSdlun"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
