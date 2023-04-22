@@ -18,40 +18,59 @@ class ChatGPT:
             messages=messages,
             temperature=0,
         )
+        print('=============================')
         print('GPT input: {}'.format((messages)))
         print('GPT input #words: {}'.format(len(messages[-1]['content'].split())))
         print('GPT response: {}'.format(res.choices[0].message.content.strip()))
         print('GPT response #words: {}'.format(len(res.choices[0].message.content.strip().split())))
+        print('=============================')
+
 
         return res.choices[0].message.content.strip()
 
 
 if __name__ == '__main__':
-    content = "India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt"
+    content = "Y’all dirty mfs brought corona home from Miami &amp; now it’s increased by 88% in 48HRS ...."
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
     ]
     messages_explain = [
         # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
-        {"role": "user", "content": content+"\nexplain:"}
+        {"role": "user", "content": content+'\nexplain this tweet:'}
     ]
     messages_simplify = [
         {"role": "user", "content": content+"\nsimplify:"}
     ]
+    messages_simplify_v2 = [
+         # {"role": "system", "content": "You are helping me simplify a tweet."},
+        {"role": "user", "content": content+"\nclarify:"}
+    ]
     messages_extract = [
-        {"role": "system", "content": "What is the main argument or point being made in the statement?"},
+        {"role": "system", "content": "What is the main argument or point being made in the following tweet?"},
         {"role": "user", "content": content}
+    ]
+    messages_extract_v2 = [
+        # {"role": "system", "content": "You are helping me process a tweet."},
+        {"role": "user", "content": "What is the main argument or point being made in the following tweet?" + content}
+    ]
+    messages_extract_v3 = [
+        {"role": "system", "content": "You are helping me process a tweet."},
+        {"role": "user", "content": "What is the main argument or point being made in the following tweet?" + content}
     ]
     messages_rewrite = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user", "content": content + '\nrewrite:'}
     ]
     chatgpt = ChatGPT()
-    res_summary = chatgpt.get_response(messages_summary)
-    # res_explain = chatgpt.get_response(messages_explain)
-    # res_simplify = chatgpt.get_response(messages_simplify)
+    # res_summary = chatgpt.get_response(messages_summary)
+    res_explain = chatgpt.get_response(messages_explain)
+    res_simplify = chatgpt.get_response(messages_simplify)
+    res_simplify_v2 = chatgpt.get_response(messages_simplify_v2)
+
     # res_extract = chatgpt.get_response(messages_extract)
+    # res_extract_v2 = chatgpt.get_response(messages_extract_v2)
+    # res_extract_v3 = chatgpt.get_response(messages_extract_v3)
     # messages_rewrite = chatgpt.get_response(messages_rewrite)
 
     # res_split = res_extract.split()
