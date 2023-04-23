@@ -49,10 +49,10 @@ training_args = TrainingArguments(
     per_device_train_batch_size=per_device_train_batch_size,
     # per_device_eval_batch_size=64,
 
-    # learning_rate=learning_rate,
-    # num_train_epochs=num_train_epochs,
+    learning_rate=learning_rate,
+    num_train_epochs=num_train_epochs,
     # adam_epsilon=2.5e-9,
-    # warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
+    warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
     # no_cuda=True,
     # lr_scheduler_type=lr_scheduler_type,
