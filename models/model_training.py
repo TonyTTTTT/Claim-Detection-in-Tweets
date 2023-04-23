@@ -6,8 +6,21 @@ from data_loader import DataLoader, compute_metrics
 from model_config import *
 import transformers
 import torch
+from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+
+
+class CustomTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False):
+        labels = inputs.get("labels")
+        # forward pass
+        outputs = model(**inputs)
+        logits = outputs.get("logits")
+        # compute custom loss (suppose one has 3 labels with different weights)
+        loss_fct = nn.CrossEntropyLoss(weight=torch.tensor([1.73, 1.0]))
+        loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
+        return (loss, outputs) if return_outputs else loss
 
 
 dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
@@ -60,7 +73,7 @@ training_args = TrainingArguments(
 )
 
 # No1 team treat dev dataset as eval_dataset, so here I do the same
-trainer = Trainer(
+trainer = CustomTrainer(
     model_init=model_init,
     args=training_args,                  # training arguments, defined above
     train_dataset=train_dataset,         # training dataset
