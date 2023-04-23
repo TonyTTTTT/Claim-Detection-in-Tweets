@@ -10,15 +10,16 @@ from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 class CustomTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
-        labels = inputs.get("labels")
+        labels = inputs.get("labels").to(device)
         # forward pass
-        outputs = model(**inputs)
-        logits = outputs.get("logits")
+        outputs = model(**inputs).to(device)
+        logits = outputs.get("logits").to(device)
         # compute custom loss (suppose one has 3 labels with different weights)
-        loss_fct = nn.CrossEntropyLoss(weight=torch.tensor([1.73, 1.0]))
+        loss_fct = nn.CrossEntropyLoss(weight=torch.tensor([1.73, 1.0])).to(device)
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
         return (loss, outputs) if return_outputs else loss
 
