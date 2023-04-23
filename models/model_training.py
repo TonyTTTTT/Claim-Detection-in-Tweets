@@ -16,7 +16,7 @@ class CustomTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
         labels = inputs.get("labels").to(device)
         # forward pass
-        outputs = model(**inputs).to(device)
+        outputs = model(**inputs)
         logits = outputs.get("logits").to(device)
         # compute custom loss (suppose one has 3 labels with different weights)
         loss_fct = nn.CrossEntropyLoss(weight=torch.tensor([1.73, 1.0])).to(device)
