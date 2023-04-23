@@ -68,7 +68,7 @@ training_args = TrainingArguments(
     warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
     # no_cuda=True,
-    # lr_scheduler_type=lr_scheduler_type,
+    lr_scheduler_type=lr_scheduler_type,
     # seed=42,
 )
 
