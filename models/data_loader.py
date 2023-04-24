@@ -36,6 +36,7 @@ class DataLoader:
         self.dev_dataset = []
         self.test_dataset = []
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
+        self.dataset = dataset
 
         if dataset == 'CLEF2021':
             self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
@@ -57,6 +58,10 @@ class DataLoader:
                             'CT22_english_1B_claim_dev.tsv'
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
+        elif dataset == 'LESA':
+            self.train_path = '../dataset/twitter_train.tsv'
+            self.dev_path = '../dataset/twitter_test.tsv'
+            self.test_path = '../dataset/twitter_test.tsv'
         else:
             self.train_path = 'preprocess_datasets_tsv/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':
@@ -77,7 +82,8 @@ class DataLoader:
         ids = []
         topic_ids = []
 
-        if data.columns[-1] != 'class_label' and data.columns[-1] != 'check_worthiness':
+        if data.columns[-1] != 'class_label' and data.columns[-1] != 'check_worthiness'\
+                and data.columns[-1] != 'claim':
             for row in data.iterrows():
                 # get the tweet_text field
                 texts.append(row[1].values[-1])

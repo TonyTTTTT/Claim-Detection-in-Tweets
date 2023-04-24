@@ -27,8 +27,8 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 8
 device_num = 2
 
-dataset = 'CLEF2022_1b'
+dataset = 'LESA'
 
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
 concate_frames_num = 5
 do_normalize = False
