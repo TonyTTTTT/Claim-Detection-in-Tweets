@@ -9,12 +9,12 @@ from data_preprocess_methods import none_operation, concate_frames, rewrite_by_G
 # size of GPT3: 175 billion
 
 # size: 123 million
-# model_path = 'roberta-base'
+model_path = 'roberta-base'
 
 # size: 354 million
 # model_path = 'roberta-large'
 
-model_path = 'bert-base-uncased'
+# model_path = 'bert-base-uncased'
 
 
 # learning_rate = 3e-5 # clef2022 1a
