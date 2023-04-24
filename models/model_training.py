@@ -33,8 +33,11 @@ def model_init():
     configuration = AutoConfig.from_pretrained(model_path)
     # configuration.hidden_dropout_prob = 0.3
     # configuration.attention_probs_dropout_prob = 0.1
-    # model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
-    model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
+
+    if model_path.startswith('roberta'):
+        model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
+    elif model_path.startswith('bert'):
+        model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
 
     # model.classifier.dropout.p = 0.5
     # for i in range(len(trainer.model.roberta.encoder.layer)):
