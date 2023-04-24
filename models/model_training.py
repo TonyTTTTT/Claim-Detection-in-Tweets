@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
+
 class CustomTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False):
         labels = inputs.get("labels").to(device)
@@ -74,7 +75,7 @@ training_args = TrainingArguments(
 )
 
 # No1 team treat dev dataset as eval_dataset, so here I do the same
-trainer = CustomTrainer(
+trainer = Trainer(
     model_init=model_init,
     args=training_args,                  # training arguments, defined above
     train_dataset=train_dataset,         # training dataset
