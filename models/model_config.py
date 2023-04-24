@@ -12,14 +12,14 @@ from data_preprocess_methods import none_operation, concate_frames, rewrite_by_G
 # model_path = 'roberta-base'
 
 # size: 354 million
-model_path = 'roberta-large'
+# model_path = 'roberta-large'
 
-# model_path = 'bert-base-uncased'
+model_path = 'bert-base-uncased'
 
 
 # learning_rate = 3e-5 # clef2022 1a
-learning_rate = 1e-6 # clef2022 1b
-num_train_epochs = 10
+learning_rate = 2e-5 # clef2022 1b
+num_train_epochs = 3
 warm_up_epochs = 2
 
 # ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
@@ -29,6 +29,6 @@ device_num = 2
 
 dataset = 'LESA'
 
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
 do_normalize = False

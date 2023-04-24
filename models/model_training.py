@@ -33,7 +33,9 @@ def model_init():
     configuration = AutoConfig.from_pretrained(model_path)
     # configuration.hidden_dropout_prob = 0.3
     # configuration.attention_probs_dropout_prob = 0.1
-    model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
+    # model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
+    model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
+
     # model.classifier.dropout.p = 0.5
     # for i in range(len(trainer.model.roberta.encoder.layer)):
     #     try:
@@ -67,10 +69,10 @@ training_args = TrainingArguments(
     learning_rate=learning_rate,
     num_train_epochs=num_train_epochs,
     # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
+    # warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
     # no_cuda=True,
-    lr_scheduler_type=lr_scheduler_type,
+    # lr_scheduler_type=lr_scheduler_type,
     # seed=42,
 )
 
