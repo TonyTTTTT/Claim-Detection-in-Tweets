@@ -167,7 +167,7 @@ class DataLoader:
         dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw,
                                                                                  dev_labels, dataset, 'dev',
                                                                                  concate_frames_num)
-                                                            test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids,
+        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids,
                                                                                      test_texts_raw, test_labels,
                                                                                      dataset, 'test',
                                                                                      concate_frames_num)
