@@ -64,7 +64,7 @@ training_args = TrainingArguments(
     logging_strategy='epoch',
     # save_steps=10000,
     save_strategy="no",
-    logging_first_step=False,
+    logging_first_step=True,
 
     per_device_train_batch_size=per_device_train_batch_size,
     # per_device_eval_batch_size=64,
