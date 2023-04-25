@@ -93,6 +93,7 @@ def split_into_sentences(*args):
     for i in range(0, len(texts)):
         sentences = texts[i].split('.')
         sentences = list(filter(lambda a: a != '', sentences))
+        sentences = list(filter(lambda a: a != ' ', sentences))
 
         for sentence in sentences:
             texts_aug.append(sentence.strip())
