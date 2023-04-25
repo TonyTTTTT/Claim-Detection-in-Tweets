@@ -125,7 +125,9 @@ def calculate_article_score_from_sentence(test_dataset, output):
     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
     acc = accuracy_score(labels, predictions.argmax(axis=-1))
     confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
-    print('f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'.format(f1, acc, confusionMatrix))
+    print('\n=================================\n'
+          'f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
+          '\n=================================\n'.format(f1, acc, confusionMatrix))
 
 
 dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=dataset,
