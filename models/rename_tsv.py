@@ -1,7 +1,7 @@
 import os
 
 
-path = 'preprocess_datasets_tsv/'
+path = 'preprocess_datasets_GPT/'
 
 for f in os.listdir(path):
     new_name = f

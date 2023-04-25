@@ -31,14 +31,33 @@ def read_df_to_lists(data):
     return ids, topic_ids, texts, labels
 
 
-def check_if_exist(dataset):
-    if os.path.exists('preprocess_datasets/{}.pkl'.format(dataset)):
-        print('======================\nload pkl from preprocess_datasets/{}.pkl'
+def check_if_exist_old(dataset):
+    if os.path.exists('preprocess_datasets_SRL/{}.pkl'.format(dataset)):
+        print('======================\nload pkl from preprocess_datasets_SRL/{}.pkl'
               '\n======================='.format(dataset))
-        with open('preprocess_datasets/{}.pkl'.format(dataset), 'rb') as f:
+        with open('preprocess_datasets_SRL/{}.pkl'.format(dataset), 'rb') as f:
             preprocessed_dataset = pickle.load(f)
         return preprocessed_dataset
     return False
+
+
+def check_if_exist(preprocess_dataset_name, method_type):
+    if os.path.exists('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name)):
+        data = pd.read_csv('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name), sep='\t')
+        ids, topic_ids, texts, labels = read_df_to_lists(data)
+        print("===================\nload from preprocess_datasets_{}/{}.tsv"
+              "\n=====================".format(method_type, preprocess_dataset_name))
+        return ids, topic_ids, texts, labels
+
+    return False
+
+
+def write_to_tsv(topic_ids, ids, texts_aug, labels, preprocess_dataset_name, method_type):
+    df = pd.DataFrame(list(zip(topic_ids, ids, texts_aug, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    df['tweet_id'] = df['tweet_id'].astype(str)
+    print('=====================\nwrite tsv to preprocess_datasets_{}/{}.tsv'
+          '\n============================='.format(method_type, preprocess_dataset_name))
+    df.to_csv('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name), sep='\t', index=False)
 
 
 def none_operation(*args):
@@ -47,6 +66,102 @@ def none_operation(*args):
     texts = args[2]
     labels = args[3]
     return ids, topic_ids, texts, labels
+
+
+def split_into_sentences(*args):
+    '''
+    extract all frames, cocate them and return
+    '''
+    ids = args[0]
+    topic_ids = args[1]
+    texts = args[2]
+    labels = args[3]
+    dataset = args[4]
+    part = args[5]
+
+    preprocess_dataset_name = '{}_sentence_level_{}'.format(dataset, part)
+
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'sentence')
+    if preprocessed_dataset:
+        return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3]
+
+    ids_aug = []
+    topic_ids_aug = []
+    texts_aug = []
+    labels_aug = []
+    print('=======================\nSplit into sentences\n========================')
+    for i in range(0, len(texts)):
+        sentences = texts[i].split('.')
+        sentences = list(filter(lambda a: a != '', sentences))
+
+        for sentence in sentences:
+            texts_aug.append(sentence.strip())
+            ids_aug.append(ids[i])
+            topic_ids_aug.append(topic_ids[i])
+            labels_aug.append(labels[i])
+
+    write_to_tsv(topic_ids_aug, ids_aug, texts_aug, labels_aug, preprocess_dataset_name, 'sentence')
+    # print('=====================\nwrite pkl to preprocess_datasets_SRL/{}.pkl'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # with open('preprocess_datasets_SRL/{}.pkl'.format(preprocess_dataset_name), 'wb') as f:
+    #     pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
+
+    return ids_aug, topic_ids_aug, texts_aug, labels_aug
+
+
+def split_into_frames(*args):
+    '''
+    extract all frames, cocate them and return
+    '''
+    ids = args[0]
+    topic_ids = args[1]
+    texts = args[2]
+    labels = args[3]
+    dataset = args[4]
+    part = args[5]
+
+    preprocess_dataset_name = '{}_frames_level_{}'.format(dataset, part)
+
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'SRL')
+    if preprocessed_dataset:
+        return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3]
+
+    predictor = SRLPredictor()
+    ids_aug = []
+    topic_ids_aug = []
+    texts_aug = []
+    labels_aug = []
+    print('=======================\nSplit into frames\n========================')
+    for i in range(0, len(texts)):
+        res = predictor.get_frames(texts[i])
+        if res == []:
+            texts_aug.append(texts[i])
+            ids_aug.append(ids[i])
+            topic_ids_aug.append(topic_ids[i])
+            labels_aug.append(labels[i])
+        else:
+            # res = discard_similar_frame(res, concate_frames_num)
+
+            for frame in res:
+                frame = frame.strip()
+                texts_aug.append(frame)
+                ids_aug.append(ids[i])
+                topic_ids_aug.append(topic_ids[i])
+                labels_aug.append(labels[i])
+
+    write_to_tsv(topic_ids_aug, ids_aug, texts_aug, labels_aug, preprocess_dataset_name, 'SRL')
+    # print('=====================\nwrite pkl to preprocess_datasets_SRL/{}.pkl'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # with open('preprocess_datasets_SRL/{}.pkl'.format(preprocess_dataset_name), 'wb') as f:
+    #     pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
+
+    # df = pd.DataFrame(list(zip(topic_ids, ids, texts_aug, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    # df['tweet_id'] = df['tweet_id'].astype(str)
+    # print('=====================\nwrite tsv to preprocess_datasets_SRL/{}.tsv'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # df.to_csv('preprocess_datasets_SRL/{}.tsv'.format(preprocess_dataset_name), sep='\t', index=False)
+
+    return ids_aug, topic_ids_aug, texts_aug, labels_aug
 
 
 def concate_frames(*args):
@@ -63,7 +178,7 @@ def concate_frames(*args):
 
     preprocess_dataset_name = '{}_top_{}_{}'.format(dataset, concate_frames_num, part)
 
-    preprocessed_dataset = check_if_exist(preprocess_dataset_name)
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'SRL')
     if preprocessed_dataset:
         return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3]
 
@@ -94,10 +209,17 @@ def concate_frames(*args):
             topic_ids_aug.append(topic_ids[i])
             labels_aug.append(labels[i])
 
-    print('=====================\nwrite pkl to preprocess_datasets/{}.pkl'
-          '\n============================='.format(preprocess_dataset_name))
-    with open('preprocess_datasets/{}.pkl'.format(preprocess_dataset_name), 'wb') as f:
-        pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
+    write_to_tsv(topic_ids_aug, ids_aug, texts_aug, labels_aug, preprocess_dataset_name, 'SRL')
+    # print('=====================\nwrite pkl to preprocess_datasets_SRL/{}.pkl'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # with open('preprocess_datasets_SRL/{}.pkl'.format(preprocess_dataset_name), 'wb') as f:
+    #     pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
+
+    # df = pd.DataFrame(list(zip(topic_ids, ids, texts_aug, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    # df['tweet_id'] = df['tweet_id'].astype(str)
+    # print('=====================\nwrite tsv to preprocess_datasets_SRL/{}.tsv'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # df.to_csv('preprocess_datasets_SRL/{}.tsv'.format(preprocess_dataset_name), sep='\t', index=False)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
 
@@ -163,12 +285,16 @@ def rewrite_by_GPT(*args):
     rewrite_method = 'rewrite_by_GPT'
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
-    if os.path.exists('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name)):
-        data = pd.read_csv('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name), sep='\t')
-        ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("===================\nload from preprocess_datasets_tsv/{}.tsv"
-              "\n=====================".format(preprocess_dataset_name))
-        return ids, topic_ids, texts, labels
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
+    if preprocessed_dataset:
+        return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3]
+
+    # if os.path.exists('preprocess_datasets_GPT/{}.tsv'.format(preprocess_dataset_name)):
+    #     data = pd.read_csv('preprocess_datasets_GPT/{}.tsv'.format(preprocess_dataset_name), sep='\t')
+    #     ids, topic_ids, texts, labels = read_df_to_lists(data)
+    #     print("===================\nload from preprocess_datasets_GPT/{}.tsv"
+    #           "\n=====================".format(preprocess_dataset_name))
+    #     return ids, topic_ids, texts, labels
 
     chatgpt = ChatGPT()
     texts_rewrite = []
@@ -182,11 +308,12 @@ def rewrite_by_GPT(*args):
         # print('res split by next line: {}'.format(res))
         texts_rewrite.append(res)
 
-    df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
-    df['tweet_id'] = df['tweet_id'].astype(str)
-    print('=====================\nwrite tsv to preprocess_datasets_tsv/{}.pkl'
-          '\n============================='.format(preprocess_dataset_name))
-    df.to_csv('preprocess_datasets_tsv/{}.tsv'.format(preprocess_dataset_name), sep='\t', index=False)
+    write_to_tsv(topic_ids, ids, texts_rewrite, labels, preprocess_dataset_name, 'GPT')
+    # df = pd.DataFrame(list(zip(topic_ids, ids, texts_rewrite, labels)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
+    # df['tweet_id'] = df['tweet_id'].astype(str)
+    # print('=====================\nwrite tsv to preprocess_datasets_GPT/{}.tsv'
+    #       '\n============================='.format(preprocess_dataset_name))
+    # df.to_csv('preprocess_datasets_GPT/{}.tsv'.format(preprocess_dataset_name), sep='\t', index=False)
 
     return ids, topic_ids, texts_rewrite, labels
 
@@ -199,7 +326,7 @@ if __name__ == '__main__':
     labels = [0, 1]
     dataset = 'GGG'
     part = 'train'
-    concate_frames_num = 5
+    concate_frames_num = 3
 
-    ids_aug, topic_ids_aug, texts_aug, labels_aug = concate_frames(ids, topic_ids, texts, labels, dataset,
+    ids_aug, topic_ids_aug, texts_aug, labels_aug = rewrite_by_GPT(ids, topic_ids, texts, labels, dataset,
                                                                    part, concate_frames_num)

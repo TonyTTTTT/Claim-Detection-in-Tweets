@@ -8,7 +8,8 @@ import transformers
 import torch
 from torch import nn
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+from data_preprocess_methods import split_into_sentences, split_into_frames
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -75,7 +76,7 @@ training_args = TrainingArguments(
     warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
     # no_cuda=True,
-    # lr_scheduler_type=lr_scheduler_type,
+    lr_scheduler_type=lr_scheduler_type,
     # seed=42,
 )
 
@@ -95,32 +96,50 @@ print("==========================")
 result = trainer.evaluate()
 print("==========================")
 output = trainer.predict(test_dataset)
+print("==========================")
 
-# if dataloader.preprocess_function == extract_all_frames:
-#     current_id = None
-#     predction_sum = None
-#     predictions = []
-#     labels = []
-#     current_id = test_dataset.ids[0]
-#     predction_sum = np.array(output.predictions[0])
-#     cnt = 1
-#     for i in range(1, len(test_dataset.ids)):
-#         if test_dataset.ids[i] != current_id:
-#             predictions.append(predction_sum/cnt)
-#             labels.append(test_dataset.labels[i-1])
-#             current_id = test_dataset.ids[i]
-#             cnt = 1
-#             predction_sum = np.array(output.predictions[i])
-#         else:
-#             cnt += 1
-#             predction_sum += np.array(output.predictions[i])
-#
-#     predictions.append(predction_sum / cnt)
-#     labels.append(test_dataset.labels[i])
-#     predictions = np.array(predictions)
-#
-#     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
-#     print('f1 at article-level: {}'.format(f1))
+
+def calculate_article_score_from_sentence(test_dataset, output):
+    current_id = None
+    prediction_sum = None
+    predictions = []
+    labels = []
+    current_id = test_dataset.ids[0]
+    prediction_sum = np.array(output.predictions[0])
+    cnt = 1
+    for i in range(1, len(test_dataset.ids)):
+        if test_dataset.ids[i] != current_id:
+            predictions.append(prediction_sum/cnt)
+            labels.append(test_dataset.labels[i-1])
+            current_id = test_dataset.ids[i]
+            cnt = 1
+            prediction_sum = np.array(output.predictions[i])
+        else:
+            cnt += 1
+            prediction_sum += np.array(output.predictions[i])
+
+    predictions.append(prediction_sum / cnt)
+    labels.append(test_dataset.labels[i])
+    predictions = np.array(predictions)
+
+    precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
+    acc = accuracy_score(labels, predictions.argmax(axis=-1))
+    confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
+    print('f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'.format(f1, acc, confusionMatrix))
+
+
+dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=dataset,
+                        do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+output = trainer.predict(test_dataset)
+calculate_article_score_from_sentence(test_dataset, output)
+
+dataloader = DataLoader(preprocess_function=split_into_frames, dataset=dataset,
+                        do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+output = trainer.predict(test_dataset)
+calculate_article_score_from_sentence(test_dataset, output)
+
 
 # trainer.save_model('results/final')
 

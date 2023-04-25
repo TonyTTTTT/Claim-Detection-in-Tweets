@@ -17,17 +17,21 @@ model_path = 'roberta-base'
 # model_path = 'bert-base-uncased'
 
 
-# learning_rate = 3e-5 # clef2022 1a
-learning_rate = 2e-5 # clef2022 1b
-num_train_epochs = 3
-warm_up_epochs = 2
+# learning_rate = 3e-5  # clef2022 1a
+# learning_rate = 1e-6  # clef2022 1b server
+learning_rate = 5e-7  # clef2022 1b local
+
+# num_train_epochs = 10  # clef2022 1b server
+num_train_epochs = 5  # clef2022 1b local
+
+warm_up_epochs = 1
 
 # ['linear', 'cosine', 'cosine_with_restarts', 'polynomial', 'constant', 'constant_with_warmup']
 lr_scheduler_type = "constant_with_warmup"
-per_device_train_batch_size = 8
-device_num = 2
+per_device_train_batch_size = 4
+device_num = 1
 
-dataset = 'LESA'
+dataset = 'CLEF2022_1b'
 
 preprocess_function = none_operation
 concate_frames_num = 5

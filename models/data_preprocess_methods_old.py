@@ -32,9 +32,9 @@ def read_df_to_lists(data):
 
 
 def check_if_exist(dataset):
-    if os.path.exists('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name)):
-        print('load pkl from preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name))
-        with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name),'rb') as f:
+    if os.path.exists('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name)):
+        print('load pkl from preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name))
+        with open('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(1).f_code.co_name),'rb') as f:
             preprocessed_dataset = pickle.load(f)
         return preprocessed_dataset
     return False
@@ -74,8 +74,8 @@ def convert_to_srl_tag(ids, topic_ids, texts, labels, dataset):
             texts_aug.append(texts[i])
             labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
-    with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
+    print('write pkl to preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
+    with open('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
@@ -115,8 +115,8 @@ def insert_srl_tag(ids, topic_ids, texts, labels, dataset):
             texts_aug.append(texts[i])
             labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
-    with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
+    print('write pkl to preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
+    with open('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
@@ -158,8 +158,8 @@ def extract_to_sentence_level(ids, topic_ids, texts, labels, dataset):
             texts_aug.append(texts[i])
             labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
-    with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
+    print('write pkl to preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
+    with open('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug
@@ -193,8 +193,8 @@ def extract_all_frames(ids, topic_ids, texts, labels, dataset):
                 topic_ids_aug.append(topic_ids[i])
                 labels_aug.append(labels[i])
 
-    print('write pkl to preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
-    with open('preprocess_datasets/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
+    print('write pkl to preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name))
+    with open('preprocess_datasets_SRL/{}_{}.pkl'.format(dataset, sys._getframe(0).f_code.co_name), 'wb') as f:
         pickle.dump([ids_aug, topic_ids_aug, texts_aug, labels_aug], f)
 
     return ids_aug, topic_ids_aug, texts_aug, labels_aug

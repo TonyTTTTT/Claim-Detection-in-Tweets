@@ -49,9 +49,9 @@ elif dataset == 'CLEF20221b':
     test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                      'CT22_english_1B_claim_test_gold.tsv'
 
-train_path_GPT = 'preprocess_datasets_tsv/CLEF2022_train_simplify_by_GPT.tsv'
-dev_path_GPT = 'preprocess_datasets_tsv/CLEF2022_dev_explain_by_GPT.tsv'
-test_path_GPT = 'preprocess_datasets_tsv/CLEF2022_test_explain_by_GPT.tsv'
+train_path_GPT = 'preprocess_datasets_GPT/CLEF2022_train_simplify_by_GPT.tsv'
+dev_path_GPT = 'preprocess_datasets_GPT/CLEF2022_dev_explain_by_GPT.tsv'
+test_path_GPT = 'preprocess_datasets_GPT/CLEF2022_test_explain_by_GPT.tsv'
 
 train_data_GPT = pd.read_csv(train_path_GPT, sep='\t', dtype=str)
 dev_data_GPT = pd.read_csv(dev_path_GPT, sep='\t', dtype=str)
@@ -90,6 +90,6 @@ df_dev = pd.DataFrame(list(zip(dev_topic_ids, dev_ids, dev_texts, dev_labels)),
 df_test = pd.DataFrame(list(zip(test_topic_ids, test_ids, test_texts, test_labels)),
                   columns=['topic', 'tweet_id', 'tweet_text', 'class_label'])
 
-df_train.to_csv('preprocess_datasets_tsv/{}_train_concatenated.tsv'.format(dataset), sep='\t', index=False)
-df_dev.to_csv('preprocess_datasets_tsv/{}_dev_concatenated.tsv'.format(dataset), sep='\t', index=False)
-df_test.to_csv('preprocess_datasets_tsv/{}_test_concatenated.tsv'.format(dataset), sep='\t', index=False)
+df_train.to_csv('preprocess_datasets_GPT/{}_train_concatenated.tsv'.format(dataset), sep='\t', index=False)
+df_dev.to_csv('preprocess_datasets_GPT/{}_dev_concatenated.tsv'.format(dataset), sep='\t', index=False)
+df_test.to_csv('preprocess_datasets_GPT/{}_test_concatenated.tsv'.format(dataset), sep='\t', index=False)
