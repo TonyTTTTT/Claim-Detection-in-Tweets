@@ -37,6 +37,7 @@ class DataLoader:
         self.test_dataset = []
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
         self.dataset = dataset
+        self.preprocess_dataset_name = None
 
         if dataset == 'CLEF2021':
             self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
@@ -62,7 +63,7 @@ class DataLoader:
             self.train_path = '../dataset/twitter_train.tsv'
             self.dev_path = '../dataset/twitter_test.tsv'
             self.test_path = '../dataset/twitter_test.tsv'
-        else:
+        elif 'GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':
                 self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/' \
@@ -72,6 +73,10 @@ class DataLoader:
             else:
                 self.dev_path = 'preprocess_datasets_GPT/' + dataset + '_dev.tsv'
                 self.test_path = 'preprocess_datasets_GPT/' + dataset + '_test.tsv'
+        elif 'top' in dataset:
+            self.train_path = 'preprocess_datasets_SRL/' + dataset + '_train.tsv'
+            self.dev_path = 'preprocess_datasets_SRL/' + dataset + '_dev.tsv'
+            self.test_path = 'preprocess_datasets_SRL/' + dataset + '_test.tsv'
 
         self.read_data(dataset, do_normalize, concate_frames_num)
 
@@ -160,17 +165,19 @@ class DataLoader:
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)
 
-        train_ids, train_topic_ids, train_texts, train_labels = self.preprocess_function(train_ids, train_topic_ids,
+        train_ids, train_topic_ids, train_texts, train_labels, preprocess_dataset_name = self.preprocess_function(train_ids, train_topic_ids,
                                                                                          train_texts_raw, train_labels,
                                                                                          dataset, 'train',
                                                                                          concate_frames_num)
-        dev_ids, dev_topic_ids, dev_texts, dev_labels = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw,
+        dev_ids, dev_topic_ids, dev_texts, dev_labels, preprocess_dataset_name = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw,
                                                                                  dev_labels, dataset, 'dev',
                                                                                  concate_frames_num)
-        test_ids, test_topic_ids, test_texts, test_labels = self.preprocess_function(test_ids, test_topic_ids,
+        test_ids, test_topic_ids, test_texts, test_labels, preprocess_dataset_name = self.preprocess_function(test_ids, test_topic_ids,
                                                                                      test_texts_raw, test_labels,
                                                                                      dataset, 'test',
                                                                                      concate_frames_num)
+
+        self.preprocess_dataset_name = preprocess_dataset_name
 
         if model_path == "vinai/bertweet-covid19-base-uncased":
             # if model_max_length < 64 or > 128, it will occur error when training with bertweet, maybe the reason is

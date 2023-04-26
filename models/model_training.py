@@ -130,13 +130,15 @@ def calculate_article_score_from_sentence(test_dataset, output):
           '\n=================================\n'.format(f1, acc, confusionMatrix))
 
 
-dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=dataset,
+preprocess_dataset_name = dataloader.preprocess_dataset_name
+
+dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
                         do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 output = trainer.predict(test_dataset)
 calculate_article_score_from_sentence(test_dataset, output)
 
-dataloader = DataLoader(preprocess_function=split_into_frames, dataset=dataset,
+dataloader = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
                         do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 output = trainer.predict(test_dataset)

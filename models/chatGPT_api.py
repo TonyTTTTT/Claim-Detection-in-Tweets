@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "FRIENDS. The stuff about nature healing and wildlife returning because of COVID-19 is fake. https://t.co/IlVdiSdlun"
+    content = "#Enugu govt takes delivery of #COVID19vaccines Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of #oxfordastrazeneca COVID-19 vaccines from @NphcdaNG, at Enugu Airport... https://t.co/srx1CWZqtK @Coal_City #COVID19 https://t.co/PrO9GSiXuv"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
@@ -64,13 +64,13 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    res_explain = chatgpt.get_response(messages_explain)
-    res_simplify = chatgpt.get_response(messages_simplify)
-    res_simplify_v2 = chatgpt.get_response(messages_simplify_v2)
+    # res_explain = chatgpt.get_response(messages_explain)
+    # res_simplify = chatgpt.get_response(messages_simplify)
+    # res_simplify_v2 = chatgpt.get_response(messages_simplify_v2)
 
     # res_extract = chatgpt.get_response(messages_extract)
     # res_extract_v2 = chatgpt.get_response(messages_extract_v2)
     # res_extract_v3 = chatgpt.get_response(messages_extract_v3)
-    # messages_rewrite = chatgpt.get_response(messages_rewrite)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
 
     # res_split = res_extract.split()
