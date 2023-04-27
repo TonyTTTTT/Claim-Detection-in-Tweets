@@ -4,6 +4,8 @@ import sys
 from srl_predictor import SRLPredictor
 from chatGPT_api import ChatGPT
 import pandas as pd
+import nltk
+import nltk.data
 
 
 def read_df_to_lists(data):
@@ -92,11 +94,15 @@ def split_into_sentences(*args):
     topic_ids_aug = []
     texts_aug = []
     labels_aug = []
+
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     print('=======================\nSplit into sentences\n========================')
     for i in range(0, len(texts)):
-        sentences = texts[i].split('.')
-        sentences = list(filter(lambda a: a != '', sentences))
-        sentences = list(filter(lambda a: a != ' ', sentences))
+        # sentences = texts[i].split('.')
+        # sentences = list(filter(lambda a: a != '', sentences))
+        # sentences = list(filter(lambda a: a != ' ', sentences))
+
+        sentences = tokenizer.tokenize(texts[i])
 
         for sentence in sentences:
             texts_aug.append(sentence.strip())
@@ -293,12 +299,12 @@ def rewrite_by_GPT(*args):
 if __name__ == '__main__':
     ids = [23423, 1161]
     topic_ids = ['pig', 'cat']
-    texts = ["India has sent 100,000 doses of COVID-19 vaccines to Barbados, and they arrived earlier today. This is a significant and meaningful gesture, and the people of Barbados are grateful to the Prime Minister of India, Mr. Modi, for his prompt and generous decision to send these vaccines. Thank you, Mr. Modi.",
+    texts = ["India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt",
              "Being a part of @ETHPnews, we are delighted to announce that we have established two #COVID19 Immunization Clinics in #EastToronto. This week, these clinics will provide vaccines to eligible priority groups, such as health care workers and individuals over 80 years old. For more information, please visit: https://t.co/t890KePvBG https://t.co/We2EdhFitS."]
     labels = [0, 1]
     dataset = 'GGG'
     part = 'train'
     concate_frames_num = 3
 
-    ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name = split_into_frames(ids, topic_ids, texts, labels, dataset,
+    ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name = split_into_sentences(ids, topic_ids, texts, labels, dataset,
                                                                    part, concate_frames_num)
