@@ -35,4 +35,4 @@ dataset = 'CLEF2022_1b'
 
 preprocess_function = none_operation
 concate_frames_num = 5
-do_normalize = False
+do_normalize = True

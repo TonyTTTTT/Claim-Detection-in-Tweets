@@ -28,19 +28,12 @@ def normalizeToken(token):
         
 def delToken(token):
     lowercased_token = token.lower()
-    if token.startswith("@"):
-        return ""
-    elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
-        return ""
-    elif len(token) == 1:
+    # if token.startswith("@"):
+    #     return ""
+    if lowercased_token.startswith("http") or lowercased_token.startswith("www"):
         return ""
     else:
-        if token == "’":
-            return "'"
-        elif token == "…":
-            return "..."
-        else:
-            return token
+        return token
 
 
 def normalizeTweet_mine(tweets):
@@ -95,31 +88,33 @@ def normalizeTweet(tweets):
 
     tweets_norm = []
     for tweet in tweets:
-        tokens = tokenizer.tokenize(tweet.replace("’", "'").replace("…", "..."))
-        normTweet = " ".join([normalizeToken(token) for token in tokens])
+        tweet = tweet.replace("’", "'").replace("…", "...")
+        # tokens = tokenizer.tokenize(tweet.replace("’", "'").replace("…", "..."))
+        tokens = tweet.split(" ")
+        normTweet = " ".join([delToken(token) for token in tokens])
         # normTweet = " ".join([delToken(token) for token in tokens])
 
-        normTweet = (
-            normTweet.replace("cannot ", "can not ")
-            .replace("n't ", " n't ")
-            .replace("n 't ", " n't ")
-            .replace("ca n't", "can't")
-            .replace("ai n't", "ain't")
-        )
-        normTweet = (
-            normTweet.replace("'m ", " 'm ")
-            .replace("'re ", " 're ")
-            .replace("'s ", " 's ")
-            .replace("'ll ", " 'll ")
-            .replace("'d ", " 'd ")
-            .replace("'ve ", " 've ")
-        )
-        normTweet = (
-            normTweet.replace(" p . m .", "  p.m.")
-            .replace(" p . m ", " p.m ")
-            .replace(" a . m .", " a.m.")
-            .replace(" a . m ", " a.m ")
-        )
+        # normTweet = (
+        #     normTweet.replace("cannot ", "can not ")
+        #     .replace("n't ", " n't ")
+        #     .replace("n 't ", " n't ")
+        #     .replace("ca n't", "can't")
+        #     .replace("ai n't", "ain't")
+        # )
+        # normTweet = (
+        #     normTweet.replace("'m ", " 'm ")
+        #     .replace("'re ", " 're ")
+        #     .replace("'s ", " 's ")
+        #     .replace("'ll ", " 'll ")
+        #     .replace("'d ", " 'd ")
+        #     .replace("'ve ", " 've ")
+        # )
+        # normTweet = (
+        #     normTweet.replace(" p . m .", "  p.m.")
+        #     .replace(" p . m ", " p.m ")
+        #     .replace(" a . m .", " a.m.")
+        #     .replace(" a . m ", " a.m ")
+        # )
         tweets_norm.append(" ".join(normTweet.split()))
     return tweets_norm
 
@@ -129,5 +124,6 @@ if __name__ == "__main__":
             'Netanyahu announcing Israel\'s new extreme measures against #corona. Orders Israelis to stop shaking hands, suggests following Indian custom of namaste instead. 🙏🏽 <link>',
             # "SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier",
             # "This is a http://totally/shit/show said @MrGG!",
+            "India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt",
             "Vaccines work by triggering a response in a person's immune system. That means some people will feel a little sore, tired or unwell after their #COVID19 vaccination. Most side effects are mild and should not last longer than a week. More on the vaccine: HTTPURL"
         ])
