@@ -28,9 +28,11 @@ def normalizeToken(token):
         
 def delToken(token):
     lowercased_token = token.lower()
-    # if token.startswith("@"):
-    #     return ""
+    if token.startswith("@"):
+        return "@USER"
     if lowercased_token.startswith("http") or lowercased_token.startswith("www"):
+        return ""
+    elif len(token)<=2 and len(demojize(token))>2:
         return ""
     else:
         return token
