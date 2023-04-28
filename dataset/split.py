@@ -31,13 +31,13 @@ twitter_train['claim'] = twitter_train['claim'].astype(int)
 twitter_test['claim'] = twitter_test['claim'].astype(int)
 
 topics = ['LESA' for i in range(0, twitter_train.shape[0])]
-tweet_ids = ['-1' for i in range(0, twitter_train.shape[0])]
+tweet_ids = [i for i in range(0, twitter_train.shape[0])]
 
 twitter_train.insert(0, 'tweet_id', tweet_ids)
 twitter_train.insert(0, 'topic', topics)
 
 topics = ['LESA' for i in range(0, twitter_test.shape[0])]
-tweet_ids = ['-1' for i in range(0, twitter_test.shape[0])]
+tweet_ids = [i+twitter_train.shape[0] for i in range(0, twitter_test.shape[0])]
 
 twitter_test.insert(0, 'tweet_id', tweet_ids)
 twitter_test.insert(0, 'topic', topics)
