@@ -28,8 +28,8 @@ def normalizeToken(token):
         
 def delToken(token):
     lowercased_token = token.lower()
-    if token.startswith("@"):
-        return "@USER"
+    # if token.startswith("@"):
+    #     return "@USER"
     if lowercased_token.startswith("http") or lowercased_token.startswith("www"):
         return ""
     elif len(token)<=2 and len(demojize(token))>2:
@@ -91,9 +91,10 @@ def normalizeTweet(tweets):
     tweets_norm = []
     for tweet in tweets:
         tweet = tweet.replace("’", "'").replace("…", "...")
-        # tokens = tokenizer.tokenize(tweet.replace("’", "'").replace("…", "..."))
-        tokens = tweet.split(" ")
+        tokens = tokenizer.tokenize(tweet.replace("’", "'").replace("…", "..."))
+        # tokens = tweet.split(" ")
         normTweet = " ".join([delToken(token) for token in tokens])
+        normTweet = normTweet.replace(" .", ".").replace(" ,", ",")
         # normTweet = " ".join([delToken(token) for token in tokens])
 
         # normTweet = (
@@ -123,6 +124,7 @@ def normalizeTweet(tweets):
 
 if __name__ == "__main__":
         r = normalizeTweet([
+            "I just voted YES for: 💵$1400 direct relief, payments 🏛Relief funding for state and local governments 💉More COVID-19 vaccines 🍽Funds to help struggling restaurants #AmericanRescuePlan.",
             'Netanyahu announcing Israel\'s new extreme measures against #corona. Orders Israelis to stop shaking hands, suggests following Indian custom of namaste instead. 🙏🏽 <link>',
             # "SC has first two presumptive cases of coronavirus, DHEC confirms https://postandcourier.com/health/covid19/sc-has-first-two-presumptive-cases-of-coronavirus-dhec-confirms/article_bddfe4ae-5fd3-11ea-9ce4-5f495366cee6.html?utm_medium=social&utm_source=twitter&utm_campaign=user-share… via @postandcourier",
             # "This is a http://totally/shit/show said @MrGG!",
