@@ -136,7 +136,7 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
     acc = accuracy_score(labels, predictions.argmax(axis=-1))
     confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
     print('\n=================================\n'
-          'using method: {}'
+          'using method: {}\n'
           'f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
           '\n=================================\n'.format(combine_method, f1, acc, confusionMatrix))
 
