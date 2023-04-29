@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "#Enugu govt takes delivery of #COVID19vaccines Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of #oxfordastrazeneca COVID-19 vaccines from @NphcdaNG, at Enugu Airport... https://t.co/srx1CWZqtK @Coal_City #COVID19 https://t.co/PrO9GSiXuv"
+    content = "ICYMI: Two groups of local elected officials have written to @govlarryhogan (R) urging him to address availability and racial equity issues with the COVID-19 vaccines in Montgomery County. @MoCoCouncilMD @repraskin @repdavidtrone @willjawando READ MORE: https://t.co/LRzLFO0MYB https://t.co/aLtBqVxLxp"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
@@ -60,7 +60,11 @@ if __name__ == '__main__':
     ]
     messages_rewrite = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
-        {"role": "user", "content": content + '\nrewrite:'}
+        {"role": "user", "content": content + "\nrewrite without over interpretation:"}
+    ]
+    messages_rewrite_v2 = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user", "content": content + "\nrewrite as a journalist and don't over interpretation:"}
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
@@ -72,5 +76,6 @@ if __name__ == '__main__':
     # res_extract_v2 = chatgpt.get_response(messages_extract_v2)
     # res_extract_v3 = chatgpt.get_response(messages_extract_v3)
     messages_rewrite = chatgpt.get_response(messages_rewrite)
+    messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
 
     # res_split = res_extract.split()

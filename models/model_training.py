@@ -99,26 +99,36 @@ output = trainer.predict(test_dataset)
 print("==========================")
 
 
-def calculate_article_score_from_sentence(test_dataset, output):
+def calculate_article_score_from_sentence(test_dataset, output, combine_method):
     current_id = None
     prediction_sum = None
     predictions = []
     labels = []
     current_id = test_dataset.ids[0]
     prediction_sum = np.array(output.predictions[0])
+    prediction_max = np.array(output.predictions[0])
     cnt = 1
     for i in range(1, len(test_dataset.ids)):
         if test_dataset.ids[i] != current_id:
-            predictions.append(prediction_sum/cnt)
+            if combine_method == 'avg':
+                predictions.append(prediction_sum/cnt)
+            elif combine_method == 'max':
+                predictions.append(prediction_max)
             labels.append(test_dataset.labels[i-1])
             current_id = test_dataset.ids[i]
             cnt = 1
             prediction_sum = np.array(output.predictions[i])
+            prediction_max = np.array(output.predictions[i])
         else:
             cnt += 1
             prediction_sum += np.array(output.predictions[i])
+            if output.predictions[i][1] - output.predictions[i][0] > prediction_max[1] - prediction_max[0]:
+                prediction_max = np.array(output.predictions[i])
 
-    predictions.append(prediction_sum / cnt)
+    if combine_method == 'avg':
+        predictions.append(prediction_sum / cnt)
+    elif combine_method == 'max':
+        predictions.append(prediction_max)
     labels.append(test_dataset.labels[i])
     predictions = np.array(predictions)
 
@@ -126,8 +136,9 @@ def calculate_article_score_from_sentence(test_dataset, output):
     acc = accuracy_score(labels, predictions.argmax(axis=-1))
     confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
     print('\n=================================\n'
+          'using method: {}'
           'f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
-          '\n=================================\n'.format(f1, acc, confusionMatrix))
+          '\n=================================\n'.format(combine_method, f1, acc, confusionMatrix))
 
 
 preprocess_dataset_name = dataloader.preprocess_dataset_name
@@ -136,13 +147,13 @@ dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=prepro
                         do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 output = trainer.predict(test_dataset)
-calculate_article_score_from_sentence(test_dataset, output)
+calculate_article_score_from_sentence(test_dataset, output, 'max')
 
 dataloader = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
                         do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 output = trainer.predict(test_dataset)
-calculate_article_score_from_sentence(test_dataset, output)
+calculate_article_score_from_sentence(test_dataset, output, 'max')
 
 
 # trainer.save_model('results/final')
