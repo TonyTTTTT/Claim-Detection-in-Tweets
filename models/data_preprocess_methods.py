@@ -275,7 +275,7 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    rewrite_method = 'rewrite_without_over_interpretation_by_GPT'
+    rewrite_method = 'normalize_then_rewrite_without_over_interpretation_by_GPT'
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
