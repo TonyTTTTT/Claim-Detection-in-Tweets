@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "ICYMI: Two groups of local elected officials have written to @govlarryhogan (R) urging him to address availability and racial equity issues with the COVID-19 vaccines in Montgomery County. @MoCoCouncilMD @repraskin @repdavidtrone @willjawando READ MORE: https://t.co/LRzLFO0MYB https://t.co/aLtBqVxLxp"
+    content = "People who have questions about the COVID-19 vaccines or who need help finding vaccine providers and their contact information are asked to call the DHEC COVID-19 Vaccine Information Line at 1-866-365-8110. https://t.co/3IZHm1yO5b"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
