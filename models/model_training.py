@@ -10,6 +10,7 @@ from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
 from data_preprocess_methods import split_into_sentences, split_into_frames
+import wandb
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
@@ -24,79 +25,6 @@ class CustomTrainer(Trainer):
         loss_fct = nn.CrossEntropyLoss(weight=torch.tensor([1.73, 1.0])).to(device)
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), labels.view(-1))
         return (loss, outputs) if return_outputs else loss
-
-
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
-train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
-
-
-def model_init():
-    configuration = AutoConfig.from_pretrained(model_path)
-    # configuration.hidden_dropout_prob = 0.3
-    # configuration.attention_probs_dropout_prob = 0.1
-
-    if model_path.startswith('roberta'):
-        model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
-    elif model_path.startswith('bert'):
-        model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
-
-    # model.classifier.dropout.p = 0.5
-    # for i in range(len(trainer.model.roberta.encoder.layer)):
-    #     try:
-    #         print(trainer.model.roberta.encoder.layer[i].droupout)
-    #     except:
-    #         print('{} layer no dropout'.format(i))
-    # model.roberta.encoder.layer.__delitem__(9)
-    # model.roberta.encoder.layer.__delitem__(8)
-    # model.roberta.encoder.layer.__delitem__(7)
-    # model.roberta.encoder.layer.__delitem__(6)
-
-    # for param in model.roberta.parameters():
-    #     param.requires_grad = False
-
-    return model
-
-
-training_args = TrainingArguments(
-    output_dir='results',  # model save dir
-    logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
-    evaluation_strategy='epoch',
-    # logging_steps=100,
-    logging_strategy='epoch',
-    # save_steps=10000,
-    save_strategy="no",
-    logging_first_step=True,
-
-    per_device_train_batch_size=per_device_train_batch_size,
-    # per_device_eval_batch_size=64,
-
-    learning_rate=learning_rate,
-    num_train_epochs=num_train_epochs,
-    # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
-    # weight_decay=0,
-    # no_cuda=True,
-    lr_scheduler_type=lr_scheduler_type,
-    # seed=42,
-)
-
-# No1 team treat dev dataset as eval_dataset, so here I do the same
-trainer = Trainer(
-    model_init=model_init,
-    args=training_args,                  # training arguments, defined above
-    train_dataset=train_dataset,         # training dataset
-    eval_dataset=test_dataset,            # evaluation dataset
-    compute_metrics=compute_metrics
-)
-
-
-trainer.train()
-# trainer.hyperparameter_search()
-print("==========================")
-result = trainer.evaluate()
-print("==========================")
-output = trainer.predict(test_dataset)
-print("==========================")
 
 
 def calculate_article_score_from_sentence(test_dataset, output, combine_method):
@@ -141,19 +69,85 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
           '\n=================================\n'.format(combine_method, f1, acc, confusionMatrix))
 
 
-preprocess_dataset_name = dataloader.preprocess_dataset_name
+def model_init():
+    configuration = AutoConfig.from_pretrained(model_path)
 
-dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
-                        do_normalize=do_normalize, concate_frames_num=concate_frames_num)
-train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
-output = trainer.predict(test_dataset)
-calculate_article_score_from_sentence(test_dataset, output, 'max')
+    if model_path.startswith('roberta'):
+        model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
+    elif model_path.startswith('bert'):
+        model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
 
-dataloader = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
-                        do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+    return model
+
+
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
-output = trainer.predict(test_dataset)
-calculate_article_score_from_sentence(test_dataset, output, 'max')
+
+
+training_args = TrainingArguments(
+    output_dir='results',  # model save dir
+    logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
+    evaluation_strategy='epoch',
+    # logging_steps=100,
+    logging_strategy='epoch',
+    # save_steps=10000,
+    save_strategy="no",
+    logging_first_step=True,
+
+    per_device_train_batch_size=per_device_train_batch_size,
+    # per_device_eval_batch_size=64,
+
+    learning_rate=learning_rate,
+    num_train_epochs=num_train_epochs,
+    # adam_epsilon=2.5e-9,
+    warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
+    # weight_decay=0,
+    # no_cuda=True,
+    lr_scheduler_type=lr_scheduler_type,
+    # seed=42,
+)
+
+seeds = [42, 17, 8]
+for i in range(0, 3):
+    run = wandb.init(
+        project="huggingface",
+        name='trial_{}'.format(i),
+        tags=["LESA"]
+    )
+
+    training_args.seed = seeds[i]
+    # No1 team treat dev dataset as eval_dataset, so here I do the same
+    trainer = Trainer(
+        model_init=model_init,
+        args=training_args,                  # training arguments, defined above
+        train_dataset=train_dataset,         # training dataset
+        eval_dataset=test_dataset,            # evaluation dataset
+        compute_metrics=compute_metrics
+    )
+
+    trainer.train()
+    # trainer.hyperparameter_search()
+    print("==========================")
+    result = trainer.evaluate()
+    print("==========================")
+    output = trainer.predict(test_dataset)
+    print("==========================")
+
+    run.finish()
+
+    preprocess_dataset_name = dataloader.preprocess_dataset_name
+
+    dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
+                            do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+    train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+    output = trainer.predict(test_dataset)
+    calculate_article_score_from_sentence(test_dataset, output, 'max')
+
+    dataloader = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
+                            do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+    train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+    output = trainer.predict(test_dataset)
+    calculate_article_score_from_sentence(test_dataset, output, 'max')
 
 
 # trainer.save_model('results/final')

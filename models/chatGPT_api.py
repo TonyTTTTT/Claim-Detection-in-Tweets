@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "#Enugu govt takes delivery of #COVID19vaccines Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of #oxfordastrazeneca COVID-19 vaccines from @NphcdaNG, at Enugu Airport...  @Coal_City #COVID19 "
+    content = "Enugu govt takes delivery of COVID19vaccines. Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of oxfordastrazeneca COVID-19 vaccines from NphcdaNG, at Enugu Airport... Coal_City COVID19"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
