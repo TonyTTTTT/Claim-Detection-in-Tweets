@@ -30,7 +30,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "People who have questions about the COVID-19 vaccines or who need help finding vaccine providers and their contact information are asked to call the DHEC COVID-19 Vaccine Information Line at 1-866-365-8110. https://t.co/3IZHm1yO5b"
+    content = "#Enugu govt takes delivery of #COVID19vaccines Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of #oxfordastrazeneca COVID-19 vaccines from @NphcdaNG, at Enugu Airport...  @Coal_City #COVID19 "
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     ]
     messages_rewrite = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
-        {"role": "user", "content": content + "\nrewrite without over interpretation:"}
+        {"role": "user", "content": content + "\nrewrite:"}
     ]
     messages_rewrite_v2 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
