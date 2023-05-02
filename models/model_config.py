@@ -33,6 +33,6 @@ device_num = 1
 
 dataset = 'CLEF2022_1b'
 
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
-do_normalize = True
+do_normalize = False
