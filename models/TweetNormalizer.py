@@ -7,9 +7,9 @@ tokenizer = TweetTokenizer()
 
 def normalizeToken(token):
     lowercased_token = token.lower()
-    # if token.startswith("@"):
-    #     return "@USER"
-    if lowercased_token.startswith("http") or lowercased_token.startswith("www"):
+    if token.startswith("@"):
+        return "@USER"
+    elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
         return "HTTPURL"
     elif len(token) <= 2:
         if token == "’":
@@ -45,38 +45,13 @@ def normalizeTweet(tweets):
 
     tweets_norm = []
     for tweet in tweets:
-        tweet_norm = tweet
-        # tweet_norm = tweet.replace("’", "'").replace("…", "...")
+        tweet_norm = tweet.replace("’", "'").replace("…", "...")
         # tweet_norm = tweet_norm.replace("#", "")
         # tweet_norm = tweet_norm.replace("@", "")
         tokens = tokenizer.tokenize(tweet_norm)
-        # tokens = tweet_norm.split(" ")
 
         # tweet_norm = " ".join([delToken(token) for token in tokens])
         tweet_norm = " ".join([token for token in tokens])
-        # normTweet = normTweet.replace(" .", ".").replace(" ,", ",")
-
-        # normTweet = (
-        #     normTweet.replace("cannot ", "can not ")
-        #     .replace("n't ", " n't ")
-        #     .replace("n 't ", " n't ")
-        #     .replace("ca n't", "can't")
-        #     .replace("ai n't", "ain't")
-        # )
-        # normTweet = (
-        #     normTweet.replace("'m ", " 'm ")
-        #     .replace("'re ", " 're ")
-        #     .replace("'s ", " 's ")
-        #     .replace("'ll ", " 'll ")
-        #     .replace("'d ", " 'd ")
-        #     .replace("'ve ", " 've ")
-        # )
-        # normTweet = (
-        #     normTweet.replace(" p . m .", "  p.m.")
-        #     .replace(" p . m ", " p.m ")
-        #     .replace(" a . m .", " a.m.")
-        #     .replace(" a . m ", " a.m ")
-        # )
 
         tweets_norm.append(" ".join(tweet_norm.split()))
     return tweets_norm
