@@ -109,8 +109,15 @@ training_args = TrainingArguments(
     # seed=42,
 )
 
+acc_sum = 0
+acc_sen_sum = 0
+acc_frame_sum = 0
+f1_sum = 0
+f1_sen_sum = 0
+f1_frame_sum = 0
+
 seeds = [42, 17, 36]
-for i in range(0, 3):
+for i in range(0, len(seeds)):
     run = wandb.init(
         project="Claim Detection in Tweets",
         name='trial_{}'.format(i),
@@ -135,6 +142,9 @@ for i in range(0, 3):
     output = trainer.predict(test_dataset)
     print("==========================")
 
+    f1_sum += result['eval_f1']
+    acc_sum += result['eval_accuracy']
+
 
     preprocess_dataset_name = dataloader.preprocess_dataset_name
 
@@ -144,6 +154,8 @@ for i in range(0, 3):
     output_sentence = trainer.predict(test_dataset_sentence)
     split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
     wandb.log({"f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
+    f1_sen_sum += split_into_sentences_f1
+    acc_sen_sum += split_into_sentences_acc
 
     dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
                             do_normalize=do_normalize, concate_frames_num=concate_frames_num)
@@ -151,8 +163,20 @@ for i in range(0, 3):
     output_frame = trainer.predict(test_dataset_frame)
     split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
     wandb.log({"f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
+    f1_frame_sum += split_into_frames_f1
+    acc_frame_sum +=split_into_frames_acc
 
     run.finish()
+
+f1_sum /= len(seeds)
+f1_sen_sum /= len(seeds)
+f1_frame_sum /= len(seeds)
+acc_sum /= len(seeds)
+acc_sen_sum /= len(seeds)
+acc_frame_sum /= len(seeds)
+
+print("f1_avg: {}, acc_avg: {}\nf1_sen_avg: {}, acc_sen_avg: {}\nf1_frame_avg: {}, acc_frame_avg: {}".format(f1_sum, acc_sum, f1_sen_sum, acc_sen_sum, f1_frame_sum, acc_frame_sum))
+
 
 
 # trainer.save_model('results/final')
