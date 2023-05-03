@@ -112,7 +112,7 @@ training_args = TrainingArguments(
 seeds = [42, 17, 8]
 for i in range(0, 3):
     run = wandb.init(
-        project="LESA",
+        project="Claim Detection in Tweets",
         name='trial_{}'.format(i),
         tags=["LESA"]
     )
