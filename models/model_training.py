@@ -164,7 +164,7 @@ for i in range(0, len(seeds)):
     split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
     wandb.log({"f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
     f1_frame_sum += split_into_frames_f1
-    acc_frame_sum +=split_into_frames_acc
+    acc_frame_sum += split_into_frames_acc
 
     run.finish()
 
