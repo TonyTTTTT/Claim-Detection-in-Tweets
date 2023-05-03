@@ -68,6 +68,8 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
           'f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
           '\n=================================\n'.format(combine_method, f1, acc, confusionMatrix))
 
+    return f1, acc
+
 
 def model_init():
     configuration = AutoConfig.from_pretrained(model_path)
@@ -110,7 +112,7 @@ training_args = TrainingArguments(
 seeds = [42, 17, 8]
 for i in range(0, 3):
     run = wandb.init(
-        project="huggingface",
+        project="LESA",
         name='trial_{}'.format(i),
         tags=["LESA"]
     )
@@ -133,21 +135,24 @@ for i in range(0, 3):
     output = trainer.predict(test_dataset)
     print("==========================")
 
-    run.finish()
 
     preprocess_dataset_name = dataloader.preprocess_dataset_name
 
-    dataloader = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
+    dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
                             do_normalize=do_normalize, concate_frames_num=concate_frames_num)
-    train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+    train_dataset, dev_dataset, test_dataset = dataloader_sentence.get_dataset(include_test=True)
     output = trainer.predict(test_dataset)
-    calculate_article_score_from_sentence(test_dataset, output, 'max')
+    split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset, output, 'max')
+    wandb.log({"f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
 
-    dataloader = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
+    dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
                             do_normalize=do_normalize, concate_frames_num=concate_frames_num)
-    train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+    train_dataset, dev_dataset, test_dataset = dataloader_frame.get_dataset(include_test=True)
     output = trainer.predict(test_dataset)
-    calculate_article_score_from_sentence(test_dataset, output, 'max')
+    split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset, output, 'max')
+    wandb.log({"f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
+
+    run.finish()
 
 
 # trainer.save_model('results/final')
