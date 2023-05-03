@@ -109,7 +109,7 @@ training_args = TrainingArguments(
     # seed=42,
 )
 
-seeds = [42, 17, 8]
+seeds = [42, 17, 36]
 for i in range(0, 3):
     run = wandb.init(
         project="Claim Detection in Tweets",
