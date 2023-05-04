@@ -21,7 +21,8 @@ model_path = 'roberta-base'
 # learning_rate = 1e-6  # clef2022 1b server
 learning_rate = 5e-7  # clef2022 1b local
 
-# num_train_epochs = 10  # clef2022 1b server
+# num_train_epochs = 10  # LESA server
+# num_train_epochs = 7 # CLEF2022 1b server
 num_train_epochs = 1  # clef2022 1b local
 
 warm_up_epochs = 1
@@ -31,8 +32,8 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset = 'CLEF2022_1b'
+dataset = 'LESA'
 
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
 concate_frames_num = 5
 do_normalize = False

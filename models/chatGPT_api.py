@@ -17,6 +17,7 @@ class ChatGPT:
             model="gpt-3.5-turbo",
             messages=messages,
             temperature=0,
+            # top_p=0.01,
         )
         print('=============================')
         print('GPT input: {}'.format((messages)))
@@ -30,7 +31,7 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "Enugu govt takes delivery of COVID19vaccines. Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of oxfordastrazeneca COVID-19 vaccines from NphcdaNG, at Enugu Airport... Coal_City COVID19"
+    content = "had someone on sc for 2 days before i deleted her ass. she had to have been on some stupid shit. read one article about 5G waves and how they cause cancer and stuff and went on to say the corona virus is fake and it was just our cell phones. is u stupid"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
@@ -76,6 +77,6 @@ if __name__ == '__main__':
     # res_extract_v2 = chatgpt.get_response(messages_extract_v2)
     # res_extract_v3 = chatgpt.get_response(messages_extract_v3)
     messages_rewrite = chatgpt.get_response(messages_rewrite)
-    messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
+    # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
 
     # res_split = res_extract.split()
