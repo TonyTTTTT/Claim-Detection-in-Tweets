@@ -46,12 +46,12 @@ def normalizeTweet(tweets):
     tweets_norm = []
     for tweet in tweets:
         tweet_norm = tweet.replace("’", "'").replace("…", "...")
-        # tweet_norm = tweet_norm.replace("#", "")
+        tweet_norm = tweet_norm.replace("#", "")
         # tweet_norm = tweet_norm.replace("@", "")
         tokens = tokenizer.tokenize(tweet_norm)
 
-        # tweet_norm = " ".join([delToken(token) for token in tokens])
-        tweet_norm = " ".join([token for token in tokens])
+        tweet_norm = " ".join([delToken(token) for token in tokens])
+        # tweet_norm = " ".join([token for token in tokens])
 
         tweets_norm.append(" ".join(tweet_norm.split()))
     return tweets_norm
