@@ -31,14 +31,18 @@ class ChatGPT:
 
 
 if __name__ == '__main__':
-    content = "had someone on sc for 2 days before i deleted her ass. she had to have been on some stupid shit. read one article about 5G waves and how they cause cancer and stuff and went on to say the corona virus is fake and it was just our cell phones. is u stupid"
+    content = "#Enugu govt takes delivery of #COVID19vaccines Enugu State Government alongside Ebonyi and Anambra states, on Thursday, took delivery of the first batch of #oxfordastrazeneca COVID-19 vaccines from @NphcdaNG, at Enugu Airport... https://t.co/srx1CWZqtK @Coal_City #COVID19 https://t.co/PrO9GSiXuv"
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
     ]
     messages_explain = [
         # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
-        {"role": "user", "content": content+'\nexplain this tweet:'}
+        {"role": "user", "content": content+'\nexplain:'}
+    ]
+    messages_explain_v2 = [
+        # {"role": "system", "content": "Can you explain the following article in detail? Please aim at around 100 words."},
+        {"role": "user", "content": content+'\nexplain it in simpler language:'}
     ]
     messages_simplify = [
         {"role": "user", "content": content+"\nsimplify:"}
@@ -69,7 +73,9 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
     # res_summary = chatgpt.get_response(messages_summary)
-    # res_explain = chatgpt.get_response(messages_explain)
+    res_explain = chatgpt.get_response(messages_explain)
+    res_explain_v2 = chatgpt.get_response(messages_explain_v2)
+
     # res_simplify = chatgpt.get_response(messages_simplify)
     # res_simplify_v2 = chatgpt.get_response(messages_simplify_v2)
 
