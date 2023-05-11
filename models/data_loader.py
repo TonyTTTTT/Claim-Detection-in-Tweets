@@ -148,9 +148,14 @@ class DataLoader:
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
     def read_data(self, dataset, do_normalize, concate_frames_num):
-        train_data = pd.read_csv(self.train_path, sep='\t', dtype=str, quotechar='"', quoting=3)
-        dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
-        test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
+        if dataset == 'sentence_level':
+            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str, quotechar='"', quoting=3)
+            dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
+            test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
+        else:
+            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str)
+            dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str)
+            test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
 
         train_data[train_data.columns[-1]] = train_data[train_data.columns[-1]].astype(int)
         dev_data[dev_data.columns[-1]] = dev_data[dev_data.columns[-1]].astype(int)
