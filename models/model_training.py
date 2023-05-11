@@ -82,13 +82,13 @@ def model_init():
     return model
 
 
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 
 
 training_args = TrainingArguments(
     output_dir='results',  # model save dir
-    logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
+    logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset_name, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
     evaluation_strategy='epoch',
     # logging_steps=100,
     logging_strategy='epoch',
@@ -116,12 +116,11 @@ f1_sum = 0
 f1_sen_sum = 0
 f1_frame_sum = 0
 
-seeds = [42, 17, 36]
 for i in range(0, len(seeds)):
     run = wandb.init(
         project="Claim Detection in Tweets",
-        name='trial_{}'.format(i),
-        tags=["LESA"]
+        name='{}_{}'.format(run_name, i),
+        tags=tags
     )
 
     training_args.seed = seeds[i]
@@ -145,11 +144,11 @@ for i in range(0, len(seeds)):
     f1_sum += result['eval_f1']
     acc_sum += result['eval_accuracy']
 
+    if test_dataset_name == 'same':
+        testing_dataset_name = dataloader.preprocess_dataset_name
 
-    preprocess_dataset_name = dataloader.preprocess_dataset_name
-
-    dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=preprocess_dataset_name,
-                            do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+    dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=test_dataset_name,
+                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num)
     train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
     output_sentence = trainer.predict(test_dataset_sentence)
     split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
@@ -157,8 +156,8 @@ for i in range(0, len(seeds)):
     f1_sen_sum += split_into_sentences_f1
     acc_sen_sum += split_into_sentences_acc
 
-    dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=preprocess_dataset_name,
-                            do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+    dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
+                                  do_normalize=do_normalize, concate_frames_num=concate_frames_num)
     train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
     output_frame = trainer.predict(test_dataset_frame)
     split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')

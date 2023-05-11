@@ -32,8 +32,12 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset = 'sentence_level'
+dataset_name = 'sentence_level'
+test_dataset_name = 'LESA'
+tags = ['sentence level']
+run_name = 'baseline'
 
+seeds = [42, 17, 36]
 preprocess_function = none_operation
 concate_frames_num = 5
 do_normalize = True
