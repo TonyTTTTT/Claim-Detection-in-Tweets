@@ -63,6 +63,10 @@ class DataLoader:
             self.train_path = '../dataset/twitter_train.tsv'
             self.dev_path = '../dataset/twitter_test.tsv'
             self.test_path = '../dataset/twitter_test.tsv'
+        elif dataset == 'sentence_level':
+            self.train_path = '../dataset/sentence_level_train.tsv'
+            self.dev_path = '../dataset/sentence_level_dev.tsv'
+            self.test_path = '../dataset/sentence_level_test.tsv'
         elif 'GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':

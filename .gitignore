@@ -18,3 +18,10 @@ coconut-env
 
 # sub git repository
 #**/.git
+
+# wandb file
+**/wandb
+
+# split to sentence
+models/preprocess_datasets_sentence
+models/preprocess_datasets_SRL
