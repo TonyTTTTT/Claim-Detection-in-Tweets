@@ -32,8 +32,8 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset = 'LESA'
+dataset = 'sentence_level'
 
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
-do_normalize = False
+do_normalize = True
