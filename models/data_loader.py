@@ -165,8 +165,8 @@ class DataLoader:
         dev_ids, dev_topic_ids, dev_texts_raw, dev_labels = self.read_df_to_lists(dev_data)
         test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
 
-        # train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
-        #                                                                                train_texts_raw, train_labels)
+        train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
+                                                                                       train_texts_raw, train_labels)
 
         if do_normalize:
             print("============\nNormalizeing...\n==================")

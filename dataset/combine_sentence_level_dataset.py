@@ -8,10 +8,10 @@ df_combined_test = pd.DataFrame()
 cnt_train = 0
 cnt_dev = 0
 cnt_test = 0
+dataset_list = ['MT_processed', 'PE_processed', 'VG_processed', 'WD_processed']
 
 for path in os.listdir():
-    if 'processed' in path:
-
+    if path in dataset_list:
         for file_name in os.listdir(path):
             print(file_name)
             df = pd.read_csv(os.path.join(path, file_name), sep='\t', index_col=None, quotechar='"', quoting=3)
@@ -29,8 +29,8 @@ for path in os.listdir():
                 cnt_test += df.shape[0]
                 df_combined_test = pd.concat([df_combined_test, df], ignore_index=True)
 
-df_combined_train.to_csv('sentence_level_train.tsv', sep='\t', index=False, quotechar='"', quoting=3)
-df_combined_dev.to_csv('sentence_level_dev.tsv', sep='\t', index=False, quotechar='"', quoting=3)
-df_combined_test.to_csv('sentence_level_test.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_train.to_csv('sentence_level_less_train.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_dev.to_csv('sentence_level_less_dev.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_test.to_csv('sentence_level_less_test.tsv', sep='\t', index=False, quotechar='"', quoting=3)
 
 
