@@ -63,10 +63,10 @@ class DataLoader:
             self.train_path = '../dataset/twitter_train.tsv'
             self.dev_path = '../dataset/twitter_test.tsv'
             self.test_path = '../dataset/twitter_test.tsv'
-        elif dataset == 'sentence_level':
-            self.train_path = '../dataset/sentence_level_train.tsv'
-            self.dev_path = '../dataset/sentence_level_dev.tsv'
-            self.test_path = '../dataset/sentence_level_test.tsv'
+        elif dataset.startswith('sentence_level'):
+            self.train_path = '../dataset/{}_train.tsv'.format(dataset)
+            self.dev_path = '../dataset/{}_dev.tsv'.format(dataset)
+            self.test_path = '../dataset/{}_test.tsv'.format(dataset)
         elif 'GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':
@@ -148,7 +148,7 @@ class DataLoader:
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
     def read_data(self, dataset, do_normalize, concate_frames_num):
-        if dataset == 'sentence_level':
+        if dataset.startswith('sentence_level'):
             train_data = pd.read_csv(self.train_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
@@ -169,7 +169,7 @@ class DataLoader:
                                                                                        train_texts_raw, train_labels)
 
         if do_normalize:
-            print("============\nNormalizeing...\n==================")
+            print("==================\nNormalizeing...\n==================")
             train_texts_raw = normalizeTweet(train_texts_raw)
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)
