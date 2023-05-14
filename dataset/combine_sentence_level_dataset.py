@@ -8,7 +8,7 @@ df_combined_test = pd.DataFrame()
 cnt_train = 0
 cnt_dev = 0
 cnt_test = 0
-dataset_list = ['MT_processed', 'PE_processed', 'VG_processed', 'WD_processed']
+dataset_list = ['MT_processed', 'PE_processed', 'WD_processed']
 
 for path in os.listdir():
     if path in dataset_list:
@@ -29,8 +29,8 @@ for path in os.listdir():
                 cnt_test += df.shape[0]
                 df_combined_test = pd.concat([df_combined_test, df], ignore_index=True)
 
-df_combined_train.to_csv('sentence_level_less_train.tsv', sep='\t', index=False, quotechar='"', quoting=3)
-df_combined_dev.to_csv('sentence_level_less_dev.tsv', sep='\t', index=False, quotechar='"', quoting=3)
-df_combined_test.to_csv('sentence_level_less_test.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_train.to_csv('sentence_level_MT_PE_WD_train.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_dev.to_csv('sentence_level_MT_PE_WD_dev.tsv', sep='\t', index=False, quotechar='"', quoting=3)
+df_combined_test.to_csv('sentence_level_MT_PE_WD_test.tsv', sep='\t', index=False, quotechar='"', quoting=3)
 
 
