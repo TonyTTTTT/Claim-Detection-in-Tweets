@@ -178,7 +178,7 @@ acc_sen_sum /= len(seeds)
 acc_frame_sum /= len(seeds)
 f1_macro_sum /= len(seeds)
 
-print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_sen_avg: {}, acc_sen_avg: {}\nf1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_sen_sum, acc_sen_sum, f1_frame_sum, acc_frame_sum))
+print("f1_macro_avg: {}\nf1_avg: {}, acc_avg: {}\nf1_sen_avg: {}, acc_sen_avg: {}\nf1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_sen_sum, acc_sen_sum, f1_frame_sum, acc_frame_sum))
 wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
 run.finish()
 
