@@ -222,7 +222,7 @@ def compute_metrics(pred):
     labels = pred.label_ids
     preds = pred.predictions.argmax(-1)
     precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='binary')
-    macro_f1 = f1_score(labels, preds, average='macro')
+    f1_macro = f1_score(labels, preds, average='macro')
     confusionMatrix = confusion_matrix(labels, preds)
     agree = preds == labels
     wrong_predicted_idx = np.where(agree == False)[0].tolist()
@@ -231,7 +231,7 @@ def compute_metrics(pred):
     # ROC = roc_curve(labels, preds)
     return {
         'accuracy': acc,
-        'macro_f1': macro_f1,
+        'f1_macro': f1_macro,
         'f1': f1,
         'precision': precision,
         'recall': recall,
