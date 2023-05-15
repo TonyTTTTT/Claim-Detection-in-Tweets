@@ -8,7 +8,7 @@ import transformers
 import torch
 from torch import nn
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, f1_score
 from data_preprocess_methods import split_into_sentences, split_into_frames
 import wandb
 
@@ -63,12 +63,13 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
     acc = accuracy_score(labels, predictions.argmax(axis=-1))
     confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
+    f1_macro = f1_score(labels, predictions.argmax(axis=-1), average='macro')
     print('\n=================================\n'
           'using method: {}\n'
-          'f1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
-          '\n=================================\n'.format(combine_method, f1, acc, confusionMatrix))
+          'f1_macro at article-level: {}\nf1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
+          '\n=================================\n'.format(combine_method, f1_macro, f1, acc, confusionMatrix))
 
-    return f1, acc
+    return f1_macro, f1, acc
 
 
 def model_init():
@@ -110,6 +111,8 @@ training_args = TrainingArguments(
 )
 
 f1_macro_sum = 0
+f1_macro_sen_sum = 0
+f1_macro_frame_sum = 0
 acc_sum = 0
 acc_sen_sum = 0
 acc_frame_sum = 0
@@ -153,8 +156,9 @@ for i in range(0, len(seeds)):
                                      do_normalize=do_normalize, concate_frames_num=concate_frames_num)
     train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
     output_sentence = trainer.predict(test_dataset_sentence)
-    split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
-    wandb.log({"f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
+    split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
+    wandb.log({"f1_macro_split_to_sentences": split_into_sentences_f1_macro, "f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
+    f1_macro_sen_sum += split_into_sentences_f1_macro
     f1_sen_sum += split_into_sentences_f1
     acc_sen_sum += split_into_sentences_acc
 
@@ -162,13 +166,15 @@ for i in range(0, len(seeds)):
                                   do_normalize=do_normalize, concate_frames_num=concate_frames_num)
     train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
     output_frame = trainer.predict(test_dataset_frame)
-    split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
-    wandb.log({"f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
+    split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
+    wandb.log({"f1_macro_split_to_frames": split_into_frames_f1_macro, "f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
+    f1_macro_frame_sum += split_into_frames_f1_macro
     f1_frame_sum += split_into_frames_f1
     acc_frame_sum += split_into_frames_acc
 
     if i < len(seeds)-1:
         run.finish()
+
 
 f1_sum /= len(seeds)
 f1_sen_sum /= len(seeds)
@@ -177,8 +183,10 @@ acc_sum /= len(seeds)
 acc_sen_sum /= len(seeds)
 acc_frame_sum /= len(seeds)
 f1_macro_sum /= len(seeds)
+f1_macro_sen_sum /= len(seeds)
+f1_macro_frame_sum /= len(seeds)
 
-print("f1_macro_avg: {}\nf1_avg: {}, acc_avg: {}\nf1_sen_avg: {}, acc_sen_avg: {}\nf1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_sen_sum, acc_sen_sum, f1_frame_sum, acc_frame_sum))
+print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_sen_avg: {}, acc_sen_avg: {}\nf1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_sen_sum, acc_sen_sum, f1_frame_sum, acc_frame_sum))
 wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
 run.finish()
 
