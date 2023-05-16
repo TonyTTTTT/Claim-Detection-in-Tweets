@@ -63,6 +63,10 @@ class DataLoader:
             self.train_path = '../dataset/other-sentence-level/twitter_train.tsv'
             self.dev_path = '../dataset/other-sentence-level/twitter_test.tsv'
             self.test_path = '../dataset/other-sentence-level/twitter_test.tsv'
+        elif dataset == 'ClaimBuster':
+            self.train_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_train.tsv'
+            self.dev_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_dev.tsv'
+            self.test_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_test.tsv'
         elif dataset.startswith('sentence_level'):
             self.train_path = '../dataset/other-sentence-level/{}_train.tsv'.format(dataset)
             self.dev_path = '../dataset/other-sentence-level/{}_dev.tsv'.format(dataset)
