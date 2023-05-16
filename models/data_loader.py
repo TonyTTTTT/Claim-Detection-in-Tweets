@@ -116,6 +116,7 @@ class DataLoader:
 
     @staticmethod
     def balance_class(ids, topic_ids, texts, labels):
+        print('=============\nBalancing Class\n=============')
         cnt_0 = 0
         cnt_1 = 0
         for label in labels:
