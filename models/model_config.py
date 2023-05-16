@@ -18,8 +18,8 @@ model_path = 'roberta-base'
 
 
 # learning_rate = 3e-5  # clef2022 1a
-# learning_rate = 1e-6  # clef2022 1b server
-learning_rate = 5e-7  # clef2022 1b local
+# learning_rate = 1e-6  # server
+learning_rate = 5e-7  # local
 
 # num_train_epochs = 10  # LESA
 # num_train_epochs = 7 # CLEF2022 1b

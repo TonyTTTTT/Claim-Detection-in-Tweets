@@ -60,13 +60,13 @@ class DataLoader:
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
         elif dataset == 'LESA':
-            self.train_path = '../dataset/twitter_train.tsv'
-            self.dev_path = '../dataset/twitter_test.tsv'
-            self.test_path = '../dataset/twitter_test.tsv'
+            self.train_path = '../dataset/other-sentence-level/twitter_train.tsv'
+            self.dev_path = '../dataset/other-sentence-level/twitter_test.tsv'
+            self.test_path = '../dataset/other-sentence-level/twitter_test.tsv'
         elif dataset.startswith('sentence_level'):
-            self.train_path = '../dataset/{}_train.tsv'.format(dataset)
-            self.dev_path = '../dataset/{}_dev.tsv'.format(dataset)
-            self.test_path = '../dataset/{}_test.tsv'.format(dataset)
+            self.train_path = '../dataset/other-sentence-level/{}_train.tsv'.format(dataset)
+            self.dev_path = '../dataset/other-sentence-level/{}_dev.tsv'.format(dataset)
+            self.test_path = '../dataset/other-sentence-level/{}_test.tsv'.format(dataset)
         elif 'GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             if dataset[-9:] == 'augmented':
