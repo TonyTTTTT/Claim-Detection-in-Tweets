@@ -30,7 +30,7 @@ class CheckThatDataset(torch.utils.data.Dataset):
 
 
 class DataLoader:
-    def __init__(self, preprocess_function, dataset, do_normalize, concate_frames_num):
+    def __init__(self, preprocess_function, dataset, do_normalize, concate_frames_num, do_balancing):
         self.preprocess_function = preprocess_function
         self.train_dataset = []
         self.dev_dataset = []
@@ -86,7 +86,7 @@ class DataLoader:
             self.dev_path = 'preprocess_datasets_SRL/' + dataset + '_dev.tsv'
             self.test_path = 'preprocess_datasets_SRL/' + dataset + '_test.tsv'
 
-        self.read_data(dataset, do_normalize, concate_frames_num)
+        self.read_data(dataset, do_normalize, concate_frames_num, do_balancing)
 
     @staticmethod
     def read_df_to_lists(data):
@@ -116,7 +116,7 @@ class DataLoader:
 
     @staticmethod
     def balance_class(ids, topic_ids, texts, labels):
-        print('=============\nBalancing Class\n=============')
+        print('=============\nBalancing Class...\n=============')
         cnt_0 = 0
         cnt_1 = 0
         for label in labels:
@@ -152,7 +152,7 @@ class DataLoader:
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
-    def read_data(self, dataset, do_normalize, concate_frames_num):
+    def read_data(self, dataset, do_normalize, concate_frames_num, do_balancing):
         if dataset.startswith('sentence_level'):
             train_data = pd.read_csv(self.train_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
@@ -170,8 +170,9 @@ class DataLoader:
         dev_ids, dev_topic_ids, dev_texts_raw, dev_labels = self.read_df_to_lists(dev_data)
         test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
 
-        # train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
-        #                                                                               train_texts_raw, train_labels)
+        if do_balancing:
+            train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
+                                                                                      train_texts_raw, train_labels)
 
         if do_normalize:
             print("==================\nNormalizeing...\n==================")

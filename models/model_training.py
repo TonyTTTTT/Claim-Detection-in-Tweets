@@ -83,7 +83,8 @@ def model_init():
     return model
 
 
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize,
+                        concate_frames_num=concate_frames_num, do_balancing=do_balancing)
 train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 
 
@@ -153,7 +154,7 @@ for i in range(0, len(seeds)):
         testing_dataset_name = dataloader.preprocess_dataset_name
 
     dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=test_dataset_name,
-                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
     train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
     output_sentence = trainer.predict(test_dataset_sentence)
     split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
@@ -163,7 +164,7 @@ for i in range(0, len(seeds)):
     acc_sen_sum += split_into_sentences_acc
 
     dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
-                                  do_normalize=do_normalize, concate_frames_num=concate_frames_num)
+                                  do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
     train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
     output_frame = trainer.predict(test_dataset_frame)
     split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')

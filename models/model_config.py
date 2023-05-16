@@ -42,3 +42,4 @@ seeds = [42, 17, 36]
 preprocess_function = none_operation
 concate_frames_num = 5
 do_normalize = True
+do_balancing = False
