@@ -38,6 +38,8 @@ class DataLoader:
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
         self.dataset = dataset
         self.preprocess_dataset_name = None
+        sentence_level_dataset_names = ['ClaimBuster', 'MT', 'OC', 'PE', 'VG',
+                                        'WD', 'WTP']
 
         if dataset == 'CLEF2021':
             self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
@@ -63,10 +65,10 @@ class DataLoader:
             self.train_path = '../dataset/other-sentence-level/twitter_train.tsv'
             self.dev_path = '../dataset/other-sentence-level/twitter_test.tsv'
             self.test_path = '../dataset/other-sentence-level/twitter_test.tsv'
-        elif dataset == 'ClaimBuster':
-            self.train_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_train.tsv'
-            self.dev_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_dev.tsv'
-            self.test_path = '../dataset/other-sentence-level/ClaimBuster/ClaimBuster_test.tsv'
+        elif dataset in sentence_level_dataset_names:
+            self.train_path = '../dataset/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
+            self.dev_path = '../dataset/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
+            self.test_path = '../dataset/other-sentence-level/{}_processed/{}_test.tsv'.format(dataset, dataset)
         elif dataset.startswith('sentence_level'):
             self.train_path = '../dataset/other-sentence-level/{}_train.tsv'.format(dataset)
             self.dev_path = '../dataset/other-sentence-level/{}_dev.tsv'.format(dataset)
@@ -86,6 +88,7 @@ class DataLoader:
             self.dev_path = 'preprocess_datasets_SRL/' + dataset + '_dev.tsv'
             self.test_path = 'preprocess_datasets_SRL/' + dataset + '_test.tsv'
 
+        print('================\ntraining set path: {}\n================'.format(self.train_path))
         self.read_data(dataset, do_normalize, concate_frames_num, do_balancing)
 
     @staticmethod
