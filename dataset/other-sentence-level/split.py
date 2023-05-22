@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataset_twitter = pd.read_csv('Twitter.csv', encoding='utf-8')
+dataset_twitter = pd.read_csv('../LESA/Twitter.csv', encoding='utf-8')
 dataset_twitter = dataset_twitter[['tweet_text', 'claim']]
 dataset_twitter['claim'] = dataset_twitter['claim'].astype(float)
 dataset_twitter = dataset_twitter.sample(frac=1, random_state=0).reset_index(drop=True)
@@ -42,5 +42,5 @@ tweet_ids = [i+twitter_train.shape[0] for i in range(0, twitter_test.shape[0])]
 twitter_test.insert(0, 'tweet_id', tweet_ids)
 twitter_test.insert(0, 'topic', topics)
 
-twitter_train.to_csv('twitter_train.tsv', sep='\t', index=False)
-twitter_test.to_csv('twitter_test.tsv', sep='\t', index=False)
+twitter_train.to_csv('LESA_train.tsv', sep='\t', index=False)
+twitter_test.to_csv('LESA_test.tsv', sep='\t', index=False)

@@ -61,10 +61,10 @@ class DataLoader:
                             'CT22_english_1B_claim_dev.tsv'
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                              'CT22_english_1B_claim_test_gold.tsv'
-        elif dataset == 'LESA':
-            self.train_path = '../dataset/other-sentence-level/twitter_train.tsv'
-            self.dev_path = '../dataset/other-sentence-level/twitter_test.tsv'
-            self.test_path = '../dataset/other-sentence-level/twitter_test.tsv'
+        elif dataset.startswith('LESA'):
+            self.train_path = '../dataset/LESA/{}_train.tsv'.format(dataset)
+            self.dev_path = '../dataset/LESA/{}_dev.tsv'.format(dataset)
+            self.test_path = '../dataset/LESA/{}_test.tsv'.format(dataset)
         elif dataset in sentence_level_dataset_names:
             self.train_path = '../dataset/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
             self.dev_path = '../dataset/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
@@ -161,7 +161,7 @@ class DataLoader:
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
         else:
-            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str)
+            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str,  quotechar='"', quoting=3)
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str)
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
 
