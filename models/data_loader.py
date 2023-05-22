@@ -161,7 +161,7 @@ class DataLoader:
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
         else:
-            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str,  quotechar='"', quoting=3)
+            train_data = pd.read_csv(self.train_path, sep='\t', dtype=str)
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str)
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
 

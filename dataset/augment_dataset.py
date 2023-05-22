@@ -11,4 +11,4 @@ for set_type in set_types:
 
     df_combined = pd.concat([df1, df2], ignore_index=True)
     df_combined['tweet_id'] = [i for i in range(0, df_combined.shape[0])]
-    df_combined.to_csv('LESA/LESA_CB_{}.tsv'.format(set_type), sep='\t', index=False, quotechar='"', quoting=3, escapechar='\n')
+    df_combined.to_csv('LESA/LESA_CB_{}.tsv'.format(set_type), sep='\t', index=False)

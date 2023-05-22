@@ -33,7 +33,7 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'LESA'
+dataset_name = 'LESA_CB'
 test_dataset_name = 'LESA'
 tags = ['sentence level']
 run_name = 'baseline'
