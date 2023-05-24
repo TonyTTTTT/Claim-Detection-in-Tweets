@@ -12,16 +12,7 @@ def normalizeToken(token):
     elif lowercased_token.startswith("http") or lowercased_token.startswith("www"):
         return "HTTPURL"
     elif len(token) <= 2:
-        if token == "’":
-            return "'"
-        elif token == "…":
-            return "..."
-        else:
-            # return demojize(token)
-            if len(demojize(token)) > 2:
-                return ""
-            else:
-                return token
+        return demojize(token)
     else:
         return token
         

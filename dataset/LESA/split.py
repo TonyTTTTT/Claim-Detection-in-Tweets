@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataset_twitter = pd.read_csv('../LESA/Twitter.csv', encoding='utf-8')
+dataset_twitter = pd.read_csv('Twitter.csv', encoding='utf-8')
 dataset_twitter = dataset_twitter[['tweet_text', 'claim']]
 dataset_twitter['claim'] = dataset_twitter['claim'].astype(float)
 dataset_twitter = dataset_twitter.sample(frac=1, random_state=0).reset_index(drop=True)

@@ -55,12 +55,9 @@ class DataLoader:
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                                 'CT22_english_1A_checkworthy_test_gold.tsv'
         elif dataset == 'CLEF2022_1b':
-            self.train_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
-                              'CT22_english_1B_claim_train.tsv'
-            self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1B_claim/' \
-                            'CT22_english_1B_claim_dev.tsv'
-            self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
-                             'CT22_english_1B_claim_test_gold.tsv'
+            self.train_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
+            self.dev_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
+            self.test_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_test_gold.tsv'
         elif dataset.startswith('LESA'):
             self.train_path = '../dataset/LESA/{}_train.tsv'.format(dataset)
             self.dev_path = '../dataset/LESA/{}_dev.tsv'.format(dataset)
