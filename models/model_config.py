@@ -33,13 +33,19 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'CLEF2022_1b'
+dataset_name = 'NewsClaims'
 test_dataset_name = 'LESA'
-tags = ['sentence level']
+tags = ['LESA']
 run_name = 'baseline'
 
 seeds = [42, 17, 36]
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
-do_normalize = False
-do_balancing = False
+
+do_balancing = True
+do_normalize = True
+
+delete_at = False
+delete_hashtag = True
+delete_url = True
+delete_emoji = True

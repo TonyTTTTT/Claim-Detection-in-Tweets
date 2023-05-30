@@ -59,17 +59,20 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
         predictions.append(prediction_max)
     labels.append(test_dataset.labels[i])
     predictions = np.array(predictions)
+    preds = predictions.argmax(axis=-1)
 
-    precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions.argmax(axis=-1), average='binary')
-    acc = accuracy_score(labels, predictions.argmax(axis=-1))
-    confusionMatrix = confusion_matrix(labels, predictions.argmax(axis=-1))
-    f1_macro = f1_score(labels, predictions.argmax(axis=-1), average='macro')
+    precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average='binary')
+    acc = accuracy_score(labels, preds)
+    confusionMatrix = confusion_matrix(labels, preds).tolist()
+    f1_macro = f1_score(labels, preds, average='macro')
+    agree = preds == labels
+    wrong_predicted_idx = np.where(agree == False)[0].tolist()
     print('\n=================================\n'
           'using method: {}\n'
           'f1_macro at article-level: {}\nf1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
           '\n=================================\n'.format(combine_method, f1_macro, f1, acc, confusionMatrix))
 
-    return f1_macro, f1, acc
+    return f1_macro, f1, acc, confusionMatrix, wrong_predicted_idx
 
 
 def model_init():
@@ -150,6 +153,9 @@ for i in range(0, len(seeds)):
     acc_sum += result['eval_accuracy']
     f1_macro_sum += result['eval_f1_macro']
 
+
+
+
     if test_dataset_name == 'same':
         testing_dataset_name = dataloader.preprocess_dataset_name
 
@@ -157,7 +163,7 @@ for i in range(0, len(seeds)):
                                      do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
     train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
     output_sentence = trainer.predict(test_dataset_sentence)
-    split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
+    split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc, split_into_sentences_confusionMatrix, split_into_sentences_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
     wandb.log({"f1_macro_split_to_sentences": split_into_sentences_f1_macro, "f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
     f1_macro_sen_sum += split_into_sentences_f1_macro
     f1_sen_sum += split_into_sentences_f1
@@ -167,7 +173,7 @@ for i in range(0, len(seeds)):
                                   do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
     train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
     output_frame = trainer.predict(test_dataset_frame)
-    split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
+    split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
     wandb.log({"f1_macro_split_to_frames": split_into_frames_f1_macro, "f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
     f1_macro_frame_sum += split_into_frames_f1_macro
     f1_frame_sum += split_into_frames_f1
@@ -176,6 +182,10 @@ for i in range(0, len(seeds)):
     if i < len(seeds)-1:
         run.finish()
 
+with open('wroing_prediction/{}_{}_wrong_idx.txt'.format(dataset_name, test_dataset_name), 'w') as f:
+    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(output[2]['test_wrong_predicted_idx'])))
+    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(split_into_sentences_wrong_predicted_idx)))
+    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(split_into_frames_wrong_predicted_idx)))
 
 f1_sum /= len(seeds)
 f1_sen_sum /= len(seeds)
@@ -191,7 +201,7 @@ print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_macro_sen_avg: {}, f1_sen_a
 wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_macro_sen_avg": f1_macro_sen_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_macro_frame_avg": f1_macro_frame_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
 run.finish()
 
-# trainer.save_model('results/final')
+# trainer.save_model('results/{}'.format(dataset_name))
 
 # write result to clef evaluation format
 # with open('none-operation-64-bertweet-test.tsv', 'w') as f:

@@ -1,13 +1,15 @@
 from data_loader import DataLoader, compute_metrics
 from transformers import AutoConfig, AutoModel
 from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig
-from data_preprocess_methods import *
+from data_preprocess_methods import split_into_sentences, split_into_frames
+from model_config import *
 
 
-model_path = "results/mine_best/final"
+model_path = 'results/{}'.format(dataset_name)
 
-data_loader = DataLoader(preprocess_function=none_operation)
-train_dataset, dev_dataset, test_dataset = data_loader.get_dataset(include_test=True)
+dataloader = DataLoader(preprocess_function=preprocess_function, dataset=test_dataset_name, do_normalize=do_normalize,
+                        concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
 # config = AutoConfig.from_pretrained("./results/mine_best/final")
 # model = AutoModel.from_config(config)
 model = RobertaForSequenceClassification.from_pretrained(model_path)

@@ -39,7 +39,7 @@ class DataLoader:
         self.dataset = dataset
         self.preprocess_dataset_name = None
         sentence_level_dataset_names = ['ClaimBuster', 'MT', 'OC', 'PE', 'VG',
-                                        'WD', 'WTP']
+                                        'WD', 'WTP', 'NewsClaims']
 
         if dataset == 'CLEF2021':
             self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
@@ -183,10 +183,11 @@ class DataLoader:
                                                                                       train_texts_raw, train_labels)
 
         if do_normalize:
-            print("==================\nNormalizeing...\n==================")
+            print("==================\nNormalizeing...")
             train_texts_raw = normalizeTweet(train_texts_raw)
             dev_texts_raw = normalizeTweet(dev_texts_raw)
             test_texts_raw = normalizeTweet(test_texts_raw)
+            print("==================")
 
         train_ids, train_topic_ids, train_texts, train_labels, preprocess_dataset_name = self.preprocess_function(train_ids, train_topic_ids,
                                                                                          train_texts_raw, train_labels,

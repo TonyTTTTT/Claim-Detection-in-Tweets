@@ -1,0 +1,1237 @@
+{
+    "covid19scenario-140": {
+        "covid19scenario-140-1": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Scientists",
+            "sentence": "Scientists have determined the virus came about naturally, but there is some uncertainty about how it first infected people.",
+            "stance": "Affirm"
+        },
+        "covid19scenario-140-2": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Some Americans",
+            "claim_object": "Lab",
+            "sentence": "While a plurality of Americans (43%) say the new coronavirus most likely came about naturally, nearly three-in-ten (29%) say it most likely was created in a lab, according to a Pew Research Center survey conducted from March 10 to 16, 2020, as part of the Center\u2019s nearly yearlong Election News Pathways project.",
+            "stance": "Affirm"
+        },
+        "covid19scenario-140-3": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "adults",
+            "claim_object": "Lab",
+            "sentence": "Around a quarter of adults (23%) say it is most likely that the current strain of coronavirus was developed intentionally in a lab; another 6% say it was most likely made accidentally in a lab.",
+            "stance": "Affirm"
+        }
+    },
+    "covid19scenario-113": {
+        "covid19scenario-113-0": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Scientists",
+            "stance": "Refute",
+            "claim_object": "outer space",
+            "sentence": "No, the new coronavirus didn't come from outer space.",
+            "topic": "Origin"
+        },
+        "covid19scenario-113-3": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Chandra Wickramasinghe",
+            "stance": "Refute",
+            "claim_object": "space",
+            "sentence": "One wild theory that has made its way around the web is that the virus came from space.",
+            "topic": "Origin"
+        },
+        "covid19scenario-113-4": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Scientists",
+            "stance": "Refute",
+            "claim_object": "space",
+            "sentence": "Spoiler alert: The virus did not come from space.",
+            "topic": "Origin"
+        },
+        "covid19scenario-113-5": {
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Chandra Wickramasinghe",
+            "stance": "Refute",
+            "claim_object": "space rock",
+            "sentence": "Recently, Chandra Wickramasinghe, known for his work in astronomy and astrobiology, spread the idea that the virus was living on a comet and a piece of that space rock may have fallen to Earth during a brief fireball event over China in October 2019.",
+            "topic": "Origin"
+        },
+        "covid19scenario-113-11": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Chandra Wickramasinghe",
+            "stance": "Refute",
+            "claim_object": "extraterrestrial",
+            "sentence": "However, scientists have rebuked Wickramasinghe's suggestions that any such illness might have extraterrestrial origins, and his ideas have largely been considered pseudoscience or \"bad science.\"",
+            "topic": "Origin"
+        },
+        "covid19scenario-113-26": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Graham Lau",
+            "stance": "Refute",
+            "claim_object": "outer space",
+            "sentence": "However, despite these theoretical possibilities, there is no credible evidence to show that the new coronavirus came from outer space, he added.",
+            "topic": "Origin"
+        }
+    },
+    "L0C04ATJH": {
+        "segment-48": {
+            "stance": "Affirm",
+            "claim_object": "pets",
+            "sentence": "Epstein says that even if COVID-19 becomes a mere seasonal disease, knowing pets\u2019 role in viral spread will be useful.",
+            "has_claimer": true,
+            "claimer": "Epstein",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                68,
+                116
+            ]
+        },
+        "segment-8": {
+            "stance": "Refute",
+            "claim_object": "pets",
+            "sentence": "\"CDC does not have evidence that pets can spread COVID-19, and there\u2019s no reason to think pets might be a source of infection based on the information we have at this time,\" Casey Barton Behravesh, director of the agency\u2019s One Health Office in the National Center for Emerging and Zoonotic Infectious Diseases, tells Science.",
+            "has_claimer": true,
+            "claimer": "Casey Barton Behravesh",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                5,
+                56
+            ]
+        },
+        "segment-52": {
+            "stance": "Affirm",
+            "claim_object": "stay 6 feet away from other animals",
+            "sentence": "\"When you walk your dog, stay 6 feet away from other animals.",
+            "has_claimer": true,
+            "claimer": "Behravesh",
+            "claimer_in_sentence": false,
+            "topic": "Protection",
+            "claim_span": [
+                25,
+                59
+            ]
+        },
+        "segment-33": {
+            "stance": "Affirm",
+            "claim_object": "human-to-human",
+            "sentence": "\"Our focus now should be on human-to-human transmission, because that\u2019s what\u2019s driving the epidemic.\"",
+            "has_claimer": true,
+            "claimer": "Jonathan Epstein",
+            "claimer_in_sentence": false,
+            "topic": "Transmission",
+            "claim_span": [
+                28,
+                54
+            ]
+        },
+        "segment-29": {
+            "stance": "Affirm",
+            "claim_object": "pets",
+            "sentence": "Given that there are about 150 million dogs and cats in the United States alone, if pets could readily catch COVID-19, we would be seeing tons of cases of by now, says Shelley Rankin, a microbiologist at the University of Pennsylvania School of Veterinary Medicine.",
+            "has_claimer": true,
+            "claimer": "Shelley Rankin",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                84,
+                160
+            ]
+        },
+        "segment-5": {
+            "stance": "Affirm",
+            "claim_object": "human",
+            "sentence": "The same day, Hong Kong\u2019s Agriculture, Fisheries and Conservation Department reported that a 17-year-old Pomeranian\u2014which had initially tested \"weak positive\" for SARS-CoV-2\u2014had indeed been infected by the virus, likely by its owner or another human.",
+            "has_claimer": true,
+            "claimer": "Hong Kong\u2019s Agriculture , Fisheries and Conservation Department",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                93,
+                248
+            ]
+        },
+        "segment-12": {
+            "stance": "Affirm",
+            "claim_object": "unwarranted fear\u2014especially",
+            "sentence": "The U.S. Department of Agriculture (USDA) has advised against it, and many experts are concerned about spreading unwarranted fear\u2014especially amid reports that some owners have begun to abandon their pets.",
+            "has_claimer": true,
+            "claimer": "many experts",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                103,
+                139
+            ]
+        },
+        "segment-13": {
+            "stance": "Refute",
+            "claim_object": "pets",
+            "sentence": "\"Even though we have no evidence that pets can transmit the virus, we desperately need [more] evidence one way or the other,\" says Timothy Baszler, executive director of the Washington Animal Disease Diagnostic Laboratory (WADDL), which announced 2 weeks ago that it had developed a COVID-19 test for pets.",
+            "has_claimer": true,
+            "claimer": "Timothy Baszler",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                21,
+                64
+            ]
+        }
+    },
+    "L0C049PJO": {
+        "segment-4": {
+            "stance": "Affirm",
+            "claim_object": "Warmer temperatures",
+            "sentence": "Warmer temperatures destroys the virus faster, but cool temperatures protect it.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                0,
+                44
+            ]
+        },
+        "segment-0": {
+            "stance": "Affirm",
+            "claim_object": "packages/parcels",
+            "sentence": "Serious question: Can the virus be spread via packages/parcels?",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                18,
+                61
+            ]
+        },
+        "segment-6": {
+            "stance": "Affirm",
+            "claim_object": "packages",
+            "sentence": "So if I was handling a lot of packages from China and dealing with co-worker who do I'd be very concerned.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                3,
+                104
+            ]
+        }
+    },
+    "L0C04CVK8": {
+        "segment-2": {
+            "topic": "Cure",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Eli Lilly and Company",
+            "sentence": "INDIANAPOLIS, March 10, 2021 /PRNewswire/ -- Eli Lilly and Company (NYSE: LLY) today announced new data from the randomized, double-blind, placebo-controlled BLAZE-1 Phase 3 study, demonstrating bamlanivimab (LY-CoV555) 700 mg and etesevimab (LY-CoV016) 1400 mg together significantly reduced COVID-19 related hospitalizations and deaths (\"events\") in high-risk patients recently diagnosed with COVID-19.",
+            "claim_span": [
+                195,
+                337
+            ],
+            "stance": "Affirm"
+        }
+    },
+    "covid19scenario-53": {
+        "covid19scenario-53-4": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "scientific paper",
+            "claim_object": "man",
+            "sentence": "The latest conspiracy theories about the new coronavirus, which first led to an outbreak in Wuhan, China in late 2019, allege that the virus was man-made, rather than the natural result of people coming into contact with wild animals.",
+            "topic": "Origin"
+        },
+        "covid19scenario-53-23": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Alex Jones",
+            "stance": "Refute",
+            "claim_object": "man",
+            "sentence": "Multiple episodes of his talk show address both of these groundless theories and claim there is evidence that \u201cproves\u201d the new coronavirus was \u201cman-made.\u201d",
+            "topic": "Origin"
+        },
+        "covid19scenario-53-33": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Kristian Andersen",
+            "stance": "Refute",
+            "claim_object": "man",
+            "sentence": "The blogger\u2019s contention that the new coronavirus may have been engineered using a SARS viral vector, Andersen said, is \u201cjust as absurd\u201d as the HIV theory.",
+            "topic": "Origin"
+        },
+        "covid19scenario-53-54": {
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Timothy Sheahan",
+            "stance": "Affirm",
+            "claim_object": "bat",
+            "sentence": "\u201cThe genetic data is pointing to this virus coming from a bat reservoir,\u201d he said, \u201cnot a lab.\u201d",
+            "topic": "Origin"
+        }
+    },
+    "covid19scenario-49": {
+        "covid19scenario-49-0": {
+            "topic": "Cure",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "The VitaminC4Covid\u200b\u200b campaign,",
+            "claim_object": "vitamin C ",
+            "sentence": "The VitaminC4Covid\u200b\u200b campaign, so far backed by about 350 leading vitamin C researchers, doctors, healthcare professionals and nutritionists along with 5000+ signatories from about 60 countries, says evidence shows injected or orally taken high doses of vitamin C can halt the onset of severe COVID-19 symptoms.",
+            "stance": "Affirm"
+        },
+        "covid19scenario-49-24": {
+            "topic": "Cure",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Patrick Holford",
+            "sentence": "Vaccines, by their nature, are reactive.",
+            "stance": "Affirm"
+        },
+        "covid19scenario-49-25": {
+            "topic": "Cure",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Patrick Holford",
+            "claim_object": "Zinc",
+            "sentence": "Vitamin C, together with vitamin D and zinc, are proactive.",
+            "stance": "Affirm"
+        },
+        "covid19scenario-49-9": {
+            "topic": "Cure",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Patrick Holford",
+            "claim_object": "vitamin C ",
+            "sentence": "A randomly controlled trial in Wuhan showed 68% less mortality among critical COVID-19 ICU patients on a ventilator with high dose vitamin C. A Spanish trial showed 17 out of 18 ICU patients had undetectable vitamin C levels.",
+            "stance": "Affirm"
+        }
+    },
+    "L0C049PIA": {
+        "segment-24": {
+            "stance": "Affirm",
+            "claim_object": "aerosol sprays and antiseptic wipes",
+            "sentence": "The best way to keep surfaces in your environment clean is to wipe them down frequently with germ-killing aerosol sprays and antiseptic wipes.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                16,
+                134
+            ]
+        },
+        "segment-25": {
+            "stance": "Affirm",
+            "claim_object": "washing your hands with soap and water",
+            "sentence": "And washing your hands with soap and water \u2014 properly and frequently \u2014 is still the most important thing you can do to help prevent the spread of both coronaviruses and other infectious diseases.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                4,
+                193
+            ]
+        },
+        "segment-36": {
+            "stance": "Affirm",
+            "claim_object": "single individual",
+            "sentence": "A single individual can infect more people.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                2,
+                41
+            ]
+        },
+        "segment-51": {
+            "stance": "Affirm",
+            "claim_object": "someone",
+            "sentence": "\"They could still easily be spreading it around: whether by spending time in close contact with other people or by touching things like doorknobs and faucet handles.",
+            "has_claimer": true,
+            "claimer": "Chemaly",
+            "claimer_in_sentence": false,
+            "topic": "Transmission",
+            "claim_span": [
+                1,
+                46
+            ]
+        },
+        "segment-32": {
+            "stance": "Affirm",
+            "claim_object": "staying home , practicing social distancing and practicing good hand hygiene",
+            "sentence": "That\u2019s why it\u2019s so important to do everything you can to help slow the spread of COVID-19 \u2014 that includes staying home, practicing social distancing and practicing good hand hygiene.\"",
+            "has_claimer": true,
+            "claimer": "Chemaly",
+            "claimer_in_sentence": false,
+            "topic": "Protection",
+            "claim_span": [
+                62,
+                180
+            ]
+        },
+        "segment-15": {
+            "stance": "Affirm",
+            "claim_object": "people",
+            "sentence": "They can also pass that virus along to others \u2014 even if they never show any symptoms of infection.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                0,
+                44
+            ]
+        },
+        "segment-5": {
+            "stance": "Affirm",
+            "claim_object": "a hot bath",
+            "sentence": "Or even that taking a hot bath can stop COVID-19",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                8,
+                47
+            ]
+        },
+        "segment-54": {
+            "stance": "Affirm",
+            "claim_object": "infected people",
+            "sentence": "The lag in testing means the true number of cases is still unknown, so a lot of infected people might be walking around in public, not realizing they\u2019re spreading the virus.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                68,
+                171
+            ]
+        },
+        "segment-20": {
+            "stance": "Affirm",
+            "claim_object": "Warm water or air can",
+            "sentence": "Myth #2: Warm water or air can kill the coronavirus.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                9,
+                50
+            ]
+        },
+        "segment-39": {
+            "stance": "Affirm",
+            "claim_object": "people",
+            "sentence": "That means people may be spreading germs over a longer period of time and not even realize it.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                11,
+                92
+            ]
+        },
+        "segment-23": {
+            "stance": "Refute",
+            "claim_object": "a hot bath nor drying your hands with a hair dryer set on high heat",
+            "sentence": "But contrary to what you might have heard, neither taking a hot bath nor drying your hands with a hair dryer set on high heat will kill the coronavirus \u2014 either inside or outside of your body.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                43,
+                150
+            ]
+        },
+        "segment-52": {
+            "stance": "Affirm",
+            "claim_object": "social distancing",
+            "sentence": "That\u2019s why social distancing is so critical.\"",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                11,
+                42
+            ]
+        }
+    },
+    "L0C04CVH2": {
+        "segment-0": {
+            "topic": "Protection",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Donald Trump",
+            "sentence": "Trump says Sweden is \u2018paying heavily\u2019 for not ordering coronavirus lockdown as he boasts US made \u2018correct decision\u2019",
+            "claim_span": [
+                11,
+                75
+            ],
+            "stance": "Affirm"
+        },
+        "segment-14": {
+            "topic": "Protection",
+            "has_claimer": false,
+            "claimer": "",
+            "sentence": "Despite other European countries enforcing strict lockdowns to prevent the spread of the coronavirus, Sweden, with a population of 10 million, has gone for a \"low-scale approach.\"",
+            "stance": "Affirm"
+        },
+        "segment-15": {
+            "topic": "Protection",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Anders Tegnell",
+            "sentence": "Anders Tegnell, the country\u2019s chief epidemiologist and top strategist for the country in the fight against the pandemic, said it \"is much more sustainable\" over a longer period.",
+            "stance": "Affirm"
+        },
+        "segment-19": {
+            "topic": "Protection",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Johan Mattsson",
+            "sentence": "One local, Johan Mattsson, told The New York Times: \"My respect for those who died, but we are doing something right here in Sweden.\"",
+            "stance": "Affirm"
+        },
+        "segment-25": {
+            "topic": "Protection",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Donald Trump",
+            "claim_object": "Herd immunity",
+            "sentence": "Trump previously suggested that the rising number of Swedish deaths is because of the country\u2019s idea to embrace herd immunity.",
+            "stance": "Affirm"
+        },
+        "segment-31": {
+            "topic": "Protection",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Lena Hallengren",
+            "claim_object": "Herd immunity",
+            "sentence": "But Swedish Health Minister Lena Hallengren recently told The Associated Press: \"We have never had a strategy for herd immunity.\"",
+            "claim_span": [
+                81,
+                127
+            ],
+            "stance": "Affirm"
+        },
+        "segment-32": {
+            "topic": "Protection",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Mike Ryan",
+            "sentence": "On Wednesday, the World Health Organization praised Sweden as a \"model\" for other countries to follow amid the pandemic.",
+            "claim_span": [
+                52,
+                119
+            ],
+            "stance": "Affirm"
+        },
+        "segment-34": {
+            "topic": "Protection",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Mike Ryan",
+            "sentence": "Mike Ryan, the WHO\u2019s top emergencies expert, said there are \"lessons to be learned\" from the Scandinavian country.",
+            "claim_span": [
+                50,
+                113
+            ],
+            "stance": "Affirm"
+        }
+    },
+    "L0C049DZU": {
+        "segment-7": {
+            "stance": "Refute",
+            "claim_object": "an American researcher",
+            "sentence": "Thousands of social media posts and several YouTube videos are spreading false claims that an American researcher who worked at Harvard University was involved in developing the novel coronavirus.",
+            "has_claimer": true,
+            "claimer": "Thousands of social media posts and several YouTube videos",
+            "claimer_in_sentence": true,
+            "topic": "Origin",
+            "claim_span": [
+                91,
+                194
+            ]
+        }
+    },
+    "covid19scenario-76": {
+        "covid19scenario-76-0": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Zhao Lijian",
+            "claim_object": "Wuhan",
+            "sentence": "Hong Kong (CNN) A prominent Chinese official has promoted a conspiracy theory that the United States military could have brought the novel coronavirus to China -- and it did not originate in the city of Wuhan, as thought.",
+            "stance": "Refute"
+        }
+    },
+    "L0C04ATLI": {
+        "segment-7": {
+            "stance": "Refute",
+            "claim_object": "food",
+            "sentence": "\"Currently there is no evidence to support transmission of COVID-19 associated with food.\"",
+            "has_claimer": true,
+            "claimer": "Centers for Disease Control and Prevention",
+            "claimer_in_sentence": false,
+            "topic": "Transmission",
+            "claim_span": [
+                20,
+                87
+            ]
+        },
+        "segment-5": {
+            "stance": "Refute",
+            "claim_object": "drinking lots of water",
+            "sentence": "\"There is no evidence that drinking lots of water flushes out the new coronavirus or the stomach acid kills the virus.\"",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                1,
+                116
+            ]
+        },
+        "segment-8": {
+            "stance": "Affirm",
+            "claim_object": "wash your hands with soap and water for about 20 seconds",
+            "sentence": "The CDC advises to wash your hands with soap and water for about 20 seconds before preparing or eating food.",
+            "has_claimer": true,
+            "claimer": "CDC",
+            "claimer_in_sentence": true,
+            "topic": "Protection",
+            "claim_span": [
+                19,
+                106
+            ]
+        },
+        "segment-1": {
+            "stance": "Affirm",
+            "claim_object": "stomach acid",
+            "sentence": "TUCSON - A News 4 Tucson viewer asked us about ingesting the coronavirus from food or drinks and if stomach acid kills the coronavirus.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                9,
+                133
+            ]
+        }
+    },
+    "L0C04958V": {
+        "segment-3": {
+            "topic": "Origin",
+            "has_claimer": false,
+            "claimer": "",
+            "claim_object": "Wuhan",
+            "sentence": "Among these were the false claim that the virus was part of a Chinese \"covert biological weapons programme\", and a baseless claim that a Canadian-Chinese spy team had sent coronavirus to Wuhan.",
+            "claim_span": [
+                137,
+                192
+            ],
+            "stance": "Refute"
+        },
+        "segment-4": {
+            "topic": "Origin",
+            "has_claimer": false,
+            "claimer": "",
+            "claim_object": "Man",
+            "sentence": "The claim that the virus was man-made has been pushed by numerous conspiracy groups on Facebook, obscure Twitter accounts and even found its way on to primetime Russian state TV.",
+            "claim_span": [
+                15,
+                37
+            ],
+            "stance": "Refute"
+        },
+        "segment-7": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Zhao Lijian",
+            "claim_object": "the US",
+            "sentence": "Zhao Lijian, a Chinese foreign ministry spokesman, has repeatedly promoted the idea - without evidence - that Covid-19 might have originated in the US.",
+            "claim_span": [
+                110,
+                150
+            ],
+            "stance": "Refute"
+        },
+        "segment-8": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Zhao Lijian",
+            "claim_object": "Wuhan",
+            "sentence": "On 12 March, he said in a tweet that it might have been the US army that brought the virus to Wuhan.",
+            "claim_span": [
+                56,
+                99
+            ],
+            "stance": "Affirm"
+        },
+        "segment-9": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Global Research",
+            "claim_object": "the US",
+            "sentence": "A day later, he tweeted an article by the website Global Research headlined \"Further evidence that the virus originated in the US\", and urged users to read and share it.",
+            "claim_span": [
+                103,
+                129
+            ],
+            "stance": "Affirm"
+        },
+        "segment-14": {
+            "topic": "Origin",
+            "has_claimer": false,
+            "claimer": "",
+            "claim_object": "lab",
+            "sentence": "Is there any evidence for lab release theory?",
+            "claim_span": [
+                26,
+                37
+            ]
+        },
+        "segment-21": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Zhao Lijian",
+            "claim_object": "the US",
+            "sentence": "COVID-19: Further Evidence that the Virus Originated in the US.",
+            "claim_span": [
+                32,
+                62
+            ],
+            "stance": "Affirm"
+        },
+        "segment-24": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Larry Romanoff",
+            "claim_object": "China",
+            "sentence": "The article Mr Zhao tweeted was penned by regular contributor Larry Romanoff, who reiterates the conclusion from his earlier piece - now deleted - that the virus did not originate in China.",
+            "claim_span": [
+                152,
+                188
+            ],
+            "stance": "Refute"
+        },
+        "segment-25": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Science",
+            "claim_object": "China ",
+            "sentence": "But the Chinese research and articles in the magazine Science that he quotes do not actually call into question China being the place where the outbreak started.",
+            "claim_span": [
+                112,
+                160
+            ],
+            "stance": "Affirm"
+        },
+        "segment-26": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Science",
+            "claim_object": "the animal market in Wuhan",
+            "sentence": "Instead, they only suggest that specifically the animal market in Wuhan may not have been the origin of the new coronavirus.",
+            "claim_span": [
+                45,
+                123
+            ],
+            "stance": "Refute"
+        },
+        "segment-27": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Japanese and Taiwanese scientists",
+            "claim_object": "the US",
+            "sentence": "Mr Romanoff also claims that Japanese and Taiwanese scientists \"have determined that the new coronavirus could have originated in the US\".",
+            "claim_span": [
+                86,
+                137
+            ],
+            "stance": "Affirm"
+        },
+        "segment-31": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "Larry Romanoff",
+            "claim_object": "US military germ laboratory",
+            "sentence": "Mr Romanoff also claims - without evidence - that the US military germ laboratory in Fort Detrick, Maryland, may have been the original source of the virus.",
+            "claim_span": [
+                50,
+                155
+            ],
+            "stance": "Affirm"
+        },
+        "segment-43": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Elements",
+            "claim_object": "the US",
+            "sentence": "Claims by elements in the Chinese government and media about the US being a possible origin of the virus prompted a response from US President Donald Trump who referred to Covid-19 as a \"Chinese virus\".",
+            "claim_span": [
+                65,
+                104
+            ],
+            "stance": "Affirm"
+        },
+        "segment-48": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "a study",
+            "claim_object": "lab",
+            "sentence": "Fox News primetime host Tucker Carlson cited a study raising the possibility that the coronavirus \"accidentally escaped from a lab in Wuhan\".",
+            "claim_span": [
+                82,
+                140
+            ],
+            "stance": "Affirm"
+        },
+        "segment-51": {
+            "topic": "Origin",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "a study ",
+            "claim_object": "lab",
+            "sentence": "It concluded that \"the killer coronavirus probably originated from a laboratory in Wuhan\".",
+            "claim_span": [
+                18,
+                89
+            ],
+            "stance": "Affirm"
+        },
+        "segment-57": {
+            "topic": "Origin",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Jeremy Konyndyk",
+            "claim_object": "lab",
+            "sentence": "Jeremy Konyndyk, who led the US government's response to the Ebola outbreak, tweeted in response to reports about an accidental lab leak: \"The science doesn't preclude a lab origin but does indicate it's quite unlikely.\"",
+            "claim_span": [
+                128,
+                219
+            ],
+            "stance": "Refute"
+        }
+    },
+    "5": {
+        "5-18": {
+            "sentence": "Therefore, convincing more Americans the vaccine is safe could have a dramatic impact on efforts to stop the spread of Covid-19.",
+            "topic": "Protection",
+            "stance": "Affirm",
+            "claim_object": "vaccine",
+            "has_claimer": false,
+            "claimer": "",
+            "claim_span": [
+                11,
+                126
+            ]
+        },
+        "5-25": {
+            "sentence": "He attributed his speedy recovery to experimental monoclonal antibody treatment.",
+            "topic": "Cure",
+            "stance": "Affirm",
+            "claim_object": "monoclonal antibody treatment",
+            "has_claimer": true,
+            "claimer": "Trump",
+            "claimer_in_sentence": false,
+            "claim_span": [
+                0,
+                78
+            ]
+        },
+        "5-35": {
+            "sentence": "Moncef Slaoui, who leads the federal vaccination program, told CNN the vaccine was safe for people who have recovered from coronavirus and presents stronger and possibly longer protection than past infection.",
+            "topic": "Protection",
+            "stance": "Affirm",
+            "claim_object": "vaccine",
+            "has_claimer": true,
+            "claimer": "Moncef Slaoui",
+            "claimer_in_sentence": true,
+            "claim_span": [
+                71,
+                206
+            ]
+        }
+    },
+    "covid19scenario-118": {
+        "covid19scenario-118-0": {
+            "has_claimer": false,
+            "claimer": "",
+            "stance": "Refute",
+            "claim_object": "market",
+            "sentence": "The novel coronavirus and the SARS outbreak of 2003 have two things in common: Both are from the coronavirus family, and both have been associated with animals commonly sold in \"wet markets.\"",
+            "topic": "Origin"
+        }
+    },
+    "L0C049DYR": {
+        "segment-0": {
+            "stance": "Affirm",
+            "claim_object": "alkaline food",
+            "sentence": "Is eating \"alkaline food\" a viable diet to prevent infection from COVID-19?",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                0,
+                73
+            ]
+        }
+    },
+    "L0C04CVMN": {
+        "segment-0": {
+            "topic": "Cure",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "New England Journal of Medicine",
+            "claim_object": "Hydroxychloroquine",
+            "sentence": "Hydroxychloroquine \u2018not an effective treatment\u2019 for COVID-19, leads to longer hospital stays",
+            "claim_span": [
+                0,
+                60
+            ],
+            "stance": "Refute"
+        },
+        "segment-1": {
+            "topic": "Cure",
+            "claimer_in_sentence": false,
+            "has_claimer": true,
+            "claimer": "New England Journal of Medicine",
+            "claim_object": "hydroxychloroquine",
+            "sentence": "The antimalarial drug hydroxychloroquine is not an effective treatment option for hospitalized COVID-19 patients, according to a new study in the",
+            "claim_span": [
+                0,
+                112
+            ],
+            "stance": "Refute"
+        },
+        "segment-9": {
+            "topic": "Cure",
+            "claimer_in_sentence": true,
+            "has_claimer": true,
+            "claimer": "Peter Horby",
+            "claim_object": "hydroxychloroquine",
+            "sentence": "\"In this analysis of the RECOVERY trial, we determined that hydroxychloroquine was not an effective treatment for patients hospitalized with COVID-19,\" wrote lead author Peter Horby, a professor of emerging infectious diseases and global health at the University of Oxford, and colleagues.",
+            "claim_span": [
+                60,
+                149
+            ],
+            "stance": "Refute"
+        }
+    },
+    "L0C049PKE": {
+        "segment-58": {
+            "stance": "Refute",
+            "claim_object": "Antibiotics",
+            "sentence": "Truth: Antibiotics are used to fight bacteria, not viruses, which is what COVID-19 is.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                7,
+                57
+            ]
+        },
+        "segment-59": {
+            "stance": "Refute",
+            "claim_object": "antibiotics",
+            "sentence": "This myth may have stemmed from the fact some people who are hospitalized for coronavirus have received antibiotics, but that\u2019s because bacterial \"co-infections\" are possible with COVID-19, according to the WHO.",
+            "has_claimer": true,
+            "claimer": "WHO",
+            "claimer_in_sentence": true,
+            "topic": "Cure",
+            "claim_span": [
+                46,
+                114
+            ]
+        },
+        "segment-38": {
+            "stance": "Affirm",
+            "claim_object": "alcohol and chlorine",
+            "sentence": "Myth #8: Spraying alcohol and chlorine all over yourself kills the coronavirus",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                9,
+                77
+            ]
+        },
+        "segment-22": {
+            "stance": "Refute",
+            "claim_object": "mosquitoes",
+            "sentence": "From the WHO, \"there has been no information nor evidence to suggest that the new coronavirus could be transmitted by mosquitoes.\"",
+            "has_claimer": true,
+            "claimer": "WHO",
+            "claimer_in_sentence": true,
+            "topic": "Transmission",
+            "claim_span": [
+                25,
+                127
+            ]
+        },
+        "segment-13": {
+            "stance": "Affirm",
+            "claim_object": "cold and hot temperatures",
+            "sentence": "Truth: This myth has been stemming from the false idea that cold and hot temperatures can kill the virus.",
+            "has_claimer": true,
+            "claimer": "Myth #3:",
+            "claimer_in_sentence": false,
+            "topic": "Cure",
+            "claim_span": [
+                60,
+                103
+            ]
+        },
+        "segment-44": {
+            "stance": "Affirm",
+            "claim_object": "its own vaccine",
+            "sentence": "COVID-19 is a respiratory infection, yes, but it requires its own vaccine, which is in the testing phase right now.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                0,
+                113
+            ]
+        },
+        "segment-11": {
+            "stance": "Affirm",
+            "claim_object": "hot or humid the air",
+            "sentence": "COVID-19 can be transmitted anywhere, regardless of how hot or humid the air is.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                0,
+                78
+            ]
+        },
+        "segment-7": {
+            "stance": "Affirm",
+            "claim_object": "frequent handwashing with soap and water , or using hand sanitizer with at least 60 percent alcohol",
+            "sentence": "Truth: The CDC and the WHO have said this from the start: the most effective way to protect yourself from COVID-19 is with frequent handwashing with soap and water, or using hand sanitizer with at least 60 percent alcohol.",
+            "has_claimer": true,
+            "claimer": "CDC and the WHO",
+            "claimer_in_sentence": true,
+            "topic": "Protection",
+            "claim_span": [
+                58,
+                220
+            ]
+        },
+        "segment-43": {
+            "stance": "Refute",
+            "claim_object": "vaccines against pneumonia , such as pneumococcal vaccine and Haemophilus influenza type B vaccine",
+            "sentence": "Truth: The WHO says, \"vaccines against pneumonia, such as pneumococcal vaccine and Haemophilus influenza type B vaccine, do not provide protection against the new coronavirus.\"",
+            "has_claimer": true,
+            "claimer": "WHO",
+            "claimer_in_sentence": true,
+            "topic": "Protection",
+            "claim_span": [
+                22,
+                173
+            ]
+        },
+        "segment-45": {
+            "stance": "Affirm",
+            "claim_object": "Rinsing your nose , and gargling , with saline solution",
+            "sentence": "Myth #10: Rinsing your nose, and gargling, with saline solution helps prevent COVID-19 infection",
+            "has_claimer": true,
+            "claimer": "Myth #10:",
+            "claimer_in_sentence": true,
+            "topic": "Protection",
+            "claim_span": [
+                10,
+                95
+            ]
+        },
+        "segment-6": {
+            "stance": "Affirm",
+            "claim_object": "Cold weather",
+            "sentence": "Myth #1: Cold weather kills the novel coronavirus",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                9,
+                48
+            ]
+        },
+        "segment-57": {
+            "stance": "Affirm",
+            "claim_object": "Antibiotics",
+            "sentence": "Myth #13: Antibiotics prevent and treat COVID-19",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                10,
+                47
+            ]
+        },
+        "segment-39": {
+            "stance": "Refute",
+            "claim_object": "Spraying alcohol and chlorine all over yourself",
+            "sentence": "Truth: This will not cure you of COVID-19 if it has already entered your body.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                7,
+                40
+            ]
+        },
+        "segment-61": {
+            "stance": "Refute",
+            "claim_object": "medicines",
+            "sentence": "Myth #14: There are medicines to prevent and treat coronavirus",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                0,
+                61
+            ]
+        },
+        "segment-53": {
+            "stance": "Affirm",
+            "claim_object": "steps",
+            "sentence": "Truth: The World Health Organization says people of all ages need to take steps to protect themselves from COVID-19.",
+            "has_claimer": true,
+            "claimer": "World Health Organization",
+            "claimer_in_sentence": true,
+            "topic": "Protection",
+            "claim_span": [
+                7,
+                114
+            ]
+        },
+        "segment-60": {
+            "stance": "Affirm",
+            "claim_object": "antibiotic",
+            "sentence": "The antibiotic does not treat the virus itself.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                0,
+                45
+            ]
+        },
+        "segment-24": {
+            "stance": "Affirm",
+            "claim_object": "social distancing and frequent hand washing",
+            "sentence": "This is why social distancing and frequent hand washing is so important.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                12,
+                70
+            ]
+        },
+        "segment-0": {
+            "stance": "Affirm",
+            "claim_object": "Cold weather",
+            "sentence": "\u2018Cold weather kills coronavirus\u2019 and 13 other COVID-19 myths you may be falling for",
+            "has_claimer": true,
+            "claimer": "social media",
+            "claimer_in_sentence": false,
+            "topic": "Protection",
+            "claim_span": [
+                1,
+                30
+            ]
+        },
+        "segment-54": {
+            "stance": "Affirm",
+            "claim_object": "frequent hand washing , the use of hand sanitizer , and social distancing",
+            "sentence": "The best ways are frequent hand washing, the use of hand sanitizer, and social distancing.",
+            "has_claimer": true,
+            "claimer": "World Health Organization",
+            "claimer_in_sentence": false,
+            "topic": "Protection",
+            "claim_span": [
+                0,
+                88
+            ]
+        },
+        "segment-64": {
+            "stance": "Refute",
+            "claim_object": "medication",
+            "sentence": "You can use medication to relieve symptoms, but those with severe symptoms from coronavirus should seek help from a medical professional.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Cure",
+            "claim_span": [
+                0,
+                135
+            ]
+        },
+        "segment-49": {
+            "stance": "Affirm",
+            "claim_object": "Eating garlic",
+            "sentence": "Myth #11: Eating garlic helps prevent COVID-19 infection",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                10,
+                55
+            ]
+        },
+        "segment-19": {
+            "stance": "Affirm",
+            "claim_object": "mosquito bites",
+            "sentence": "Myth #4: Coronavirus can be transmitted through mosquito bites",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Transmission",
+            "claim_span": [
+                9,
+                61
+            ]
+        },
+        "segment-30": {
+            "stance": "Refute",
+            "claim_object": "UV light",
+            "sentence": "Truth: It\u2019s too soon to tell whether UV light is an effective way to kill the new coronavirus, and the World Health Organization does not suggest its use.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                7,
+                92
+            ]
+        },
+        "segment-17": {
+            "stance": "Affirm",
+            "claim_object": "wash your hands",
+            "sentence": "Still, the best way to prevent getting COVID-19 is to wash your hands often.",
+            "has_claimer": false,
+            "claimer": "",
+            "topic": "Protection",
+            "claim_span": [
+                11,
+                74
+            ]
+        }
+    }
+}
