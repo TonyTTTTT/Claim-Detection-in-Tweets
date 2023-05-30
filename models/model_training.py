@@ -182,7 +182,7 @@ for i in range(0, len(seeds)):
     if i < len(seeds)-1:
         run.finish()
 
-with open('wroing_prediction/{}_{}_wrong_idx.txt'.format(dataset_name, test_dataset_name), 'w') as f:
+with open('wrong_prediction/{}_{}_wrong_idx.txt'.format(dataset_name, test_dataset_name), 'w') as f:
     f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(output[2]['test_wrong_predicted_idx'])))
     f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(split_into_sentences_wrong_predicted_idx)))
     f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(split_into_frames_wrong_predicted_idx)))
