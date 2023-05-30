@@ -1,4 +1,4 @@
-topic	id	text	claim
+topic	tweet_id	text	claim
 NewsClaims	0	Barely 1 month after Chinese health authorities reported the first cases of a mysterious new pneumonia in the city of Wuhan, the world may be on the cusp of a new pandemic.	1
 NewsClaims	1	A team led by Shi Zheng-Li of the Wuhan Institute of Virology reported on 23 January that 2019-nCoV's sequence was 96.2% identical to that of a bat coronavirus and 79.5% identical to the SARS coronavirus.	1
 NewsClaims	2	From the start, the Huanan Seafood Wholesale Market in Wuhan—which sold mammals as well as fish—was considered a likely source of the outbreak because most of the early patients had visited it.	1

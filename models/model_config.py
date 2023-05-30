@@ -33,10 +33,10 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'NewsClaims'
+dataset_name = 'sentence_level_CB_VG_NC'
 test_dataset_name = 'LESA'
-tags = ['LESA']
-run_name = 'baseline'
+tags = ['sentence level']
+run_name = 'baseline_CB_VG_NC_balanced'
 
 seeds = [42, 17, 36]
 preprocess_function = none_operation

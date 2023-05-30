@@ -49,13 +49,13 @@ claim_test.extend(claim_all[split_idx:])
 
 df_train.insert(0, 'claim', claim_train)
 df_train.insert(0, 'text', text_train)
-df_train.insert(0, 'id', [i for i in range(0, len(claim_train))])
-df_train.insert(0, 'topic', ['NewsClaims_processed' for i in range(0, len(claim_train))])
+df_train.insert(0, 'tweet_id', [i for i in range(0, len(claim_train))])
+df_train.insert(0, 'topic', ['NewsClaims' for i in range(0, len(claim_train))])
 
 df_test.insert(0, 'claim', claim_test)
 df_test.insert(0, 'text', text_test)
-df_test.insert(0, 'id', [i+len(claim_train) for i in range(0, len(claim_test))])
-df_test.insert(0, 'topic', ['NewsClaims_processed' for i in range(0, len(claim_test))])
+df_test.insert(0, 'tweet_id', [i+len(claim_train) for i in range(0, len(claim_test))])
+df_test.insert(0, 'topic', ['NewsClaims' for i in range(0, len(claim_test))])
 
 df_train.to_csv('NewsClaims_train.tsv', sep='\t', index=False)
 df_test.to_csv('NewsClaims_test.tsv', sep='\t', index=False)

@@ -1,4 +1,4 @@
-topic	id	text	claim
+topic	tweet_id	text	claim
 NewsClaims	6938	Scientists have determined the virus came about naturally, but there is some uncertainty about how it first infected people.	1
 NewsClaims	6939	While a plurality of Americans (43%) say the new coronavirus most likely came about naturally, nearly three-in-ten (29%) say it most likely was created in a lab, according to a Pew Research Center survey conducted from March 10 to 16, 2020, as part of the Center’s nearly yearlong Election News Pathways project.	1
 NewsClaims	6940	Around a quarter of adults (23%) say it is most likely that the current strain of coronavirus was developed intentionally in a lab; another 6% say it was most likely made accidentally in a lab.	1
