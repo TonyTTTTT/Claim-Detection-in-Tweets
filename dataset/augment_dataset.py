@@ -2,7 +2,7 @@ import pandas as pd
 
 
 article_level_dataset_path = 'LESA/LESA'
-sentence_level_dataset_path = 'other-sentence-level/sentence_level_OC_VG_WD_CB'
+sentence_level_dataset_path = 'other-sentence-level/sentence_level_CB_VG_NC'
 
 set_types = ['train', 'dev', 'test']
 for set_type in set_types:
@@ -11,4 +11,4 @@ for set_type in set_types:
 
     df_combined = pd.concat([df1, df2], ignore_index=True)
     df_combined['tweet_id'] = [i for i in range(0, df_combined.shape[0])]
-    df_combined.to_csv('LESA/LESA_OC_VG_WD_CB_{}.tsv'.format(set_type), sep='\t', index=False)
+    df_combined.to_csv('LESA/LESA_CB_VG_NC_{}.tsv'.format(set_type), sep='\t', index=False)
