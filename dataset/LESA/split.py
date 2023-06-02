@@ -16,16 +16,17 @@ twitter_train.columns = ['text', 'claim']
 twitter_test.columns = ['text', 'claim']
 
 ## DOWNSAMPLE TRAIN SET IN 1:1 RATIO
-count_1_values, count_0_values = twitter_train['claim'].value_counts()
+# count_1_values, count_0_values = twitter_train['claim'].value_counts()
+#
+# class_0 = twitter_train[twitter_train['claim'] == 0]
+# class_1 = twitter_train[twitter_train['claim'] == 1]
+#
+# count_1_needed = int(count_0_values * 1)
+#
+# class_1_under = class_1.sample(count_1_needed)
+#
+# twitter_train = pd.concat([class_1_under, class_0], axis=0)
 
-class_0 = twitter_train[twitter_train['claim'] == 0]
-class_1 = twitter_train[twitter_train['claim'] == 1]
-
-count_1_needed = int(count_0_values * 1)
-
-class_1_under = class_1.sample(count_1_needed)
-
-twitter_train = pd.concat([class_1_under, class_0], axis=0)
 
 twitter_train['claim'] = twitter_train['claim'].astype(int)
 twitter_test['claim'] = twitter_test['claim'].astype(int)
@@ -42,5 +43,6 @@ tweet_ids = [i+twitter_train.shape[0] for i in range(0, twitter_test.shape[0])]
 twitter_test.insert(0, 'tweet_id', tweet_ids)
 twitter_test.insert(0, 'topic', topics)
 
-twitter_train.to_csv('LESA_train.tsv', sep='\t', index=False)
-twitter_test.to_csv('LESA_test.tsv', sep='\t', index=False)
+twitter_train.to_csv('LESA_imbalanced_train.tsv', sep='\t', index=False)
+twitter_test.to_csv('LESA_imbalanced_test.tsv', sep='\t', index=False)
+twitter_test.to_csv('LESA_imbalanced_dev.tsv', sep='\t', index=False)
