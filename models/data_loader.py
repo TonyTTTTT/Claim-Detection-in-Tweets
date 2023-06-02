@@ -10,25 +10,6 @@ import pickle
 from model_config import model_path
 
 
-class CheckThatDataset(torch.utils.data.Dataset):
-    def __init__(self, encodings, ids, topic_ids, labels=None):
-        self.encodings = encodings
-        self.labels = labels
-        self.ids = ids
-        self.topic_ids = topic_ids
-
-    def __getitem__(self, idx):
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        if self.labels is not None:
-            item['label'] = torch.tensor(self.labels[idx])
-        # item['id_num'] = self.ids[idx]
-        # item['topic_id'] = self.topic_ids[idx]
-        return item
-
-    def __len__(self):
-        return len(self.encodings['input_ids'])
-
-
 class DataLoader:
     def __init__(self, preprocess_function, dataset, do_normalize, concate_frames_num, do_balancing):
         self.preprocess_function = preprocess_function
@@ -125,38 +106,58 @@ class DataLoader:
     @staticmethod
     def balance_class(ids, topic_ids, texts, labels):
         print('=============\nBalancing Class...\n=============')
-        cnt_0 = 0
-        cnt_1 = 0
-        for label in labels:
-            if label == 0:
-                cnt_0 += 1
-            else: # label == 1:
-                cnt_1 += 1
+        ids = np.array(ids)
+        topic_ids = np.array(topic_ids)
+        texts = np.array(texts)
+        labels = np.array(labels)
 
-        cnt_less = min(cnt_0, cnt_1)
-        cnt_0 = 0
-        cnt_1 = 0
-        ids_balanced = []
-        topic_ids_balanced = []
-        texts_balanced = []
-        labels_balanced = []
+        positive_idx = np.where(labels == 1)[0]
+        negative_idx = np.where(labels == 0)[0]
 
-        idx = 0
-        while cnt_0 < cnt_less or cnt_1 < cnt_less:
-            if labels[idx] == 0 and cnt_0 < cnt_less:
-                cnt_0 += 1
-                ids_balanced.append(ids[idx])
-                topic_ids_balanced.append(topic_ids[idx])
-                texts_balanced.append(texts[idx])
-                labels_balanced.append(labels[idx])
-            elif labels[idx] == 1 and cnt_1 < cnt_less:
-                cnt_1 += 1
-                ids_balanced.append(ids[idx])
-                topic_ids_balanced.append(topic_ids[idx])
-                texts_balanced.append(texts[idx])
-                labels_balanced.append(labels[idx])
+        np.random.seed(36)
+        if len(positive_idx) > len(negative_idx):
+            positive_idx = np.random.choice(positive_idx, len(negative_idx))
+        else:
+            negative_idx = np.random.choice(negative_idx, len(positive_idx))
 
-            idx += 1
+        balanced_idx = np.concatenate((positive_idx, negative_idx))
+        ids_balanced = ids[balanced_idx].tolist()
+        topic_ids_balanced = topic_ids[balanced_idx].tolist()
+        texts_balanced = texts[balanced_idx].tolist()
+        labels_balanced = labels[balanced_idx].tolist()
+
+        # cnt_0 = 0
+        # cnt_1 = 0
+        # for label in labels:
+        #     if label == 0:
+        #         cnt_0 += 1
+        #     else: # label == 1:
+        #         cnt_1 += 1
+        #
+        # cnt_less = min(cnt_0, cnt_1)
+        # cnt_0 = 0
+        # cnt_1 = 0
+        # ids_balanced = []
+        # topic_ids_balanced = []
+        # texts_balanced = []
+        # labels_balanced = []
+        #
+        # idx = 0
+        # while cnt_0 < cnt_less or cnt_1 < cnt_less:
+        #     if labels[idx] == 0 and cnt_0 < cnt_less:
+        #         cnt_0 += 1
+        #         ids_balanced.append(ids[idx])
+        #         topic_ids_balanced.append(topic_ids[idx])
+        #         texts_balanced.append(texts[idx])
+        #         labels_balanced.append(labels[idx])
+        #     elif labels[idx] == 1 and cnt_1 < cnt_less:
+        #         cnt_1 += 1
+        #         ids_balanced.append(ids[idx])
+        #         topic_ids_balanced.append(topic_ids[idx])
+        #         texts_balanced.append(texts[idx])
+        #         labels_balanced.append(labels[idx])
+        #
+        #     idx += 1
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
@@ -261,3 +262,22 @@ if __name__ == '__main__':
     dataset = 'CLEF2022'
     dataloader = DataLoader(preprocess_function=concate_frames, dataset=dataset)
     train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+
+
+class CheckThatDataset(torch.utils.data.Dataset):
+    def __init__(self, encodings, ids, topic_ids, labels=None):
+        self.encodings = encodings
+        self.labels = labels
+        self.ids = ids
+        self.topic_ids = topic_ids
+
+    def __getitem__(self, idx):
+        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
+        if self.labels is not None:
+            item['label'] = torch.tensor(self.labels[idx])
+        # item['id_num'] = self.ids[idx]
+        # item['topic_id'] = self.topic_ids[idx]
+        return item
+
+    def __len__(self):
+        return len(self.encodings['input_ids'])

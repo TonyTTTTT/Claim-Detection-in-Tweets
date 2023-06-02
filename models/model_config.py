@@ -33,7 +33,7 @@ lr_scheduler_type = "constant_with_warmup"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'sentence_level_CB_VG_NC'
+dataset_name = 'LESA'
 test_dataset_name = 'LESA'
 tags = ['sentence level']
 run_name = 'baseline_CB_VG_NC_balanced'
@@ -45,6 +45,7 @@ concate_frames_num = 5
 do_balancing = True
 do_normalize = True
 
+delete_tail_hashtag = True
 delete_at = False
 delete_hashtag = True
 delete_url = True
