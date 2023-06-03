@@ -184,8 +184,8 @@ for i in range(0, len(seeds)):
 
 with open('wrong_prediction/{}_{}_wrong_idx.txt'.format(dataset_name, test_dataset_name), 'w') as f:
     f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(test_dataset.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
-    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_sentence.ids)[split_into_sentences_wrong_predicted_idx].tolist())))
-    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_frame.ids)[split_into_frames_wrong_predicted_idx].tolist())))
+    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
+    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
 
 f1_sum /= len(seeds)
 f1_sen_sum /= len(seeds)
