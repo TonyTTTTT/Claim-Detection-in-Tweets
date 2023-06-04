@@ -47,6 +47,7 @@ do_normalize = True
 
 delete_tail_hashtag = True
 delete_at = False
-delete_hashtag = True
+delete_hashtag = False
 delete_url = True
 delete_emoji = True
+replace_covid = True

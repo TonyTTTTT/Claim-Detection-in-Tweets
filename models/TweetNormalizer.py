@@ -1,6 +1,6 @@
 from emoji import demojize
 from nltk.tokenize import TweetTokenizer
-from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail_hashtag
+from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail_hashtag, replace_covid
 import nltk
 import nltk.data
 
@@ -28,6 +28,8 @@ def delToken(token):
         return ""
     elif len(token)<=2 and len(demojize(token))>2 and delete_emoji:
         return ""
+    elif ('covid' in lowercased_token or 'corona' in lowercased_token) and replace_covid:
+        return "Ebola"
     else:
         return token
 
