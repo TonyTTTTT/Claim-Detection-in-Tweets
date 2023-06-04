@@ -124,11 +124,19 @@ f1_sum = 0
 f1_sen_sum = 0
 f1_frame_sum = 0
 
+tags_last_run = tags.copy()
+tags_last_run.append('last run')
+
 for i in range(0, len(seeds)):
+    if i == len(seeds)-1:
+        tags_use = tags_last_run
+    else:
+        tags_use = tags
+
     run = wandb.init(
         project="Claim Detection in Tweets",
         name='{}_{}'.format(run_name, i),
-        tags=tags
+        tags=tags_use
     )
 
     training_args.seed = seeds[i]
