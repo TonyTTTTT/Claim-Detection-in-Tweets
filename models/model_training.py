@@ -78,7 +78,7 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
 def model_init():
     configuration = AutoConfig.from_pretrained(model_path)
 
-    if model_path.startswith('roberta'):
+    if model_path.startswith('roberta') or 'bertweet' in model_path:
         model = RobertaForSequenceClassification.from_pretrained(model_path, config=configuration)
     elif model_path.startswith('bert'):
         model = BertForSequenceClassification.from_pretrained(model_path, config=configuration)
