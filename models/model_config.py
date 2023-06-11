@@ -25,6 +25,7 @@ learning_rate = 5e-7  # local
 # num_train_epochs = 7 # CLEF2022 1b
 # num_train_epochs = 5 # other sentence-level
 num_train_epochs = 5  # local
+max_steps = 1350
 
 warm_up_epochs = 1
 
