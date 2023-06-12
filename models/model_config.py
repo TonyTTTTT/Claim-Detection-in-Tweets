@@ -34,9 +34,9 @@ lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'LESA'
-test_dataset_name = 'LESA'
-tags = ['LESA']
+dataset_name = 'CLEF2022_1b'
+test_dataset_name = 'CLEF2022_1b'
+tags = ['local']
 run_name = 'local'
 
 seeds = [42, 17, 36]
