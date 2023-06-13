@@ -106,7 +106,7 @@ training_args = TrainingArguments(
 
     learning_rate=learning_rate,
     num_train_epochs=num_train_epochs,
-    max_steps=max_steps,
+    # max_steps=max_steps,
     # adam_epsilon=2.5e-9,
     warmup_steps=(len(train_dataset_train.ids) / (per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
