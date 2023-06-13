@@ -88,7 +88,7 @@ def model_init():
 
 dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize,
                         concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
+train_dataset_train, train_dataset_dev, train_dataset_test = dataloader.get_dataset(include_test=True)
 
 
 training_args = TrainingArguments(
@@ -108,7 +108,7 @@ training_args = TrainingArguments(
     num_train_epochs=num_train_epochs,
     max_steps=max_steps,
     # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset.ids)/(per_device_train_batch_size * device_num)) * warm_up_epochs,
+    warmup_steps=(len(train_dataset_train.ids) / (per_device_train_batch_size * device_num)) * warm_up_epochs,
     # weight_decay=0,
     # no_cuda=True,
     lr_scheduler_type=lr_scheduler_type,
@@ -145,8 +145,8 @@ for i in range(0, len(seeds)):
     trainer = Trainer(
         model_init=model_init,
         args=training_args,                  # training arguments, defined above
-        train_dataset=train_dataset,         # training dataset
-        eval_dataset=test_dataset,            # evaluation dataset
+        train_dataset=train_dataset_train,         # training dataset
+        eval_dataset=train_dataset_test,            # evaluation dataset
         compute_metrics=compute_metrics
     )
 
@@ -155,7 +155,7 @@ for i in range(0, len(seeds)):
     print("==========================")
     result = trainer.evaluate()
     print("==========================")
-    output = trainer.predict(test_dataset)
+    output = trainer.predict(train_dataset_test)
     print("==========================")
 
     f1_sum += result['eval_f1']
@@ -197,10 +197,17 @@ for i in range(0, len(seeds)):
 # table = wandb.Table(data=data, columns=columns)
 # wandb.log({"examples": table})
 
+if test_dataset_name == dataset_name:
+    test_dataset_test = train_dataset_test
+else:
+    dataloader_test = DataLoader(preprocess_function=none_operation, dataset=test_dataset_name,
+                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+    test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
+
 with open('wrong_prediction/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
-    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(test_dataset.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
-    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
-    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
+    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(test_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
+    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
+    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
 
 f1_sum /= len(seeds)
 f1_sen_sum /= len(seeds)
