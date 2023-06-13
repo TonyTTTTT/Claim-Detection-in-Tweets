@@ -24,7 +24,7 @@ learning_rate = 5e-7  # local
 # num_train_epochs = 10  # LESA
 # num_train_epochs = 7 # CLEF2022 1b
 # num_train_epochs = 5 # other sentence-level
-num_train_epochs = 1  # local
+num_train_epochs = 0.01  # local
 max_steps = 1350
 
 warm_up_epochs = 1
@@ -34,19 +34,20 @@ lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'NewsClaims'
+dataset_name = 'ClaimBuster'
 test_dataset_name = 'LESA'
 tags = ['local']
 run_name = 'local'
 
-seeds = [42, 17, 36]
+# seeds = [42, 17, 36]
+seeds = [1]
 preprocess_function = none_operation
 concate_frames_num = 5
 
 do_balancing = True
 do_normalize = True
 
-delete_tail_hashtag = False
+delete_tail = True
 delete_at = False
 delete_hashtag = False
 delete_url = False

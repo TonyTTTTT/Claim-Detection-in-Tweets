@@ -205,7 +205,7 @@ else:
     test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
 
 with open('wrong_prediction/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
-    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(test_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
+    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(train_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
     f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
     f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
 

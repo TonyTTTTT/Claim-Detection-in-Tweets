@@ -304,8 +304,9 @@ def rewrite_by_GPT(*args):
 if __name__ == '__main__':
     ids = [23423, 1161]
     topic_ids = ['pig', 'cat']
-    texts = ["India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt",
-             "Being a part of @ETHPnews, we are delighted to announce that we have established two #COVID19 Immunization Clinics in #EastToronto. This week, these clinics will provide vaccines to eligible priority groups, such as health care workers and individuals over 80 years old. For more information, please visit: https://t.co/t890KePvBG https://t.co/We2EdhFitS."]
+    texts = [#"India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt",
+             #"Being a part of @ETHPnews, we are delighted to announce that we have established two #COVID19 Immunization Clinics in #EastToronto. This week, these clinics will provide vaccines to eligible priority groups, such as health care workers and individuals over 80 years old. For more information, please visit: https://t.co/t890KePvBG https://t.co/We2EdhFitS.",
+             "@MollyJongFast @GayEqualGlobal Thank you President Biden!! AMAZING Accomplishments in your first 50 days! COVID-19 RELIF BILL AND COVID-19 VACCINES! https://t.co/y5GX6Rabhk"]
     labels = [0, 1]
     dataset = 'GGG'
     part = 'train'

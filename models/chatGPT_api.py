@@ -37,10 +37,11 @@ if __name__ == '__main__':
     tweet3 = "All I'm saying is meth will cure Coronavirus"
     tweet4 = "Rather than fighting #coronavirus , May be you could use @Lysol to make #TheRealDonaldTrump go away"
     tweet5 = "\"@Nigel_Farage #Coronavirus was #sars virus! #china synthesized it in a lab to be more deadly, more contagious! Using as bio-weapon worldwide now! To weaken other economies globally!\n#Covid_19\""
+    tweet6 = "had someone on sc for 2 days before i deleted her ass. she had to have been on some stupid shit. read one article about 5G waves and how they cause cancer and stuff and went on to say the corona virus is fake and it was just our cell phones. is u stupid"
 
-    content = tweet5
+    content = tweet6
     messages_normalize = [
-        {"role": "user", "content": content + "\nnormalize no matter the context:"},
+        {"role": "user", "content": content + "\nnormalize:"},
     ]
     messages_normalize_v2 = [
         {"role": "user", "content": content + "\nnormalize the tweet:"},
@@ -60,8 +61,7 @@ if __name__ == '__main__':
     messages_simplify = [
         {"role": "user", "content": content+"\nsimplify:"}
     ]
-    messages_simplify_v2 = [
-         # {"role": "system", "content": "You are helping me simplify a tweet."},
+    messages_clarify = [
         {"role": "user", "content": content+"\nclarify:"}
     ]
     messages_extract = [
@@ -84,6 +84,10 @@ if __name__ == '__main__':
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user", "content": content + "\nrewrite the tweet:"}
     ]
+    messages_rephrase = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user", "content": content + "\nrephrase:"}
+    ]
 
     article1 = "通告各位好友，我兒已確定:你若有辦敬老卡每人每個月乘坐交通工具補助480元沒用完，"\
                 "可在月底前去便利商店買東西把他用完以免浪費。今天才知道，平白浪費不少!"
@@ -97,22 +101,29 @@ if __name__ == '__main__':
         {"role": "user", "content": "請將下面訊息中\"可以查核\"且\"值得查核\"的部分挑選出來，並以文中的句子條列:\n" + article1}
     ]
     chatgpt = ChatGPT()
-    # res_normalize = chatgpt.get_response(messages_normalize)
-    # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
 
-    # res_summary = chatgpt.get_response(messages_summary)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
+    # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
+
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
 
+    # res_summary = chatgpt.get_response(messages_summary)
+
     # res_simplify = chatgpt.get_response(messages_simplify)
-    # res_simplify_v2 = chatgpt.get_response(messages_simplify_v2)
+
+    res_clarify = chatgpt.get_response(messages_clarify)
+
+    res_rephrase = chatgpt.get_response(messages_rephrase)
+
+    res_normalize = chatgpt.get_response(messages_normalize)
+    # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
+
 
     # res_extract = chatgpt.get_response(messages_extract)
     # res_extract_v2 = chatgpt.get_response(messages_extract_v2)
     # res_extract_v3 = chatgpt.get_response(messages_extract_v3)
 
-    messages_rewrite = chatgpt.get_response(messages_rewrite)
-    messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
 
     # messages_CDDTC = chatgpt.get_response(messages_CDDTC)
 
