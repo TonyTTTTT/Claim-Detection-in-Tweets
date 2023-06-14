@@ -46,22 +46,23 @@ def normalizeTweet(tweets):
 
         if delete_tail:
             sentences = sentence_splitter.tokenize(tweet_norm)
-            last_sen = tokenizer.tokenize(sentences[-1])
-            del_last_sen = True
-            for token in last_sen:
-                if not token.startswith('#') and not token.startswith('http') and not token.startswith('@'):
-                    del_last_sen = False
-                    break
-            if del_last_sen:
-                new_last_sen = []
+            if sentences != []:
+                last_sen = tokenizer.tokenize(sentences[-1])
+                del_last_sen = True
                 for token in last_sen:
-                    if not token.startswith('#') and not token.startswith('@'):
-                        new_last_sen.append(token)
-                if new_last_sen != []:
-                    sentences[-1] = " ".join(new_last_sen)
-                else:
-                    sentences.pop()
-            tweet_norm = " ".join(sentences)
+                    if not token.startswith('#') and not token.startswith('http') and not token.startswith('@'):
+                        del_last_sen = False
+                        break
+                if del_last_sen:
+                    new_last_sen = []
+                    for token in last_sen:
+                        if not token.startswith('#') and not token.startswith('@'):
+                            new_last_sen.append(token)
+                    if new_last_sen != []:
+                        sentences[-1] = " ".join(new_last_sen)
+                    else:
+                        sentences.pop()
+                tweet_norm = " ".join(sentences)
 
         tokens = tokenizer.tokenize(tweet_norm)
         tweet_norm = " ".join([delToken(token) for token in tokens])
@@ -78,6 +79,7 @@ def normalizeTweet(tweets):
 
 if __name__ == "__main__":
     examples = [
+        ".",
         "Vaccines  💵work by triggering a response in a person's immune system. That means some people will feel a little sore, tired or unwell after their #COVID19 vaccination. Most side effects are mild and should not last longer than a @MrGG. More on the vaccine: https://t.co/cSCb40c2mt #AmericanRescuePlan #AAA #cat #dog",
         "This is how you annihilate northern Italy—check the date of the post! The CCP and WHO basically killed the Chinese, and then let it spread to hide their bioweapons work. #CCPVirus #CCPLiedPeopleDied #CCPVirus @abc #CCP_is_terrorist #Coronavirustruth #COVID19 https://t.co/D49H4d7oET",
         "Prime Minister of Israel Benjamin Netanyahu  @netanyahu  encourages Israelis to adopt the Indian way of greeting #Namaste at a press conference to mitigate the spread of #coronavirus"
