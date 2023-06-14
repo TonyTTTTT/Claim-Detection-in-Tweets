@@ -24,8 +24,8 @@ learning_rate = 5e-7  # local
 # num_train_epochs = 10  # LESA
 # num_train_epochs = 7 # CLEF2022 1b
 # num_train_epochs = 5 # other sentence-level
-num_train_epochs = 0.01  # local
-max_steps = 1350
+num_train_epochs = 5  # local
+# max_steps = 1350
 
 warm_up_epochs = 1
 
@@ -34,7 +34,7 @@ lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'ClaimBuster'
+dataset_name = 'LESA'
 test_dataset_name = 'LESA'
 tags = ['local']
 run_name = 'local'

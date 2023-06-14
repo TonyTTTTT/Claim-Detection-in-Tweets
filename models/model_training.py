@@ -92,13 +92,17 @@ train_dataset_train, train_dataset_dev, train_dataset_test = dataloader.get_data
 
 
 training_args = TrainingArguments(
-    output_dir='results',  # model save dir
+    output_dir='results/{}/{}'.format(dataset_name, run_name),  # model save dir
     logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset_name, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
     evaluation_strategy='epoch',
     # logging_steps=100,
     logging_strategy='epoch',
+
     # save_steps=10000,
-    save_strategy="no",
+    save_strategy="epoch",
+    save_total_limit=1,
+    load_best_model_at_end=True,
+
     logging_first_step=True,
 
     per_device_train_batch_size=per_device_train_batch_size,
