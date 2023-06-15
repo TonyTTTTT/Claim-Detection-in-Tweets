@@ -99,9 +99,9 @@ training_args = TrainingArguments(
     logging_strategy='epoch',
 
     # save_steps=10000,
-    save_strategy="epoch",
-    save_total_limit=1,
-    load_best_model_at_end=True,
+    save_strategy="no",
+    # save_total_limit=1,
+    # load_best_model_at_end=True,
 
     logging_first_step=True,
 
