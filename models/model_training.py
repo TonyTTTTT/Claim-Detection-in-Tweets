@@ -191,6 +191,7 @@ for i in range(0, len(seeds)):
     f1_macro_frame_sum += split_into_frames_f1_macro
     f1_frame_sum += split_into_frames_f1
     acc_frame_sum += split_into_frames_acc
+    dataloader_frame.write_prediciton_to_file(output_frame.predictions.argmax(axis=-1), dataset_name, test_dataset_name)
 
     if i < len(seeds)-1:
         run.finish()

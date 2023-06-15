@@ -19,6 +19,8 @@ class DataLoader:
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
         self.dataset = dataset
         self.preprocess_dataset_name = None
+        self.do_normalize = do_normalize
+        self.do_balancing = do_balancing
         sentence_level_dataset_names = ['ClaimBuster', 'MT', 'OC', 'PE', 'VG',
                                         'WD', 'WTP', 'NewsClaims']
 
@@ -160,6 +162,32 @@ class DataLoader:
         #     idx += 1
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
+
+    def write_prediciton_to_file(self, preds, dataset_name, test_dataset_name):
+        if self.dataset.startswith('sentence_level'):
+            test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
+        else:
+            test_data = pd.read_csv(self.test_path, sep='\t', dtype=str)
+
+        test_data[test_data.columns[-1]] = test_data[test_data.columns[-1]].astype(int)
+
+        test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
+
+        if self.do_normalize:
+            print("==================\nNormalizeing...")
+            test_texts_raw = normalizeTweet(test_texts_raw)
+            print("==================")
+
+        test_ids, test_topic_ids, test_texts, test_labels, preprocess_dataset_name = self.preprocess_function(test_ids, test_topic_ids,
+                                                                                     test_texts_raw, test_labels,
+                                                                                     self.dataset, 'test')
+
+        df_pred = pd.DataFrame(list(zip(test_topic_ids, test_ids, test_texts, test_labels, preds)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label', 'pred'])
+        df_pred['tweet_id'] = df_pred['tweet_id'].astype(str)
+        print('=====================\nwrite tsv to pred/{}_{}.tsv'
+              '\n============================='.format(dataset_name, test_dataset_name))
+        df_pred.to_csv('pred/{}_{}.tsv'.format(dataset_name, test_dataset_name), sep='\t', index=False)
+
 
     def read_data(self, dataset, do_normalize, concate_frames_num, do_balancing):
         if dataset.startswith('sentence_level'):
