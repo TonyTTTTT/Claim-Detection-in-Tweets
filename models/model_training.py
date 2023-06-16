@@ -231,7 +231,7 @@ print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_macro_sen_avg: {}, f1_sen_a
 wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_macro_sen_avg": f1_macro_sen_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_macro_frame_avg": f1_macro_frame_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
 run.finish()
 
-# trainer.save_model('results/{}'.format(dataset_name))
+trainer.save_model('results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
 
 # write result to clef evaluation format
 # with open('none-operation-64-bertweet-test.tsv', 'w') as f:
