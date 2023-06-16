@@ -152,10 +152,10 @@ def split_into_frames(*args):
 
             for frame in res:
                 frame = frame.strip()
-                frame = frame.replace(" '", "'")
-                frame = frame.replace(" ,", ",")
-                frame = frame.replace(" .", ".")
-                frame += '.'
+                # frame = frame.replace(" '", "'")
+                # frame = frame.replace(" ,", ",")
+                # frame = frame.replace(" .", ".")
+                frame += ' .'
                 texts_aug.append(frame)
                 ids_aug.append(ids[i])
                 topic_ids_aug.append(topic_ids[i])
@@ -312,5 +312,5 @@ if __name__ == '__main__':
     part = 'train'
     concate_frames_num = 3
 
-    ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name = split_into_frames(ids, topic_ids, texts, labels, dataset,
+    ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name = split_into_sentences(ids, topic_ids, texts, labels, dataset,
                                                                    part, concate_frames_num)
