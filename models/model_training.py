@@ -202,6 +202,7 @@ for i in range(0, len(seeds)):
 # table = wandb.Table(data=data, columns=columns)
 # wandb.log({"examples": table})
 
+dataloader_sentence.write_prediciton_to_file(output_sentence.predictions.argmax(axis=-1), dataset_name, test_dataset_name)
 dataloader_frame.write_prediciton_to_file(output_frame.predictions.argmax(axis=-1), dataset_name, test_dataset_name)
 
 if test_dataset_name == dataset_name:
