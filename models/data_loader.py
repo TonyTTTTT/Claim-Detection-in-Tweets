@@ -186,7 +186,7 @@ class DataLoader:
         df_pred['tweet_id'] = df_pred['tweet_id'].astype(str)
         print('=====================\nwrite tsv to pred/{}_{}_{}.tsv'
               '\n============================='.format(dataset_name, test_dataset_name, level))
-        df_pred.to_csv('pred/{}_{}.tsv'.format(dataset_name, test_dataset_name), sep='\t', index=False)
+        df_pred.to_csv('pred/{}_{}_{}.tsv'.format(dataset_name, test_dataset_name, level), sep='\t', index=False)
 
 
     def read_data(self, dataset, do_normalize, concate_frames_num, do_balancing):
