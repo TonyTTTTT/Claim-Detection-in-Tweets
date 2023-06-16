@@ -163,7 +163,7 @@ class DataLoader:
 
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
-    def write_prediciton_to_file(self, preds, dataset_name, test_dataset_name):
+    def write_prediciton_to_file(self, preds, dataset_name, test_dataset_name, level):
         if self.dataset.startswith('sentence_level'):
             test_data = pd.read_csv(self.test_path, sep='\t', dtype=str, quotechar='"', quoting=3)
         else:
@@ -184,8 +184,8 @@ class DataLoader:
 
         df_pred = pd.DataFrame(list(zip(test_topic_ids, test_ids, test_texts, test_labels, preds)), columns=['topic', 'tweet_id', 'tweet_text', 'class_label', 'pred'])
         df_pred['tweet_id'] = df_pred['tweet_id'].astype(str)
-        print('=====================\nwrite tsv to pred/{}_{}.tsv'
-              '\n============================='.format(dataset_name, test_dataset_name))
+        print('=====================\nwrite tsv to pred/{}_{}_{}.tsv'
+              '\n============================='.format(dataset_name, test_dataset_name, level))
         df_pred.to_csv('pred/{}_{}.tsv'.format(dataset_name, test_dataset_name), sep='\t', index=False)
 
 
