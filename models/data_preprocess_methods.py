@@ -155,7 +155,7 @@ def split_into_frames(*args):
                 # frame = frame.replace(" '", "'")
                 # frame = frame.replace(" ,", ",")
                 # frame = frame.replace(" .", ".")
-                frame += ' .'
+                # frame += ' .'
                 texts_aug.append(frame)
                 ids_aug.append(ids[i])
                 topic_ids_aug.append(topic_ids[i])
