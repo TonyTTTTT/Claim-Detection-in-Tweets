@@ -1,4 +1,4 @@
-topic	tweet_id	tweet_url	tweet_text	class_label
+topic	tweet_id	tweet_url	text	claim
 COVID-19	1367961367882444800	http://twitter.com/user/status/1367961367882444800	Native American communities have been hit hard by COVID-19. But thanks to the Indian Health Service and strong partnerships with Tribal governments, organizations, and urban Indian groups, more than 500,000 vaccines have already been administered with more on the way.	1
 COVID-19	1367097428785000451	http://twitter.com/user/status/1367097428785000451	ALERT: CVS Pharmacy is now offering COVID-19 vaccines in Massachusetts to Teachers K-12, Daycare and preschool workers, and staff. https://t.co/pBRXCSpHmL	1
 COVID-19	1370569956811739137	http://twitter.com/user/status/1370569956811739137	COVID-19 has changed our way of life and, with COVID-19 vaccines available to millions and soon to everyone, this is our shot to roll up our sleeves and do our part. https://t.co/KGKjfKaX7T	0

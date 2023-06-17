@@ -1,4 +1,4 @@
-topic	tweet_id	tweet_url	tweet_text	class_label
+topic	tweet_id	tweet_url	text	claim
 COVID-19	1359350943356174337	http://twitter.com/user/status/1359350943356174337	India's gift of 100,000 COVID-19 vaccines arrived Barbados earlier today. This was a very special moment for all Barbadians and I want to thank Prime Minister Modi for his quick, decisive, and magnanimous action in allowing us to be the beneficiary of these vaccines. https://t.co/cSCb40c2mt	1
 COVID-19	1350165688061669378	http://twitter.com/user/status/1350165688061669378	Here’s what I’m doing while I wait my turn for the COVID-19 vaccines: masking up, staying at least six feet apart from others, avoiding crowds, and not gathering inside with people I don’t live with. This is how I’ll make a difference and help #SlowTheSpread.	0
 COVID-19	1369749539154919425	http://twitter.com/user/status/1369749539154919425	This afternoon, I’m hosting an event with the CEOs of Johnson &amp; Johnson and Merck to discuss our historic partnership to produce more COVID-19 vaccines. Tune in. https://t.co/S3OxWrOUgt	0

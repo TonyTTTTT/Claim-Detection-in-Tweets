@@ -1,4 +1,4 @@
-topic	tweet_id	tweet_url	tweet_text	class_label
+topic	tweet_id	tweet_url	text	claim
 COVID-19	1333505660407963648	http://twitter.com/user/status/1333505660407963648	Phineas and Ferb would have made the vaccine by now	0
 COVID-19	1425267281202909184	http://twitter.com/user/status/1425267281202909184	i was a vaccine checker tonight at my venue and i swear to god i’m not fucking with you, one couple came up to me and asked “vaccine for what”…… WHAT DO YOU MEAN VACCINE FOR WHAT	1
 COVID-19	1387113304959504384	http://twitter.com/user/status/1387113304959504384	I asked the nurse giving my vaccine if I could use a bandaid I brought from home and she was like “I don’t see why not” and now she sees why not https://t.co/iYSkmePANJ	1
