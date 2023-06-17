@@ -49,6 +49,10 @@ class DataLoader:
             self.train_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
             self.dev_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
             self.test_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev_test.tsv'
+        elif dataset.startswith('CLEF') and 'GPT' not in dataset:
+            self.train_path = '../dataset/CheckThatLab2022-1b/{}_train.tsv'.format(dataset)
+            self.dev_path = '../dataset/CheckThatLab2022-1b/{}_dev.tsv'.format(dataset)
+            self.test_path = '../dataset/CheckThatLab2022-1b/{}_test.tsv'.format(dataset)
         elif dataset.startswith('LESA') and 'GPT' not in dataset:
             self.train_path = '../dataset/LESA/{}_train.tsv'.format(dataset)
             self.dev_path = '../dataset/LESA/{}_dev.tsv'.format(dataset)
