@@ -9,22 +9,24 @@ import torch
 
 mine_model_path = 'results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name)
 
-# dataloader = DataLoader(preprocess_function=preprocess_function, dataset=test_dataset_name, do_normalize=do_normalize,
-#                         concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-# train_dataset, dev_dataset, test_dataset = dataloader.get_dataset(include_test=True)
-# config = AutoConfig.from_pretrained("./results/mine_best/final")
+# dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
+#                               do_normalize=do_normalize, concate_frames_num=concate_frames_num,
+#                               do_balancing=do_balancing)
+# train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
+# config = AutoConfig.from_pretrained(mine_model_path)
 # model = AutoModel.from_config(config)
 
 model = RobertaForSequenceClassification.from_pretrained(mine_model_path)
 model.eval()
 
-text = 'Polls starting to look really bad for Obama.'
+text = 'China will admit coronavirus coming from its P4 lab BioWeapon.'
 tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
 tokenizer.model_max_length = 128
 text_encoding = tokenizer(text, truncation=True, padding='max_length')
 input_tensor = torch.tensor(text_encoding['input_ids']).resize(1, 128)
 
-print('text')
+print(mine_model_path)
+print(text)
 print(model(input_tensor))
 # trainer = Trainer(
 #     model=model,                         # the instantiated 🤗 Transformers model to be trained
