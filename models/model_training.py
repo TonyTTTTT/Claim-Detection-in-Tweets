@@ -86,176 +86,177 @@ def model_init():
     return model
 
 
-dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize,
-                        concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-train_dataset_train, train_dataset_dev, train_dataset_test = dataloader.get_dataset(include_test=True)
+if __name__ == '__main__':
+    dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize,
+                            concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+    train_dataset_train, train_dataset_dev, train_dataset_test = dataloader.get_dataset(include_test=True)
 
 
-training_args = TrainingArguments(
-    output_dir='results/{}/{}'.format(dataset_name, run_name),  # model save dir
-    logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset_name, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
-    evaluation_strategy='epoch',
-    # logging_steps=100,
-    logging_strategy='epoch',
+    training_args = TrainingArguments(
+        output_dir='results',  # model save dir
+        logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset_name, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
+        evaluation_strategy='epoch',
+        # logging_steps=100,
+        logging_strategy='epoch',
 
-    # save_steps=10000,
-    save_strategy="no",
-    # save_total_limit=1,
-    # load_best_model_at_end=True,
+        # save_steps=10000,
+        save_strategy="no",
+        # save_total_limit=1,
+        # load_best_model_at_end=True,
 
-    logging_first_step=True,
+        logging_first_step=True,
 
-    per_device_train_batch_size=per_device_train_batch_size,
-    # per_device_eval_batch_size=64,
+        per_device_train_batch_size=per_device_train_batch_size,
+        # per_device_eval_batch_size=64,
 
-    learning_rate=learning_rate,
-    num_train_epochs=num_train_epochs,
-    # max_steps=max_steps,
-    # adam_epsilon=2.5e-9,
-    warmup_steps=(len(train_dataset_train.ids) / (per_device_train_batch_size * device_num)) * warm_up_epochs,
-    # weight_decay=0,
-    # no_cuda=True,
-    lr_scheduler_type=lr_scheduler_type,
-    # seed=42,
-)
+        learning_rate=learning_rate,
+        num_train_epochs=num_train_epochs,
+        # max_steps=max_steps,
+        # adam_epsilon=2.5e-9,
+        warmup_steps=(len(train_dataset_train.ids) / (per_device_train_batch_size * device_num)) * warm_up_epochs,
+        # weight_decay=0,
+        # no_cuda=True,
+        lr_scheduler_type=lr_scheduler_type,
+        # seed=42,
+    )
 
-f1_macro_sum = 0
-f1_macro_sen_sum = 0
-f1_macro_frame_sum = 0
-acc_sum = 0
-acc_sen_sum = 0
-acc_frame_sum = 0
-f1_sum = 0
-f1_sen_sum = 0
-f1_frame_sum = 0
+    f1_macro_sum = 0
+    f1_macro_sen_sum = 0
+    f1_macro_frame_sum = 0
+    acc_sum = 0
+    acc_sen_sum = 0
+    acc_frame_sum = 0
+    f1_sum = 0
+    f1_sen_sum = 0
+    f1_frame_sum = 0
 
-tags_last_run = tags.copy()
-tags_last_run.append('last run')
+    tags_last_run = tags.copy()
+    tags_last_run.append('last run')
 
-for i in range(0, len(seeds)):
-    if i == len(seeds)-1:
-        tags_use = tags_last_run
+    for i in range(0, len(seeds)):
+        if i == len(seeds)-1:
+            tags_use = tags_last_run
+        else:
+            tags_use = tags
+
+        run = wandb.init(
+            project="Claim Detection in Tweets",
+            name='{}_{}'.format(run_name, i),
+            tags=tags_use
+        )
+
+        training_args.seed = seeds[i]
+        # No1 team treat dev dataset as eval_dataset, so here I do the same
+        trainer = Trainer(
+            model_init=model_init,
+            args=training_args,                  # training arguments, defined above
+            train_dataset=train_dataset_train,         # training dataset
+            eval_dataset=train_dataset_test,            # evaluation dataset
+            compute_metrics=compute_metrics
+        )
+
+        trainer.train()
+        # trainer.hyperparameter_search()
+        print("==========================")
+        result = trainer.evaluate()
+        print("==========================")
+        output = trainer.predict(train_dataset_test)
+        print("==========================")
+
+        f1_sum += result['eval_f1']
+        acc_sum += result['eval_accuracy']
+        f1_macro_sum += result['eval_f1_macro']
+
+
+
+
+        if test_dataset_name == 'same':
+            testing_dataset_name = dataloader.preprocess_dataset_name
+
+        dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=test_dataset_name,
+                                         do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+        train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
+        output_sentence = trainer.predict(test_dataset_sentence)
+        split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc, split_into_sentences_confusionMatrix, split_into_sentences_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
+        wandb.log({"f1_macro_split_to_sentences": split_into_sentences_f1_macro, "f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
+        f1_macro_sen_sum += split_into_sentences_f1_macro
+        f1_sen_sum += split_into_sentences_f1
+        acc_sen_sum += split_into_sentences_acc
+
+        dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
+                                      do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+        train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
+        output_frame = trainer.predict(test_dataset_frame)
+        split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
+        wandb.log({"f1_macro_split_to_frames": split_into_frames_f1_macro, "f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
+        f1_macro_frame_sum += split_into_frames_f1_macro
+        f1_frame_sum += split_into_frames_f1
+        acc_frame_sum += split_into_frames_acc
+
+
+        if i < len(seeds)-1:
+            run.finish()
+
+    # columns = ["wrong_predicted_idx"]
+    # Method 1
+    # data =
+    # table = wandb.Table(data=data, columns=columns)
+    # wandb.log({"examples": table})
+
+    dataloader_sentence.write_prediciton_to_file(output_sentence.predictions.argmax(axis=-1), dataset_name, test_dataset_name, 'sentence')
+    dataloader_frame.write_prediciton_to_file(output_frame.predictions.argmax(axis=-1), dataset_name, test_dataset_name, 'frame')
+
+    if test_dataset_name == dataset_name:
+        test_dataset_test = train_dataset_test
     else:
-        tags_use = tags
+        dataloader_test = DataLoader(preprocess_function=none_operation, dataset=test_dataset_name,
+                                         do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+        test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
 
-    run = wandb.init(
-        project="Claim Detection in Tweets",
-        name='{}_{}'.format(run_name, i),
-        tags=tags_use
-    )
+    with open('wrong_prediction/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
+        f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(train_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
+        f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
+        f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
 
-    training_args.seed = seeds[i]
-    # No1 team treat dev dataset as eval_dataset, so here I do the same
-    trainer = Trainer(
-        model_init=model_init,
-        args=training_args,                  # training arguments, defined above
-        train_dataset=train_dataset_train,         # training dataset
-        eval_dataset=train_dataset_test,            # evaluation dataset
-        compute_metrics=compute_metrics
-    )
+    f1_sum /= len(seeds)
+    f1_sen_sum /= len(seeds)
+    f1_frame_sum /= len(seeds)
+    acc_sum /= len(seeds)
+    acc_sen_sum /= len(seeds)
+    acc_frame_sum /= len(seeds)
+    f1_macro_sum /= len(seeds)
+    f1_macro_sen_sum /= len(seeds)
+    f1_macro_frame_sum /= len(seeds)
 
-    trainer.train()
-    # trainer.hyperparameter_search()
-    print("==========================")
-    result = trainer.evaluate()
-    print("==========================")
-    output = trainer.predict(train_dataset_test)
-    print("==========================")
+    print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_macro_sen_avg: {}, f1_sen_avg: {}, acc_sen_avg: {}\nf1_macro_frame_avg: {}, f1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_macro_sen_sum,f1_sen_sum, acc_sen_sum, f1_macro_frame_sum, f1_frame_sum, acc_frame_sum))
+    wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_macro_sen_avg": f1_macro_sen_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_macro_frame_avg": f1_macro_frame_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
+    run.finish()
 
-    f1_sum += result['eval_f1']
-    acc_sum += result['eval_accuracy']
-    f1_macro_sum += result['eval_f1_macro']
+    trainer.save_model('results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
 
-
-
-
-    if test_dataset_name == 'same':
-        testing_dataset_name = dataloader.preprocess_dataset_name
-
-    dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=test_dataset_name,
-                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-    train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
-    output_sentence = trainer.predict(test_dataset_sentence)
-    split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc, split_into_sentences_confusionMatrix, split_into_sentences_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
-    wandb.log({"f1_macro_split_to_sentences": split_into_sentences_f1_macro, "f1_split_to_sentences": split_into_sentences_f1, "acc_split_to_sentences": split_into_sentences_acc})
-    f1_macro_sen_sum += split_into_sentences_f1_macro
-    f1_sen_sum += split_into_sentences_f1
-    acc_sen_sum += split_into_sentences_acc
-
-    dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
-                                  do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-    train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
-    output_frame = trainer.predict(test_dataset_frame)
-    split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
-    wandb.log({"f1_macro_split_to_frames": split_into_frames_f1_macro, "f1_split_to_frames": split_into_frames_f1, "acc_split_to_frames": split_into_frames_acc})
-    f1_macro_frame_sum += split_into_frames_f1_macro
-    f1_frame_sum += split_into_frames_f1
-    acc_frame_sum += split_into_frames_acc
-
-
-    if i < len(seeds)-1:
-        run.finish()
-
-# columns = ["wrong_predicted_idx"]
-# Method 1
-# data =
-# table = wandb.Table(data=data, columns=columns)
-# wandb.log({"examples": table})
-
-dataloader_sentence.write_prediciton_to_file(output_sentence.predictions.argmax(axis=-1), dataset_name, test_dataset_name, 'sentence')
-dataloader_frame.write_prediciton_to_file(output_frame.predictions.argmax(axis=-1), dataset_name, test_dataset_name, 'frame')
-
-if test_dataset_name == dataset_name:
-    test_dataset_test = train_dataset_test
-else:
-    dataloader_test = DataLoader(preprocess_function=none_operation, dataset=test_dataset_name,
-                                     do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
-    test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
-
-with open('wrong_prediction/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
-    f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(train_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
-    f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
-    f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
-
-f1_sum /= len(seeds)
-f1_sen_sum /= len(seeds)
-f1_frame_sum /= len(seeds)
-acc_sum /= len(seeds)
-acc_sen_sum /= len(seeds)
-acc_frame_sum /= len(seeds)
-f1_macro_sum /= len(seeds)
-f1_macro_sen_sum /= len(seeds)
-f1_macro_frame_sum /= len(seeds)
-
-print("f1_macro_avg: {}, f1_avg: {}, acc_avg: {}\nf1_macro_sen_avg: {}, f1_sen_avg: {}, acc_sen_avg: {}\nf1_macro_frame_avg: {}, f1_frame_avg: {}, acc_frame_avg: {}".format(f1_macro_sum, f1_sum, acc_sum, f1_macro_sen_sum,f1_sen_sum, acc_sen_sum, f1_macro_frame_sum, f1_frame_sum, acc_frame_sum))
-wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_macro_sen_avg": f1_macro_sen_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_macro_frame_avg": f1_macro_frame_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
-run.finish()
-
-trainer.save_model('results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
-
-# write result to clef evaluation format
-# with open('none-operation-64-bertweet-test.tsv', 'w') as f:
-#     pred = output[0]
-#     pred_argmax = pred.argmax(-1)
-#     f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
-#     # score_sum = 0
-#     # frame_cnt = 0
-#     for idx in range(0, len(pred)):
-#         # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
-#         #     score_avg = score_sum/frame_cnt
-#         #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
-#         #     score_sum = 0
-#         #     frame_cnt = 0
-#
-#         # score = pred[idx][pred_argmax[idx]]
-#         # if pred_argmax[idx] == 0:
-#         #     # if the score of label0 is bigger, that it be negative, for create final score
-#         #     score = -1 * score
-#
-#         score = pred[idx].argmax()
-#         f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-#         # score_sum += score
-#         # frame_cnt += 1
-#         # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-#
-#     # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+    # write result to clef evaluation format
+    # with open('none-operation-64-bertweet-test.tsv', 'w') as f:
+    #     pred = output[0]
+    #     pred_argmax = pred.argmax(-1)
+    #     f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
+    #     # score_sum = 0
+    #     # frame_cnt = 0
+    #     for idx in range(0, len(pred)):
+    #         # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
+    #         #     score_avg = score_sum/frame_cnt
+    #         #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
+    #         #     score_sum = 0
+    #         #     frame_cnt = 0
+    #
+    #         # score = pred[idx][pred_argmax[idx]]
+    #         # if pred_argmax[idx] == 0:
+    #         #     # if the score of label0 is bigger, that it be negative, for create final score
+    #         #     score = -1 * score
+    #
+    #         score = pred[idx].argmax()
+    #         f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+    #         # score_sum += score
+    #         # frame_cnt += 1
+    #         # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
+    #
+    #     # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
