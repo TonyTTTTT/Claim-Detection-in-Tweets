@@ -33,7 +33,7 @@ trainer = Trainer(
 output_frame = trainer.predict(test_dataset_frame)
 print(output_frame)
 split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
-print("f1_macro_split_to_frames: {}\nf1_split_to_frames: {}\nacc_split_to_frames: {}".format(split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc))
+
 
 
 text = 'China will admit coronavirus coming from its P4 lab BioWeapon.'
