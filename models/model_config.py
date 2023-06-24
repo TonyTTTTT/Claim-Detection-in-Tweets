@@ -41,15 +41,15 @@ run_name = 'local'
 
 # seeds = [42, 17, 36]
 seeds = [1]
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
 concate_frames_num = 5
 
-do_balancing = True
+do_balancing = False
 do_normalize = True
 
-delete_tail = True
+delete_tail = False
 delete_at = False
-delete_hashtag = True
-delete_url = True
-delete_emoji = True
+delete_hashtag = False
+delete_url = False
+delete_emoji = False
 replace_covid = False

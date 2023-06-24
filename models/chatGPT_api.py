@@ -38,8 +38,11 @@ if __name__ == '__main__':
     tweet4 = "Rather than fighting #coronavirus , May be you could use @Lysol to make #TheRealDonaldTrump go away"
     tweet5 = "\"@Nigel_Farage #Coronavirus was #sars virus! #china synthesized it in a lab to be more deadly, more contagious! Using as bio-weapon worldwide now! To weaken other economies globally!\n#Covid_19\""
     tweet6 = "had someone on sc for 2 days before i deleted her ass. she had to have been on some stupid shit. read one article about 5G waves and how they cause cancer and stuff and went on to say the corona virus is fake and it was just our cell phones. is u stupid"
+    tweet7 = "So the cure for the virus is to inject ourselves with disinfectant?! Thank you @realDonaldTrump for saving the world..again! #TrumpPressConference #COVID19 #StayAtHome https://t.co/8atw9T9C2I"
+    tweet8 = "Hey what disinfectant should I inject myself with? Bleach? Ammonia? Vinegar? h2oo?  #COVID19 @realDonaldTrump @POTUS @WhiteHouse"
+    tweet9 = "RT @teaxtarot: It’s 2020 and there’s still no cure for liking men and u expect a corona vaccine? Be realistic."
 
-    content = tweet6
+    content = tweet9
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
@@ -82,13 +85,21 @@ if __name__ == '__main__':
     ]
     messages_rewrite_v2 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
-        {"role": "user", "content": content + "\nrewrite the tweet:"}
+        {"role": "user", "content": content + "\nrewrite the tweet in same pronoun as original content, be sure not to over interpretation."}
+    ]
+    messages_rewrite_v3 = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user",
+         "content": "Please rewrite the following tweet in a way that makes it clearer and more understandable, without adding any extra information or interpretation:" + content}
     ]
     messages_rephrase = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user", "content": content + "\nrephrase:"}
     ]
-
+    messages_rephrase_v2 = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user", "content": content + "\nrephrase the tweet in same pronoun as original content, be sure not to over interpretation."}
+    ]
     article1 = "通告各位好友，我兒已確定:你若有辦敬老卡每人每個月乘坐交通工具補助480元沒用完，"\
                 "可在月底前去便利商店買東西把他用完以免浪費。今天才知道，平白浪費不少!"
     article2 = '媽媽在醫院支援武漢前線醫護發回的消息，這段期間切記不要穿帶毛領或是絨線的衣服外套，較容易吸附病毒，請廣而告之。'
@@ -104,6 +115,7 @@ if __name__ == '__main__':
 
     messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
+    messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
@@ -112,11 +124,12 @@ if __name__ == '__main__':
 
     # res_simplify = chatgpt.get_response(messages_simplify)
 
-    res_clarify = chatgpt.get_response(messages_clarify)
+    # res_clarify = chatgpt.get_response(messages_clarify)
 
-    res_rephrase = chatgpt.get_response(messages_rephrase)
+    # res_rephrase = chatgpt.get_response(messages_rephrase)
+    # res_rephrase_v2 = chatgpt.get_response(messages_rephrase_v2)
 
-    res_normalize = chatgpt.get_response(messages_normalize)
+    # res_normalize = chatgpt.get_response(messages_normalize)
     # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
 
 
