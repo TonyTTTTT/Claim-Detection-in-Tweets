@@ -52,4 +52,5 @@ delete_at = False
 delete_hashtag = False
 delete_url = False
 delete_emoji = False
+delete_tail_punc = True
 replace_covid = False
