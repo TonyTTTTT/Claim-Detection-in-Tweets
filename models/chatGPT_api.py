@@ -49,6 +49,9 @@ if __name__ == '__main__':
     messages_normalize_v2 = [
         {"role": "user", "content": content + "\nnormalize the tweet:"},
     ]
+    messages_normalize_v3 = [
+        {"role": "user", "content": content + "\nfix the grammar:"},
+    ]
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
         {"role": "user", "content": content+"\nsummarize:"},
@@ -100,6 +103,7 @@ if __name__ == '__main__':
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user", "content": content + "\nrephrase the tweet in same pronoun as original content, be sure not to over interpretation."}
     ]
+
     article1 = "通告各位好友，我兒已確定:你若有辦敬老卡每人每個月乘坐交通工具補助480元沒用完，"\
                 "可在月底前去便利商店買東西把他用完以免浪費。今天才知道，平白浪費不少!"
     article2 = '媽媽在醫院支援武漢前線醫護發回的消息，這段期間切記不要穿帶毛領或是絨線的衣服外套，較容易吸附病毒，請廣而告之。'
@@ -113,9 +117,9 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    messages_rewrite = chatgpt.get_response(messages_rewrite)
+    # messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
-    messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
+    # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
@@ -131,6 +135,7 @@ if __name__ == '__main__':
 
     # res_normalize = chatgpt.get_response(messages_normalize)
     # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
+    res_normalize_v3 = chatgpt.get_response(messages_normalize_v3)
 
 
     # res_extract = chatgpt.get_response(messages_extract)

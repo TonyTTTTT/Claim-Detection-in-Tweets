@@ -122,9 +122,9 @@ class DataLoader:
 
         np.random.seed(36)
         if len(positive_idx) > len(negative_idx):
-            positive_idx = np.random.choice(positive_idx, len(negative_idx))
+            positive_idx = np.random.choice(positive_idx, len(negative_idx), replace=False)
         else:
-            negative_idx = np.random.choice(negative_idx, len(positive_idx))
+            negative_idx = np.random.choice(negative_idx, len(positive_idx), replace=False)
 
         balanced_idx = np.concatenate((positive_idx, negative_idx))
         ids_balanced = ids[balanced_idx].tolist()
