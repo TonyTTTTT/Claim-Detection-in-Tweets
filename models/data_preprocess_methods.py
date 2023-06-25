@@ -152,9 +152,9 @@ def split_into_frames(*args):
 
             for frame in res:
                 frame = frame.strip()
-                # frame = frame.replace(" '", "'")
-                # frame = frame.replace(" ,", ",")
-                # frame = frame.replace(" .", ".")
+                frame = frame.replace(" '", "'")
+                frame = frame.replace(" ,", ",")
+                frame = frame.replace(" .", ".")
                 # frame += '.'
                 texts_aug.append(frame)
                 ids_aug.append(ids[i])

@@ -38,7 +38,7 @@ def delToken(token):
 
 # if do_demojize=False del all emoji
 def normalizeTweet(tweets):
-    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid))
+    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc))
     if type(tweets) != list:
         tweets = [tweets]
 
