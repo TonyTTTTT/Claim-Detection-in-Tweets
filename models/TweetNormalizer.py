@@ -1,9 +1,8 @@
 import string
-
 from emoji import demojize
 from nltk.tokenize import TweetTokenizer
 from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail, replace_covid, \
-    delete_tail_punc, replace_user
+    delete_tail_punc, replace_user, recover_punc
 import nltk
 import nltk.data
 
@@ -81,7 +80,9 @@ def normalizeTweet(tweets):
             tweet_norm = tweet_norm.replace("#", "")
         if delete_at:
             tweet_norm = tweet_norm.replace("@", "")
-
+        if recover_punc:
+            for punc in string.punctuation:
+                tweet_norm = tweet_norm.replace(" {}".format(punc), "{}".format(punc))
 
         tweets_norm.append(" ".join(tweet_norm.split()))
     return tweets_norm
