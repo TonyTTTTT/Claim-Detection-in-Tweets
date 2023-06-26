@@ -2,7 +2,8 @@ import string
 
 from emoji import demojize
 from nltk.tokenize import TweetTokenizer
-from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail, replace_covid, delete_tail_punc
+from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail, replace_covid, \
+    delete_tail_punc, replace_user
 import nltk
 import nltk.data
 
@@ -28,6 +29,8 @@ def delToken(token):
 
     if (lowercased_token.startswith("http") or lowercased_token.startswith("www")) and delete_url:
         return ""
+    elif token.startswith("@") and replace_user:
+        return "USER"
     elif len(token)<=2 and len(demojize(token))>2 and delete_emoji:
         return ""
     elif ('covid' in lowercased_token or 'corona' in lowercased_token) and replace_covid:
@@ -38,7 +41,7 @@ def delToken(token):
 
 # if do_demojize=False del all emoji
 def normalizeTweet(tweets):
-    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc))
+    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}, replace user: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc, replace_user))
     if type(tweets) != list:
         tweets = [tweets]
 

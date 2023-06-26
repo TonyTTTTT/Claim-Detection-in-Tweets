@@ -41,7 +41,7 @@ run_name = 'local'
 
 # seeds = [42, 17, 36]
 seeds = [1]
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
 
 do_balancing = False
@@ -52,5 +52,6 @@ delete_at = False
 delete_hashtag = False
 delete_url = False
 delete_emoji = False
-delete_tail_punc = True
+delete_tail_punc = False
 replace_covid = False
+replace_user = True

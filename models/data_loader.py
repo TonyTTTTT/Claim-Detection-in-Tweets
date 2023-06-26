@@ -217,20 +217,20 @@ class DataLoader:
 
         if do_normalize:
             print("==================\nNormalizeing...")
-            train_texts_raw = normalizeTweet(train_texts_raw)
-            dev_texts_raw = normalizeTweet(dev_texts_raw)
-            test_texts_raw = normalizeTweet(test_texts_raw)
+            train_texts = normalizeTweet(train_texts_raw)
+            dev_texts = normalizeTweet(dev_texts_raw)
+            test_texts = normalizeTweet(test_texts_raw)
             print("==================")
 
         train_ids, train_topic_ids, train_texts, train_labels, preprocess_dataset_name = self.preprocess_function(train_ids, train_topic_ids,
-                                                                                         train_texts_raw, train_labels,
+                                                                                         train_texts, train_labels,
                                                                                          dataset, 'train',
                                                                                          concate_frames_num)
-        dev_ids, dev_topic_ids, dev_texts, dev_labels, preprocess_dataset_name = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts_raw,
+        dev_ids, dev_topic_ids, dev_texts, dev_labels, preprocess_dataset_name = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts,
                                                                                  dev_labels, dataset, 'dev',
                                                                                  concate_frames_num)
         test_ids, test_topic_ids, test_texts, test_labels, preprocess_dataset_name = self.preprocess_function(test_ids, test_topic_ids,
-                                                                                     test_texts_raw, test_labels,
+                                                                                     test_texts, test_labels,
                                                                                      dataset, 'test',
                                                                                      concate_frames_num)
 
