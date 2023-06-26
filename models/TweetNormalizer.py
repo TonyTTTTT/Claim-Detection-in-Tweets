@@ -2,7 +2,7 @@ import string
 from emoji import demojize
 from nltk.tokenize import TweetTokenizer
 from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail, replace_covid, \
-    delete_tail_punc, replace_user, recover_punc
+    delete_tail_punc, replace_user, recover_punc, delete_punc
 import nltk
 import nltk.data
 
@@ -40,7 +40,7 @@ def delToken(token):
 
 # if do_demojize=False del all emoji
 def normalizeTweet(tweets):
-    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}, replace user: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc, replace_user))
+    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}, replace user: {}, recover punc: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc, replace_user, recover_punc))
     if type(tweets) != list:
         tweets = [tweets]
 
@@ -83,6 +83,10 @@ def normalizeTweet(tweets):
         if recover_punc:
             for punc in string.punctuation:
                 tweet_norm = tweet_norm.replace(" {}".format(punc), "{}".format(punc))
+        if delete_punc:
+            for punc in string.punctuation:
+                tweet_norm = tweet_norm.replace("{}".format(punc), "")
+
 
         tweets_norm.append(" ".join(tweet_norm.split()))
     return tweets_norm

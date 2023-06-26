@@ -49,10 +49,11 @@ do_normalize = True
 
 delete_tail = False
 delete_at = False
-delete_hashtag = True
+delete_hashtag = False
 delete_url = False
 delete_emoji = False
 delete_tail_punc = False
 replace_covid = False
-replace_user = True
-recover_punc = True
+replace_user = False
+recover_punc = False
+delete_punc = True
