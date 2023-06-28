@@ -42,12 +42,12 @@ if __name__ == '__main__':
     tweet8 = "Hey what disinfectant should I inject myself with? Bleach? Ammonia? Vinegar? h2oo?  #COVID19 @realDonaldTrump @POTUS @WhiteHouse"
     tweet9 = "RT @teaxtarot: It’s 2020 and there’s still no cure for liking men and u expect a corona vaccine? Be realistic."
 
-    content = tweet9
+    content = tweet7
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
     messages_normalize_v2 = [
-        {"role": "user", "content": content + "\nnormalize the tweet:"},
+        {"role": "user", "content": "Please help me fix the grammar:" + content},
     ]
     messages_normalize_v3 = [
         {"role": "user", "content": content + "\nfix the grammar:"},
@@ -117,9 +117,9 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    # messages_rewrite = chatgpt.get_response(messages_rewrite)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
-    # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
+    messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     # res_rephrase_v2 = chatgpt.get_response(messages_rephrase_v2)
 
     # res_normalize = chatgpt.get_response(messages_normalize)
-    # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
+    res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
     res_normalize_v3 = chatgpt.get_response(messages_normalize_v3)
 
 

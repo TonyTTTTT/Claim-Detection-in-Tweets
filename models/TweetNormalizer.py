@@ -23,24 +23,30 @@ def normalizeToken(token):
         return token
         
         
-def delToken(token):
+def delToken(token, user_idx):
     lowercased_token = token.lower()
 
     if (lowercased_token.startswith("http") or lowercased_token.startswith("www")) and delete_url:
-        return ""
+        return "", user_idx
     elif token.startswith("@") and replace_user:
-        return "USER"
+        user_idx += 1
+        return "USER{}".format(user_idx-1), user_idx
     elif len(token)<=2 and len(demojize(token))>2 and delete_emoji:
-        return ""
+        return "", user_idx
     elif ('covid' in lowercased_token or 'corona' in lowercased_token) and replace_covid:
-        return "Ebola"
+        return "Ebola", user_idx
     else:
-        return token
+        return token, user_idx
 
 
 # if do_demojize=False del all emoji
 def normalizeTweet(tweets):
-    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail punctuation: {}, replace user: {}, recover punc: {}'.format(delete_tail, delete_at, delete_hashtag, delete_url, delete_emoji, replace_covid, delete_tail_punc, replace_user, recover_punc))
+    print('del tail hashtag: {}, del @: {}, del #: {}, del url: {}, del emoji: {}, replace covid: {}, del tail '
+          'punctuation: {}, replace user: {}, recover punc: {}, del punc: {}'.format(delete_tail, delete_at,
+                                                                                     delete_hashtag, delete_url,
+                                                                                     delete_emoji, replace_covid,
+                                                                                     delete_tail_punc, replace_user,
+                                                                                     recover_punc, delete_punc))
     if type(tweets) != list:
         tweets = [tweets]
 
@@ -74,7 +80,12 @@ def normalizeTweet(tweets):
             if tokens[-1] in string.punctuation:
                 tokens.pop()
 
-        tweet_norm = " ".join([delToken(token) for token in tokens])
+        tweet_norm = ""
+        user_idx = 0
+        for token in tokens:
+            res_token, user_idx = delToken(token, user_idx)
+            tweet_norm = tweet_norm + " " + res_token
+        # tweet_norm = " ".join([delToken(token) for token in tokens])
 
         if delete_hashtag:
             tweet_norm = tweet_norm.replace("#", "")
@@ -94,7 +105,7 @@ def normalizeTweet(tweets):
 
 if __name__ == "__main__":
     examples = [
-        "I got covid, shit.",
+        "@aaa I got covid, @bbb shit. @ccc",
         ".",
         "Vaccines  💵work by triggering a response in a person's immune system. That means some people will feel a little sore, tired or unwell after their #COVID19 vaccination. Most side effects are mild and should not last longer than a @MrGG. More on the vaccine: https://t.co/cSCb40c2mt #AmericanRescuePlan #AAA #cat #dog",
         "This is how you annihilate northern Italy—check the date of the post! The CCP and WHO basically killed the Chinese, and then let it spread to hide their bioweapons work. #CCPVirus #CCPLiedPeopleDied #CCPVirus @abc #CCP_is_terrorist #Coronavirustruth #COVID19 https://t.co/D49H4d7oET",
