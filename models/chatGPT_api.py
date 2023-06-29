@@ -41,8 +41,13 @@ if __name__ == '__main__':
     tweet7 = "So the cure for the virus is to inject ourselves with disinfectant?! Thank you @realDonaldTrump for saving the world..again! #TrumpPressConference #COVID19 #StayAtHome https://t.co/8atw9T9C2I"
     tweet8 = "Hey what disinfectant should I inject myself with? Bleach? Ammonia? Vinegar? h2oo?  #COVID19 @realDonaldTrump @POTUS @WhiteHouse"
     tweet9 = "RT @teaxtarot: It’s 2020 and there’s still no cure for liking men and u expect a corona vaccine? Be realistic."
+    tweet10 = "@WelshGasDoc Studies have found that a strong dose of arsenic prevents death from #COVID19 and that’s science fact @POTUS"
+    tweet11 = "noooooo whatttt you have corona but your ass its so fat wtffffff this is so unfair"
+    tweet12 = "Corona is a black light and America is a cum-stained hotel room"
+    tweet13 = "lmaooo corona virus in memphis black people going crazy"
+    tweet14 = "Dr. Birx realizing that @realDonaldTrump IS a #StableGenius ...AND if you drink #Clorox or #Lysol you most likely won’t die of #COVID19 https://t.co/bcctoEfwzK"
 
-    content = tweet7
+    content = tweet14
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
@@ -51,6 +56,9 @@ if __name__ == '__main__':
     ]
     messages_normalize_v3 = [
         {"role": "user", "content": content + "\nfix the grammar:"},
+    ]
+    messages_normalize_v4 = [
+        {"role": "user", "content": content + "\nPlease help me fix the grammar, if you can't, just return original input:"},
     ]
     messages_summary = [
         # {"role": "system", "content": "Please provide a brief summary of the article in no more than 20 words."},
@@ -95,6 +103,11 @@ if __name__ == '__main__':
         {"role": "user",
          "content": "Please rewrite the following tweet in a way that makes it clearer and more understandable, without adding any extra information or interpretation:" + content}
     ]
+    messages_rewrite_v4 = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user",
+         "content": "Please rewrite the following tweet in a way that makes it clearer and more understandable, without adding any extra information or interpretation. If you can't perform this task, just return the original tweet.\n" + content}
+    ]
     messages_rephrase = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user", "content": content + "\nrephrase:"}
@@ -120,6 +133,7 @@ if __name__ == '__main__':
     messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
     messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
+    messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
@@ -134,8 +148,9 @@ if __name__ == '__main__':
     # res_rephrase_v2 = chatgpt.get_response(messages_rephrase_v2)
 
     # res_normalize = chatgpt.get_response(messages_normalize)
-    res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
+    # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
     res_normalize_v3 = chatgpt.get_response(messages_normalize_v3)
+    res_normalize_v4 = chatgpt.get_response(messages_normalize_v4)
 
 
     # res_extract = chatgpt.get_response(messages_extract)

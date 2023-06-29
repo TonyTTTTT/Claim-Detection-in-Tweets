@@ -221,6 +221,10 @@ class DataLoader:
             dev_texts = normalizeTweet(dev_texts_raw)
             test_texts = normalizeTweet(test_texts_raw)
             print("==================")
+        else:
+            train_texts = train_texts_raw
+            dev_texts = dev_texts_raw
+            test_texts = test_texts_raw
 
         train_ids, train_topic_ids, train_texts, train_labels, preprocess_dataset_name = self.preprocess_function(train_ids, train_topic_ids,
                                                                                          train_texts, train_labels,
