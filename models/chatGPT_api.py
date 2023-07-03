@@ -46,8 +46,9 @@ if __name__ == '__main__':
     tweet12 = "Corona is a black light and America is a cum-stained hotel room"
     tweet13 = "lmaooo corona virus in memphis black people going crazy"
     tweet14 = "Dr. Birx realizing that @realDonaldTrump IS a #StableGenius ...AND if you drink #Clorox or #Lysol you most likely won’t die of #COVID19 https://t.co/bcctoEfwzK"
+    tweet15 = "for those puzzled about why chloroquine + #covid19 and when to use, it's not clear. in vitro anti-viral activity for prophylaxis. immune-modulating activity (as in rheumatologic dz) to prevent cytokine storm in pneumonia treatment? a good resource: https://t.co/udPSYPRAK0"
 
-    content = tweet14
+    content = tweet8
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
@@ -106,7 +107,12 @@ if __name__ == '__main__':
     messages_rewrite_v4 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user",
-         "content": "Please rewrite the following tweet in a way that makes it clearer and more understandable, without adding any extra information or interpretation. If you can't perform this task, just return the original tweet.\n" + content}
+         "content": "Please correct any grammatical errors in the provided content. Please also remove the hashtags and informal words.\n" + content}
+    ]
+    messages_rewrite_v5 = [
+        # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
+        {"role": "user",
+         "content": "Please follow the guidelines to revise the cotent. 1. Correct any grammatical errors. 2. Refrain from adding extra content or over-interpreting the information.\n" + content}
     ]
     messages_rephrase = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
@@ -130,10 +136,11 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    messages_rewrite = chatgpt.get_response(messages_rewrite)
+    # messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
-    messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
+    # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
     messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
+    # messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
@@ -149,8 +156,8 @@ if __name__ == '__main__':
 
     # res_normalize = chatgpt.get_response(messages_normalize)
     # res_normalize_v2 = chatgpt.get_response(messages_normalize_v2)
-    res_normalize_v3 = chatgpt.get_response(messages_normalize_v3)
-    res_normalize_v4 = chatgpt.get_response(messages_normalize_v4)
+    # res_normalize_v3 = chatgpt.get_response(messages_normalize_v3)
+    # res_normalize_v4 = chatgpt.get_response(messages_normalize_v4)
 
 
     # res_extract = chatgpt.get_response(messages_extract)
