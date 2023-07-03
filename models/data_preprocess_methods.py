@@ -275,8 +275,8 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    prompt = 'Please follow the guidelines to revise the content. 1. Correct any grammatical errors. 2. Make the content clearer and easier to understand. 3. Refrain from adding extra content or over-interpreting the information.'
-    rewrite_method = '{}_by_GPT_v5'.format('rewrite')
+    prompt = 'Please correct any grammatical errors in the provided content. Please also remove the hashtags and informal words.'
+    rewrite_method = '{}_by_GPT_v2'.format('normalize')
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
