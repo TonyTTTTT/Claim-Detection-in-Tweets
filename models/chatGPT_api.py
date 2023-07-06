@@ -47,8 +47,10 @@ if __name__ == '__main__':
     tweet13 = "lmaooo corona virus in memphis black people going crazy"
     tweet14 = "Dr. Birx realizing that @realDonaldTrump IS a #StableGenius ...AND if you drink #Clorox or #Lysol you most likely won’t die of #COVID19 https://t.co/bcctoEfwzK"
     tweet15 = "for those puzzled about why chloroquine + #covid19 and when to use, it's not clear. in vitro anti-viral activity for prophylaxis. immune-modulating activity (as in rheumatologic dz) to prevent cytokine storm in pneumonia treatment? a good resource: https://t.co/udPSYPRAK0"
+    tweet16 = "@govindagopala @balbir59 @Swamy39 @Himansh72125945 @tehseenp @realDonaldTrump @PMOIndia @narendramodi And this is not the ultimate cure. It just reduce the chances of #covid19 spread."
+    tweet17 = "@anduck83 @Lysol That’s not really effective against #COVID19."
 
-    content = tweet9
+    content = tweet14
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
@@ -107,7 +109,7 @@ if __name__ == '__main__':
     messages_rewrite_v4 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user",
-         "content": "Please correct any grammatical errors in the provided content. Please also remove taggings, hashtags and informal words.\n" + content}
+         "content": "Please correct any grammatical errors in the provided content. Please also remove user mentionings, hashtags and informal words.\n" + content}
     ]
     messages_rewrite_v5 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
