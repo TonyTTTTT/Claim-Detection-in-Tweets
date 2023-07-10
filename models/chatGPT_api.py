@@ -14,7 +14,8 @@ class ChatGPT:
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
         res = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            # model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=messages,
             temperature=0,
             # max_tokens=1997,
@@ -138,10 +139,10 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    # messages_rewrite = chatgpt.get_response(messages_rewrite)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
     # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
-    messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
+    # messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
     # messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
 
     # res_explain = chatgpt.get_response(messages_explain)
