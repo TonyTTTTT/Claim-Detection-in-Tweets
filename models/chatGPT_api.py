@@ -139,10 +139,10 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    messages_rewrite = chatgpt.get_response(messages_rewrite)
+    # messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
     # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
-    # messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
+    messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
     # messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
 
     # res_explain = chatgpt.get_response(messages_explain)
