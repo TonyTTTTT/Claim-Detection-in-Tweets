@@ -275,8 +275,8 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    prompt = 'Please correct any grammatical errors in the provided content. Please also remove user mentionings, hashtags and informal words.'
-    rewrite_method = '{}_by_GPT4_v4'.format('rewrite')
+    prompt = 'Please follow the guidelines to revise the cotent. 1. Correct any grammatical errors. 2. Remove hashtag. 3. Remove user mentioning. 4. Remove URL. 5. Remove emoji. 6. Do not change the syntactic structure.'
+    rewrite_method = '{}_by_GPT_v6'.format('rewrite')
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
@@ -294,9 +294,9 @@ def rewrite_by_GPT(*args):
         ]
         res = chatgpt.get_response(messages)
 
-        # for avoid_word in avoid_words:
-        #     if avoid_word in res:
-        #         res = texts[i]
+        for avoid_word in avoid_words:
+            if avoid_word in res:
+                res = texts[i]
 
         # res = res.split('\n')[0]
         # print('res split by next line: {}'.format(res))

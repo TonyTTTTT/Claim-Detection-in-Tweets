@@ -14,8 +14,8 @@ class ChatGPT:
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
         res = openai.ChatCompletion.create(
-            # model="gpt-3.5-turbo",
-            model="gpt-4",
+            model="gpt-3.5-turbo",
+            # model="gpt-4",
             messages=messages,
             temperature=0,
             # max_tokens=1997,
@@ -50,8 +50,9 @@ if __name__ == '__main__':
     tweet15 = "for those puzzled about why chloroquine + #covid19 and when to use, it's not clear. in vitro anti-viral activity for prophylaxis. immune-modulating activity (as in rheumatologic dz) to prevent cytokine storm in pneumonia treatment? a good resource: https://t.co/udPSYPRAK0"
     tweet16 = "@govindagopala @balbir59 @Swamy39 @Himansh72125945 @tehseenp @realDonaldTrump @PMOIndia @narendramodi And this is not the ultimate cure. It just reduce the chances of #covid19 spread."
     tweet17 = "@anduck83 @Lysol That’s not really effective against #COVID19."
+    tweet18 = "Before y’all pearl clutch about the sudden unraveling of our society, I’ll note that the owner of a cookie store called “Crumb and Get It” refused service to Joe Biden in 2012 in Radford, also a smallish college town in VA— and then basked in GOP praise. They closed in 2016. https://t.co/MGpWbR2Y2V — Doug Landry (@dougblandry) June 23, 2018"
 
-    content = tweet14
+    content = tweet13
     messages_normalize = [
         {"role": "user", "content": content + "\nnormalize:"},
     ]
@@ -115,7 +116,7 @@ if __name__ == '__main__':
     messages_rewrite_v5 = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
         {"role": "user",
-         "content": "Please follow the guidelines to revise the cotent. 1. Correct any grammatical errors. 2. Refrain from adding extra content or over-interpreting the information.\n" + content}
+         "content": "Please follow the guidelines to revise the cotent. 1. Correct any grammatical errors. 2. Remove hashtag. 3. Remove user mentioning. 4. Remove URL. 5. Remove emoji. 6. Expand the abbreviation. 7. Do not change the syntactic structure.\n" + content}
     ]
     messages_rephrase = [
         # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
@@ -142,8 +143,8 @@ if __name__ == '__main__':
     # messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
     # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
-    messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
-    # messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
+    # messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
+    messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)
