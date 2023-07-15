@@ -2,7 +2,7 @@ import string
 from emoji import demojize
 from nltk.tokenize import TweetTokenizer
 from model_config import delete_at, delete_hashtag, delete_url, delete_emoji, delete_tail, replace_covid, \
-    delete_tail_punc, replace_user, recover_punc, delete_punc
+    delete_tail_punc, replace_user, recover_punc, delete_punc, delete_dbquote
 import nltk
 import nltk.data
 
@@ -97,6 +97,8 @@ def normalizeTweet(tweets):
         if delete_punc:
             for punc in string.punctuation:
                 tweet_norm = tweet_norm.replace("{}".format(punc), "")
+        if delete_dbquote:
+            tweet_norm = tweet_norm.replace("\"", "")
 
 
         tweets_norm.append(" ".join(tweet_norm.split()))
@@ -105,7 +107,7 @@ def normalizeTweet(tweets):
 
 if __name__ == "__main__":
     examples = [
-        "@aaa I got covid, @bbb shit. @ccc",
+        "\"@aaa I got covid, @bbb shit. @ccc\"",
         ".",
         "Vaccines  💵work by triggering a response in a person's immune system. That means some people will feel a little sore, tired or unwell after their #COVID19 vaccination. Most side effects are mild and should not last longer than a @MrGG. More on the vaccine: https://t.co/cSCb40c2mt #AmericanRescuePlan #AAA #cat #dog",
         "This is how you annihilate northern Italy—check the date of the post! The CCP and WHO basically killed the Chinese, and then let it spread to hide their bioweapons work. #CCPVirus #CCPLiedPeopleDied #CCPVirus @abc #CCP_is_terrorist #Coronavirustruth #COVID19 https://t.co/D49H4d7oET",
