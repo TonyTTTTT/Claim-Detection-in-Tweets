@@ -1,4 +1,4 @@
-topic	tweet_id	text	claim
+topic	tweet_id	tweet_text	class_label
 LESA	0	RT @taaayyyylor: if you ever been to white caps you are immune to the coronavirus	1
 LESA	1	"No! #Bleach won't cure #COVID19. Disinfectants can't kill the #coronavirus in your body. In fact, they will hurt you.
 

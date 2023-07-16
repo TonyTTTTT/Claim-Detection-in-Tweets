@@ -1,4 +1,4 @@
-topic	tweet_id	text	claim
+topic	tweet_id	tweet_text	class_label
 LESA	2148	"#handsanitizer 🤲 
 Gel wash with Aloe Vera &amp; Vitamin E. Protect your hands from drying out.
 #COVID19 #Health #HealthcareHeroes 
