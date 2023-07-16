@@ -275,8 +275,8 @@ def rewrite_by_GPT(*args):
     dataset = args[4]
     part = args[5]
 
-    prompt = 'Please follow the guidelines to revise the cotent. 1. Correct any grammatical errors. 2. Remove hashtag. 3. Remove user mentioning. 4. Remove URL. 5. Remove emoji. 6. Expand the abbreviation. 7. Do not discard any name. 8. Do not change the syntactic structure. 9. Remove unnecessary punctuation.'
-    rewrite_method = '{}_by_GPT_v7'.format('rewrite')
+    prompt = "Does the provided content above contain any claims? Please respond with either 'yes' or 'no'."
+    rewrite_method = '{}_by_GPT'.format('zeroshot')
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
@@ -286,11 +286,11 @@ def rewrite_by_GPT(*args):
 
     chatgpt = ChatGPT()
     texts_rewrite = []
-    avoid_words = ["I'm sorry", "As an AI", "I cannot"]
+    avoid_words = ["I'm sorry", "As an AI", "I cannot", "guidelines"]
     for i in range(0, len(texts)):
         messages = [
             # {"role": "system", "content": "Can you rephrase the following article to be more clear and easy to understand?"},
-            {"role": "user", "content": '{}\n{}'.format(prompt, texts[i])}
+            {"role": "user", "content": '{}\ncontent:{}'.format(prompt, texts[i])}
         ]
         res = chatgpt.get_response(messages)
 
