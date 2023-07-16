@@ -34,14 +34,14 @@ lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'CLEF2022_1b'
-test_dataset_name = 'CLEF2022_1b'
+dataset_name = 'LESA_rewrite_by_GPT_v7_augmented'
+test_dataset_name = 'LESA_rewrite_by_GPT_v7_augmented'
 tags = ['local']
 run_name = 'local'
 
 # seeds = [42, 17, 36]
 seeds = [1]
-preprocess_function = rewrite_by_GPT
+preprocess_function = none_operation
 concate_frames_num = 5
 
 do_balancing = False
