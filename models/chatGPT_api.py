@@ -52,10 +52,10 @@ if __name__ == '__main__':
     tweet17 = "@anduck83 @Lysol That’s not really effective against #COVID19."
     tweet18 = "Before y’all pearl clutch about the sudden unraveling of our society, I’ll note that the owner of a cookie store called “Crumb and Get It” refused service to Joe Biden in 2012 in Radford, also a smallish college town in VA— and then basked in GOP praise. They closed in 2016. https://t.co/MGpWbR2Y2V — Doug Landry (@dougblandry) June 23, 2018"
 
-    content = tweet14
+    content = tweet7
 
     messages_zeroshot = [
-        {"role": "user", "content": content + "\nDoes the provided content above contain any claims? Please respond with either 'yes' or 'no'."},
+        {"role": "user", "content": "Does the provided content above contain any claims? Please respond with either 'yes' or 'no'.\ncontent:{}".format(content)},
     ]
 
     messages_normalize = [

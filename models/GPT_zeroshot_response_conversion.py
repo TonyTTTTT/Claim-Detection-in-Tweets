@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-file_name = 'CLEF2022_1b_zeroshot_by_GPT'
+file_name = 'LESA_zeroshot_by_GPT'
 path = 'preprocess_datasets_GPT/{}_test.tsv'.format(file_name)
 data = pd.read_csv(path, sep='\t', dtype=str)
 
