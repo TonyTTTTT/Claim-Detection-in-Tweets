@@ -5,7 +5,7 @@ from data_preprocess_methods import none_operation, concate_frames, rewrite_by_G
 
 # model input length limit: 128
 # model_path = "vinai/bertweet-covid19-base-uncased"
-
+    
 # size of GPT3: 175 billion
 
 # size: 123 million
@@ -34,8 +34,8 @@ lr_scheduler_type = "linear"
 per_device_train_batch_size = 4
 device_num = 1
 
-dataset_name = 'LESA_rewrite_by_GPT_v7_augmented'
-test_dataset_name = 'LESA_rewrite_by_GPT_v7_augmented'
+dataset_name = 'LESA'
+test_dataset_name = 'LESA'
 tags = ['local']
 run_name = 'local'
 
@@ -45,13 +45,13 @@ preprocess_function = none_operation
 concate_frames_num = 5
 
 do_balancing = False
-do_normalize = False
+do_normalize = True
 
-delete_tail = False
+delete_tail = True
 delete_at = False
-delete_hashtag = False
-delete_url = False
-delete_emoji = False
+delete_hashtag = True
+delete_url = True
+delete_emoji = True
 delete_tail_punc = False
 replace_covid = False
 replace_user = False

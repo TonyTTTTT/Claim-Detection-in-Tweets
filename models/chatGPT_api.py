@@ -14,8 +14,8 @@ class ChatGPT:
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
         res = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            # model="gpt-4",
+            # model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=messages,
             temperature=0,
             # max_tokens=1997,
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     tweet17 = "@anduck83 @Lysol That’s not really effective against #COVID19."
     tweet18 = "Before y’all pearl clutch about the sudden unraveling of our society, I’ll note that the owner of a cookie store called “Crumb and Get It” refused service to Joe Biden in 2012 in Radford, also a smallish college town in VA— and then basked in GOP praise. They closed in 2016. https://t.co/MGpWbR2Y2V — Doug Landry (@dougblandry) June 23, 2018"
 
-    content = tweet7
+    content = tweet6
 
     messages_zeroshot = [
         {"role": "user", "content": "Does the provided content above contain any claims? Please respond with either 'yes' or 'no'.\ncontent:{}".format(content)},
@@ -145,13 +145,13 @@ if __name__ == '__main__':
     ]
     chatgpt = ChatGPT()
 
-    messages_zeroshot = chatgpt.get_response(messages_zeroshot)
+    # messages_zeroshot = chatgpt.get_response(messages_zeroshot)
 
-    # messages_rewrite = chatgpt.get_response(messages_rewrite)
+    messages_rewrite = chatgpt.get_response(messages_rewrite)
     # messages_rewrite_v2 = chatgpt.get_response(messages_rewrite_v2)
     # messages_rewrite_v3 = chatgpt.get_response(messages_rewrite_v3)
     # messages_rewrite_v4 = chatgpt.get_response(messages_rewrite_v4)
-    # messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
+    messages_rewrite_v5 = chatgpt.get_response(messages_rewrite_v5)
 
     # res_explain = chatgpt.get_response(messages_explain)
     # res_explain_v2 = chatgpt.get_response(messages_explain_v2)

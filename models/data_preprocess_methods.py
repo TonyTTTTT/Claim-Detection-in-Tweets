@@ -74,7 +74,7 @@ def none_operation(*args):
 
 def split_into_sentences(*args):
     '''
-    extract all frames, cocate them and return
+    Split tweet into sentences using rule-based method provided by NLTK.
     '''
     ids = args[0]
     topic_ids = args[1]
@@ -117,7 +117,7 @@ def split_into_sentences(*args):
 
 def split_into_frames(*args):
     '''
-    extract all frames, cocate them and return
+    Split tweet into frames using SRL tool provided by AllenNLP.
     '''
     ids = args[0]
     topic_ids = args[1]
@@ -276,7 +276,7 @@ def rewrite_by_GPT(*args):
     part = args[5]
 
     prompt = "Does the provided content above contain any claims? Please respond with either 'yes' or 'no'."
-    rewrite_method = '{}_by_GPT'.format('zeroshot')
+    rewrite_method = '{}_by_GPT4_preprocess_tail'.format('zeroshot')
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
     preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')

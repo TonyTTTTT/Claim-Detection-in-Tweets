@@ -8,6 +8,7 @@ from sklearn.metrics import accuracy_score, precision_recall_fscore_support, con
 from data_preprocess_methods import *
 import pickle
 from model_config import model_path
+from calculate_special_symbol import calculate_special_symbol
 
 
 class DataLoader:
@@ -204,6 +205,8 @@ class DataLoader:
         train_ids, train_topic_ids, train_texts_raw, train_labels = self.read_df_to_lists(train_data)
         dev_ids, dev_topic_ids, dev_texts_raw, dev_labels = self.read_df_to_lists(dev_data)
         test_ids, test_topic_ids, test_texts_raw, test_labels = self.read_df_to_lists(test_data)
+
+        calculate_special_symbol(train_texts_raw, train_labels)
 
         if do_balancing:
             train_ids, train_topic_ids, train_texts_raw, train_labels = self.balance_class(train_ids, train_topic_ids,
