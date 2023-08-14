@@ -167,57 +167,6 @@ def split_into_frames(*args):
     return ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name.replace('_'+part, '')
 
 
-def concate_frames(*args):
-    '''
-    extract all frames, cocate them and return
-    '''
-    ids = args[0]
-    topic_ids = args[1]
-    texts = args[2]
-    labels = args[3]
-    dataset = args[4]
-    part = args[5]
-    concate_frames_num = args[6]
-
-    preprocess_dataset_name = '{}_top_{}_{}'.format(dataset, concate_frames_num, part)
-
-    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'SRL')
-    if preprocessed_dataset:
-        return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3], \
-               preprocess_dataset_name.replace('_'+part, '')
-
-    predictor = SRLPredictor()
-    ids_aug = []
-    topic_ids_aug = []
-    texts_aug = []
-    labels_aug = []
-
-    print('=======================\nExtracting SRL frames\n========================')
-    for i in range(0, len(texts)):
-        res = predictor.get_frames(texts[i])
-        if res == []:
-            texts_aug.append(texts[i])
-            ids_aug.append(ids[i])
-            topic_ids_aug.append(topic_ids[i])
-            labels_aug.append(labels[i])
-        else:
-            frame_concate = ''
-            res = discard_similar_frame(res, concate_frames_num)
-
-            for frame in res:
-                frame_concate += frame+'. '
-
-            frame_concate = frame_concate.strip()
-            texts_aug.append(frame_concate)
-            ids_aug.append(ids[i])
-            topic_ids_aug.append(topic_ids[i])
-            labels_aug.append(labels[i])
-
-    write_to_tsv(topic_ids_aug, ids_aug, texts_aug, labels_aug, preprocess_dataset_name, 'SRL')
-
-    return ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name.replace('_'+part, '')
-
-
 def too_similar(frame_short, frame_long):
     frame_short_list = frame_short.split(' ')
     frame_long_list = frame_long.split(' ')
@@ -238,7 +187,7 @@ def order_of_frame(frame):
     return frame[1]
 
 
-def discard_similar_frame(frames, concate_frames_num):
+def discard_similar_frame(frames, needed_frames_num):
     frames_reduced = []
 
     for i in range(0, len(frames)):
@@ -255,7 +204,7 @@ def discard_similar_frame(frames, concate_frames_num):
                 break
 
         if add_flag:
-            if frame_cnt >= concate_frames_num:
+            if frame_cnt >= needed_frames_num:
                 break
             frames_reduced.append(frame)
             frame_cnt += 1
@@ -317,7 +266,7 @@ if __name__ == '__main__':
     labels = [0, 1]
     dataset = 'GGG'
     part = 'train'
-    concate_frames_num = 3
+    needed_frames_num = 3
 
     ids_aug, topic_ids_aug, texts_aug, labels_aug, preprocess_dataset_name = split_into_sentences(ids, topic_ids, texts, labels, dataset,
-                                                                   part, concate_frames_num)
+                                                                                                  part, needed_frames_num)

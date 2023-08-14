@@ -10,7 +10,7 @@ from others.calculate_special_symbol import calculate_special_symbol
 
 
 class DataLoader:
-    def __init__(self, preprocess_function, dataset, do_normalize, concate_frames_num, do_balancing):
+    def __init__(self, preprocess_function, dataset, do_normalize, needed_frames_num, do_balancing):
         self.preprocess_function = preprocess_function
         self.train_dataset = []
         self.dev_dataset = []
@@ -74,7 +74,7 @@ class DataLoader:
             self.test_path = 'preprocess_datasets_SRL/' + dataset + '_test.tsv'
 
         print('================\ntraining set path: {}\n================'.format(self.train_path))
-        self.read_data(dataset, do_normalize, concate_frames_num, do_balancing)
+        self.read_data(dataset, do_normalize, needed_frames_num, do_balancing)
 
     @staticmethod
     def read_df_to_lists(data):
@@ -186,7 +186,7 @@ class DataLoader:
         df_pred.to_csv('predictions/{}_{}_{}.tsv'.format(dataset_name, test_dataset_name, level), sep='\t', index=False)
 
 
-    def read_data(self, dataset, do_normalize, concate_frames_num, do_balancing):
+    def read_data(self, dataset, do_normalize, needed_frames_num, do_balancing):
         if dataset.startswith('sentence_level'):
             train_data = pd.read_csv(self.train_path, sep='\t', dtype=str, quotechar='"', quoting=3)
             dev_data = pd.read_csv(self.dev_path, sep='\t', dtype=str, quotechar='"', quoting=3)
@@ -222,16 +222,16 @@ class DataLoader:
             test_texts = test_texts_raw
 
         train_ids, train_topic_ids, train_texts, train_labels, preprocess_dataset_name = self.preprocess_function(train_ids, train_topic_ids,
-                                                                                         train_texts, train_labels,
-                                                                                         dataset, 'train',
-                                                                                         concate_frames_num)
+                                                                                                                  train_texts, train_labels,
+                                                                                                                  dataset, 'train',
+                                                                                                                  needed_frames_num)
         dev_ids, dev_topic_ids, dev_texts, dev_labels, preprocess_dataset_name = self.preprocess_function(dev_ids, dev_topic_ids, dev_texts,
-                                                                                 dev_labels, dataset, 'dev',
-                                                                                 concate_frames_num)
+                                                                                                          dev_labels, dataset, 'dev',
+                                                                                                          needed_frames_num)
         test_ids, test_topic_ids, test_texts, test_labels, preprocess_dataset_name = self.preprocess_function(test_ids, test_topic_ids,
-                                                                                     test_texts, test_labels,
-                                                                                     dataset, 'test',
-                                                                                     concate_frames_num)
+                                                                                                              test_texts, test_labels,
+                                                                                                              dataset, 'test',
+                                                                                                              needed_frames_num)
 
         self.preprocess_dataset_name = preprocess_dataset_name
 

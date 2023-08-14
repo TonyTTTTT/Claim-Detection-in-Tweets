@@ -6,7 +6,7 @@ import torch
 from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, f1_score
-from main.data_preprocess_methods import split_into_sentences, split_into_frames
+from main.data_preprocess_methods import split_into_sentences, split_into_frames, none_operation
 import wandb
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -85,7 +85,7 @@ def model_init():
 
 if __name__ == '__main__':
     dataloader = DataLoader(preprocess_function=preprocess_function, dataset=dataset_name, do_normalize=do_normalize,
-                            concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+                            needed_frames_num=needed_frames_num, do_balancing=do_balancing)
     train_dataset_train, train_dataset_dev, train_dataset_test = dataloader.get_dataset(include_test=True)
 
 
@@ -171,7 +171,7 @@ if __name__ == '__main__':
             testing_dataset_name = dataloader.preprocess_dataset_name
 
         dataloader_sentence = DataLoader(preprocess_function=split_into_sentences, dataset=test_dataset_name,
-                                         do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+                                         do_normalize=do_normalize, needed_frames_num=needed_frames_num, do_balancing=do_balancing)
         train_dataset_sentence, dev_dataset_sentence, test_dataset_sentence = dataloader_sentence.get_dataset(include_test=True)
         output_sentence = trainer.predict(test_dataset_sentence)
         split_into_sentences_f1_macro, split_into_sentences_f1, split_into_sentences_acc, split_into_sentences_confusionMatrix, split_into_sentences_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_sentence, output_sentence, 'max')
@@ -181,7 +181,7 @@ if __name__ == '__main__':
         acc_sen_sum += split_into_sentences_acc
 
         dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
-                                      do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+                                      do_normalize=do_normalize, needed_frames_num=needed_frames_num, do_balancing=do_balancing)
         train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
         output_frame = trainer.predict(test_dataset_frame)
         split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
@@ -207,7 +207,7 @@ if __name__ == '__main__':
         test_dataset_test = train_dataset_test
     else:
         dataloader_test = DataLoader(preprocess_function=none_operation, dataset=test_dataset_name,
-                                         do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
+                                     do_normalize=do_normalize, needed_frames_num=needed_frames_num, do_balancing=do_balancing)
         test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
 
     with open('wrong_predictions_idx/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
@@ -231,29 +231,3 @@ if __name__ == '__main__':
 
     trainer.save_model('weights/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
 
-    # write result to clef evaluation format
-    # with open('none-operation-64-bertweet-test.tsv', 'w') as f:
-    #     pred = output[0]
-    #     pred_argmax = pred.argmax(-1)
-    #     f.write('topic\ttweet_id\ttweet_url\ttweet_text\tclass_label\n')
-    #     # score_sum = 0
-    #     # frame_cnt = 0
-    #     for idx in range(0, len(pred)):
-    #         # if idx != 0 and test_dataset.ids[idx] != test_dataset.ids[idx-1]:
-    #         #     score_avg = score_sum/frame_cnt
-    #         #     f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))
-    #         #     score_sum = 0
-    #         #     frame_cnt = 0
-    #
-    #         # score = pred[idx][pred_argmax[idx]]
-    #         # if pred_argmax[idx] == 0:
-    #         #     # if the score of label0 is bigger, that it be negative, for create final score
-    #         #     score = -1 * score
-    #
-    #         score = pred[idx].argmax()
-    #         f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-    #         # score_sum += score
-    #         # frame_cnt += 1
-    #         # print('{}\t{}\t{}\t{}'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score, 'test'))
-    #
-    #     # f.write('{}\t{}\t{}\t{}\n'.format(test_dataset.topic_ids[idx], test_dataset.ids[idx], score_avg, 'test'))

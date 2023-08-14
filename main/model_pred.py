@@ -11,7 +11,7 @@ mine_model_path = 'weights/{}_{}_{}'.format(dataset_name, test_dataset_name, run
 print(mine_model_path)
 
 dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
-                              do_normalize=do_normalize, concate_frames_num=concate_frames_num,
+                              do_normalize=do_normalize, needed_frames_num=needed_frames_num,
                               do_balancing=do_balancing)
 train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
 # config = AutoConfig.from_pretrained(mine_model_path)

@@ -1,5 +1,18 @@
 # Usage
+To reproduce the result, first config the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
 
+- hyper-parameter setting (in ./main/model_config.py)
+  - Baseline: delete_hashtag, delete_url, delete_emoji = True
+  - Rewrite -> Model
+    - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
+    - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
+  - Split to Sentence-Level -> Model
+    - LESA:
+    - CheckThatLab2022 1b:
+  - Rewrite -> Split to Sentence-Level -> Model:
+    - LESA:
+    - CheckThatLab2022 1b:
+  - Training With Sentence-Level Dataset:  
 
 # Code Structure & Description
 - /main: all the code related to the using of BERT-Classifier model, from data preprocessing to predicting.
@@ -24,8 +37,7 @@
   - GPT_zeroshot_response_conversion.py: convert the natural language answer 'yes', 'no' into 1, 0 and calculate the evaluation metric.
   - reformat_sentence_level_dataset.py: reformat sentence-level dataset into the format same as article-level dataset.
   
-
-
+  
 # Dataset Introduction
 - /dataset: the original dataset.
   - /CheckThatLab2022-1b: released in  
