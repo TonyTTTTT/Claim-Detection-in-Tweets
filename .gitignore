@@ -7,8 +7,8 @@ coconut-env
 **.idea
 
 # model weight, logs
-**/models/results
-**/models/logs
+**/weights
+**/logs
 
 # cache
 **/__pycache__
@@ -23,5 +23,5 @@ coconut-env
 **/wandb
 
 # split to sentence
-models/preprocess_datasets_sentence
-models/preprocess_datasets_SRL
+preprocess_datasets/preprocess_datasets_sentence
+preprocess_datasets/preprocess_datasets_SRL

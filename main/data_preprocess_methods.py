@@ -34,21 +34,22 @@ def read_df_to_lists(data):
 
 
 def check_if_exist_old(dataset):
-    if os.path.exists('preprocess_datasets_SRL/{}.pkl'.format(dataset)):
+    if os.path.exists('../preprocess_datasets_SRL/{}.pkl'.format(dataset)):
         print('======================\nload pkl from preprocess_datasets_SRL/{}.pkl'
               '\n======================='.format(dataset))
-        with open('preprocess_datasets_SRL/{}.pkl'.format(dataset), 'rb') as f:
+        with open('../preprocess_datasets_SRL/{}.pkl'.format(dataset), 'rb') as f:
             preprocessed_dataset = pickle.load(f)
         return preprocessed_dataset
     return False
 
 
 def check_if_exist(preprocess_dataset_name, method_type):
-    if os.path.exists('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name)):
-        data = pd.read_csv('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name), sep='\t')
+    target_path = '../preprocess_datasets/preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name)
+    if os.path.exists(target_path):
+        data = pd.read_csv(target_path, sep='\t')
         ids, topic_ids, texts, labels = read_df_to_lists(data)
-        print("===================\nload from preprocess_datasets_{}/{}.tsv"
-              "\n=====================".format(method_type, preprocess_dataset_name))
+        print("===================\nload from {}"
+              "\n=====================".format(target_path))
         return ids, topic_ids, texts, labels
 
     return False
@@ -59,7 +60,7 @@ def write_to_tsv(topic_ids, ids, texts_aug, labels, preprocess_dataset_name, met
     df['tweet_id'] = df['tweet_id'].astype(str)
     print('=====================\nwrite tsv to preprocess_datasets_{}/{}.tsv'
           '\n============================='.format(method_type, preprocess_dataset_name))
-    df.to_csv('preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name), sep='\t', index=False)
+    df.to_csv('../preprocess_datasets/preprocess_datasets_{}/{}.tsv'.format(method_type, preprocess_dataset_name), sep='\t', index=False)
 
 
 def none_operation(*args):
@@ -279,7 +280,7 @@ def rewrite_by_GPT(*args):
     rewrite_method = '{}_by_GPT4_preprocess_tail'.format('zeroshot')
     preprocess_dataset_name = '{}_{}_{}'.format(dataset, rewrite_method, part)
 
-    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'GPT')
+    preprocessed_dataset = check_if_exist(preprocess_dataset_name, 'finetuned_GPT')
     if preprocessed_dataset:
         return preprocessed_dataset[0], preprocessed_dataset[1], preprocessed_dataset[2], preprocessed_dataset[3], \
                preprocess_dataset_name.replace('_'+part, '')

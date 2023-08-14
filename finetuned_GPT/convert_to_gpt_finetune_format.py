@@ -83,5 +83,5 @@ test_texts_GPT, test_labels_GPT = convert_to_GPT_finetune_format(test_texts, tes
 train_out = pd.DataFrame(list(zip(train_texts_GPT, train_labels_GPT)), columns=['prompt', 'completion'])
 test_out = pd.DataFrame(list(zip(test_texts_GPT, test_labels_GPT)), columns=['prompt', 'completion'])
 
-train_out.to_csv('GPT/{}_train_gpt_finetune_format.tsv'.format(dataset), sep='\t', index=False)
-test_out.to_csv('GPT/{}_test_gpt_finetune_format.tsv'.format(dataset), sep='\t', index=False)
+train_out.to_csv('finetuned_GPT/{}_train_gpt_finetune_format.tsv'.format(dataset), sep='\t', index=False)
+test_out.to_csv('finetuned_GPT/{}_test_gpt_finetune_format.tsv'.format(dataset), sep='\t', index=False)

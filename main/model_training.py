@@ -1,15 +1,12 @@
-import os
-import random
 from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig,\
     BertForSequenceClassification
-from data_loader import DataLoader, compute_metrics
+from main.data_loader import DataLoader, compute_metrics
 from model_config import *
-import transformers
 import torch
 from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, f1_score
-from data_preprocess_methods import split_into_sentences, split_into_frames
+from main.data_preprocess_methods import split_into_sentences, split_into_frames
 import wandb
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -93,7 +90,7 @@ if __name__ == '__main__':
 
 
     training_args = TrainingArguments(
-        output_dir='results',  # model save dir
+        output_dir='weights',  # model save dir
         logging_dir='./logs/{}/{}_{}_{}_{}'.format(dataset_name, model_path, dataloader.preprocess_function.__name__, lr_scheduler_type, num_train_epochs),  # directory for storing logs
         evaluation_strategy='epoch',
         # logging_steps=100,
@@ -146,12 +143,12 @@ if __name__ == '__main__':
         )
 
         training_args.seed = seeds[i]
-        # No1 team treat dev dataset as eval_dataset, so here I do the same
+        # No1 team treat dev datasets as eval_dataset, so here I do the same
         trainer = Trainer(
             model_init=model_init,
             args=training_args,                  # training arguments, defined above
-            train_dataset=train_dataset_train,         # training dataset
-            eval_dataset=train_dataset_test,            # evaluation dataset
+            train_dataset=train_dataset_train,         # training datasets
+            eval_dataset=train_dataset_test,            # evaluation datasets
             compute_metrics=compute_metrics
         )
 
@@ -213,7 +210,7 @@ if __name__ == '__main__':
                                          do_normalize=do_normalize, concate_frames_num=concate_frames_num, do_balancing=do_balancing)
         test_dataset_train, test_dastaset_dev, test_dataset_test = dataloader_test.get_dataset(include_test=True)
 
-    with open('wrong_prediction/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
+    with open('wrong_predictions_idx/{}_{}_{}.txt'.format(dataset_name, test_dataset_name, run_name), 'w') as f:
         f.write('origin:\n{}\n{}\n'.format(str(output[2]['test_confusion_matrix']), str(np.array(train_dataset_test.ids)[output[2]['test_wrong_predicted_idx']].astype(int).tolist())))
         f.write('split to sentence:\n{}\n{}\n'.format(str(split_into_sentences_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_sentences_wrong_predicted_idx].astype(int).tolist())))
         f.write('split to frames:\n{}\n{}\n'.format(str(split_into_frames_confusionMatrix), str(np.array(test_dataset_test.ids)[split_into_frames_wrong_predicted_idx].astype(int).tolist())))
@@ -232,7 +229,7 @@ if __name__ == '__main__':
     wandb.log({"f1_macro_avg": f1_macro_sum, "f1_avg": f1_sum, "acc_avg": acc_sum, "f1_macro_sen_avg": f1_macro_sen_sum, "f1_sen_avg": f1_sen_sum, "acc_sen_avg": acc_sen_sum, "f1_macro_frame_avg": f1_macro_frame_sum, "f1_frame_avg": f1_frame_sum, "acc_frame_avg": acc_frame_sum})
     run.finish()
 
-    trainer.save_model('results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
+    trainer.save_model('weights/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name))
 
     # write result to clef evaluation format
     # with open('none-operation-64-bertweet-test.tsv', 'w') as f:

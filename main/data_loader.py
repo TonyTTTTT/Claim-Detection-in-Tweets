@@ -6,7 +6,7 @@ import torch
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, f1_score
 from data_preprocess_methods import *
 from model_config import model_path
-from models.utils.calculate_special_symbol import calculate_special_symbol
+from others.calculate_special_symbol import calculate_special_symbol
 
 
 class DataLoader:
@@ -37,34 +37,34 @@ class DataLoader:
             self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
                                 'CT22_english_1A_checkworthy_test_gold.tsv'
         elif dataset == 'CLEF2022_1b':
-            self.train_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
-            self.dev_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
-            self.test_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_test_gold.tsv'
+            self.train_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
+            self.dev_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
+            self.test_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_test_gold.tsv'
         elif dataset == 'CLEF2022_1b_devtest+test':
-            self.train_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
-            self.dev_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
-            self.test_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_devtest+test.tsv'
+            self.train_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
+            self.dev_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
+            self.test_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_devtest+test.tsv'
         elif dataset == 'CLEF2022_1b_devtest':
-            self.train_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
-            self.dev_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
-            self.test_path = '../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_dev_test.tsv'
-        elif dataset.startswith('CLEF') and 'GPT' not in dataset:
-            self.train_path = '../dataset/CheckThatLab2022-1b/{}_train.tsv'.format(dataset)
-            self.dev_path = '../dataset/CheckThatLab2022-1b/{}_dev.tsv'.format(dataset)
-            self.test_path = '../dataset/CheckThatLab2022-1b/{}_test.tsv'.format(dataset)
-        elif dataset.startswith('LESA') and 'GPT' not in dataset:
-            self.train_path = '../dataset/LESA/{}_train.tsv'.format(dataset)
-            self.dev_path = '../dataset/LESA/{}_dev.tsv'.format(dataset)
-            self.test_path = '../dataset/LESA/{}_test.tsv'.format(dataset)
+            self.train_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
+            self.dev_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
+            self.test_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev_test.tsv'
+        elif dataset.startswith('CLEF') and 'finetuned_GPT' not in dataset:
+            self.train_path = '../datasets/CheckThatLab2022-1b/{}_train.tsv'.format(dataset)
+            self.dev_path = '../datasets/CheckThatLab2022-1b/{}_dev.tsv'.format(dataset)
+            self.test_path = '../datasets/CheckThatLab2022-1b/{}_test.tsv'.format(dataset)
+        elif dataset.startswith('LESA') and 'finetuned_GPT' not in dataset:
+            self.train_path = '../datasets/LESA/{}_train.tsv'.format(dataset)
+            self.dev_path = '../datasets/LESA/{}_dev.tsv'.format(dataset)
+            self.test_path = '../datasets/LESA/{}_test.tsv'.format(dataset)
         elif dataset in sentence_level_dataset_names:
-            self.train_path = '../dataset/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
-            self.dev_path = '../dataset/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
-            self.test_path = '../dataset/other-sentence-level/{}_processed/{}_test.tsv'.format(dataset, dataset)
+            self.train_path = '../datasets/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
+            self.dev_path = '../datasets/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
+            self.test_path = '../datasets/other-sentence-level/{}_processed/{}_test.tsv'.format(dataset, dataset)
         elif dataset.startswith('sentence_level'):
-            self.train_path = '../dataset/other-sentence-level/{}_train.tsv'.format(dataset)
-            self.dev_path = '../dataset/other-sentence-level/{}_dev.tsv'.format(dataset)
-            self.test_path = '../dataset/other-sentence-level/{}_test.tsv'.format(dataset)
-        elif 'GPT' in dataset:
+            self.train_path = '../datasets/other-sentence-level/{}_train.tsv'.format(dataset)
+            self.dev_path = '../datasets/other-sentence-level/{}_dev.tsv'.format(dataset)
+            self.test_path = '../datasets/other-sentence-level/{}_test.tsv'.format(dataset)
+        elif 'finetuned_GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             self.dev_path = 'preprocess_datasets_GPT/' + dataset + '_dev.tsv'
             self.test_path = 'preprocess_datasets_GPT/' + dataset + '_test.tsv'
@@ -183,7 +183,7 @@ class DataLoader:
         df_pred['tweet_id'] = df_pred['tweet_id'].astype(str)
         print('=====================\nwrite tsv to pred/{}_{}_{}.tsv'
               '\n============================='.format(dataset_name, test_dataset_name, level))
-        df_pred.to_csv('pred/{}_{}_{}.tsv'.format(dataset_name, test_dataset_name, level), sep='\t', index=False)
+        df_pred.to_csv('predictions/{}_{}_{}.tsv'.format(dataset_name, test_dataset_name, level), sep='\t', index=False)
 
 
     def read_data(self, dataset, do_normalize, concate_frames_num, do_balancing):

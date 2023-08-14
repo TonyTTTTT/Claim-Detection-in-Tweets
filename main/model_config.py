@@ -1,11 +1,10 @@
-from data_preprocess_methods import none_operation, concate_frames, rewrite_by_GPT
-
+from main.data_preprocess_methods import rewrite_by_GPT
 
 # tokenizer不同會導致encoding長度(tokens個數)不一樣 (應該是vocabulary的問題)
 
 # model input length limit: 128
 # model_path = "vinai/bertweet-covid19-base-uncased"
-    
+
 # size of GPT3: 175 billion
 
 # size: 123 million
@@ -41,7 +40,7 @@ run_name = 'local'
 
 # seeds = [42, 17, 36]
 seeds = [1]
-preprocess_function = none_operation
+preprocess_function = rewrite_by_GPT
 concate_frames_num = 5
 
 do_balancing = False

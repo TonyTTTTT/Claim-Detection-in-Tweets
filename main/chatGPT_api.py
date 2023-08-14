@@ -14,8 +14,8 @@ class ChatGPT:
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
         res = openai.ChatCompletion.create(
-            # model="gpt-3.5-turbo",
-            model="gpt-4",
+            model="gpt-3.5-turbo",
+            # model="gpt-4",
             messages=messages,
             temperature=0,
             # max_tokens=1997,

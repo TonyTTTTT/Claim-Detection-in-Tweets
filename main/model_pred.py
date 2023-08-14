@@ -1,14 +1,13 @@
-from data_loader import DataLoader, compute_metrics
-from transformers import AutoConfig, AutoModel
-from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig
-from data_preprocess_methods import split_into_sentences, split_into_frames
+from main.data_loader import DataLoader, compute_metrics
+from transformers import RobertaForSequenceClassification, Trainer
+from main.data_preprocess_methods import split_into_frames
 from model_config import *
 from transformers import AutoTokenizer
 import torch
 from model_training import calculate_article_score_from_sentence
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-mine_model_path = 'results/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name)
+mine_model_path = 'weights/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name)
 print(mine_model_path)
 
 dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
@@ -25,8 +24,8 @@ trainer = Trainer(
     model=model,                         # the instantiated 🤗 Transformers model to be trained
     # model_init=model_init,
     # args=training_args,                  # training arguments, defined above
-    train_dataset=train_dataset_frame,         # training dataset
-    eval_dataset=test_dataset_frame,            # evaluation dataset
+    train_dataset=train_dataset_frame,         # training datasets
+    eval_dataset=test_dataset_frame,            # evaluation datasets
     compute_metrics=compute_metrics
 )
 

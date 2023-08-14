@@ -1,7 +1,7 @@
 import pandas as pd
 
 dataset_name = 'CLEF2022_1b'
-origin_dataset = pd.read_csv('../dataset/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'.format(dataset_name), sep='\t', dtype=str)
+origin_dataset = pd.read_csv('../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'.format(dataset_name), sep='\t', dtype=str)
 if 'tweet_url' in origin_dataset.columns:
     origin_dataset = origin_dataset.drop('tweet_url', axis=1)
 origin_dataset = origin_dataset.rename(columns={'text':'tweet_text', 'claim':'class_label'})
