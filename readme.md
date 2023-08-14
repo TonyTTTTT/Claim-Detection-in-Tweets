@@ -2,12 +2,14 @@
 To reproduce the result, first config the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
 
 - hyper-parameter setting (in ./main/model_config.py)
-  - Baseline: delete_hashtag, delete_url, delete_emoji = True
+  - Baseline
+    - LESA: dataset_name, test_dataset_name = 'LESA'
+    - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b'
   - Rewrite -> Model
     - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
     - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
   - Split to Sentence-Level -> Model
-    - LESA:
+    - LESA: 
     - CheckThatLab2022 1b:
   - Rewrite -> Split to Sentence-Level -> Model:
     - LESA:

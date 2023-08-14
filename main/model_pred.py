@@ -1,6 +1,6 @@
-from main.data_loader import DataLoader, compute_metrics
+from data_loader import DataLoader, compute_metrics
 from transformers import RobertaForSequenceClassification, Trainer
-from main.data_preprocess_methods import split_into_frames
+from data_preprocess_methods import split_into_frames
 from model_config import *
 from transformers import AutoTokenizer
 import torch

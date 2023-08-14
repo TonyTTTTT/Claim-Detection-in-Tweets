@@ -1,4 +1,4 @@
-from main.data_preprocess_methods import rewrite_by_GPT, none_operation, split_into_sentences, split_into_frames
+from data_preprocess_methods import rewrite_by_GPT, none_operation, split_into_sentences, split_into_frames
 
 
 # pre-trained weight path provided on [huggingface](https://huggingface.co/models)

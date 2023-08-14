@@ -1,12 +1,12 @@
 from transformers import RobertaForSequenceClassification, Trainer, TrainingArguments, AutoConfig,\
     BertForSequenceClassification
-from main.data_loader import DataLoader, compute_metrics
+from data_loader import DataLoader, compute_metrics
 from model_config import *
 import torch
 from torch import nn
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, confusion_matrix, f1_score
-from main.data_preprocess_methods import split_into_sentences, split_into_frames, none_operation
+from data_preprocess_methods import split_into_sentences, split_into_frames, none_operation
 import wandb
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
