@@ -8,9 +8,7 @@ To reproduce the result, first config the hyperparameter in ./main/model_config.
   - Rewrite -> Model
     - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
     - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
-  - Split to Sentence-Level -> Model
-    - LESA: 
-    - CheckThatLab2022 1b:
+  - Split to Sentence-Level -> Model: present in same run of Baseline 
   - Rewrite -> Split to Sentence-Level -> Model:
     - LESA:
     - CheckThatLab2022 1b:
