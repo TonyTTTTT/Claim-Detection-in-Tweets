@@ -25,3 +25,6 @@ coconut-env
 # split to sentence
 preprocess_datasets/preprocess_datasets_sentence
 preprocess_datasets/preprocess_datasets_SRL
+
+# related paper
+paper
