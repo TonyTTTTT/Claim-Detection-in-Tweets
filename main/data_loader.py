@@ -48,11 +48,11 @@ class DataLoader:
             self.train_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
             self.dev_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
             self.test_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev_test.tsv'
-        elif dataset.startswith('CLEF') and 'finetuned_GPT' not in dataset:
+        elif dataset.startswith('CLEF') and 'GPT' not in dataset:
             self.train_path = '../datasets/CheckThatLab2022-1b/{}_train.tsv'.format(dataset)
             self.dev_path = '../datasets/CheckThatLab2022-1b/{}_dev.tsv'.format(dataset)
             self.test_path = '../datasets/CheckThatLab2022-1b/{}_test.tsv'.format(dataset)
-        elif dataset.startswith('LESA') and 'finetuned_GPT' not in dataset:
+        elif dataset.startswith('LESA') and 'GPT' not in dataset:
             self.train_path = '../datasets/LESA/{}_train.tsv'.format(dataset)
             self.dev_path = '../datasets/LESA/{}_dev.tsv'.format(dataset)
             self.test_path = '../datasets/LESA/{}_test.tsv'.format(dataset)
@@ -64,7 +64,7 @@ class DataLoader:
             self.train_path = '../datasets/other-sentence-level/{}_train.tsv'.format(dataset)
             self.dev_path = '../datasets/other-sentence-level/{}_dev.tsv'.format(dataset)
             self.test_path = '../datasets/other-sentence-level/{}_test.tsv'.format(dataset)
-        elif 'finetuned_GPT' in dataset:
+        elif 'GPT' in dataset:
             self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
             self.dev_path = 'preprocess_datasets_GPT/' + dataset + '_dev.tsv'
             self.test_path = 'preprocess_datasets_GPT/' + dataset + '_test.tsv'
