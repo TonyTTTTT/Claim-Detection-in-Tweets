@@ -23,20 +23,7 @@ class DataLoader:
         sentence_level_dataset_names = ['ClaimBuster', 'MT', 'OC', 'PE', 'VG',
                                         'WD', 'WTP', 'NewsClaims']
 
-        if dataset == 'CLEF2021':
-            self.train_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_train_v1_english.tsv'
-            self.dev_path = '../clef2021-checkthat-lab/task1/data/subtask-1a--english/v1/dataset_dev_v1_english.tsv'
-            # use dev set as testing set to compare with winner's performance
-            self.test_path = '../clef2021-checkthat-lab/task1/test-gold/subtask-1a--english/subtask-1a--english/' \
-                             'dataset_test_english.tsv'
-        elif dataset == 'CLEF2022':
-            self.train_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/' \
-                              'CT22_english_1A_checkworthy_train.tsv'
-            self.dev_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/CT22_english_1A_checkworthy/' \
-                              'CT22_english_1A_checkworthy_dev.tsv'
-            self.test_path = '../clef2022-checkthat-lab/task1/data/subtasks-english/test/' \
-                                'CT22_english_1A_checkworthy_test_gold.tsv'
-        elif dataset == 'CLEF2022_1b':
+        if dataset == 'CLEF2022_1b':
             self.train_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_train.tsv'
             self.dev_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_dev.tsv'
             self.test_path = '../datasets/CheckThatLab2022-1b/CT22_english_1B_claim_test_gold.tsv'
@@ -65,13 +52,13 @@ class DataLoader:
             self.dev_path = '../datasets/other-sentence-level/{}_dev.tsv'.format(dataset)
             self.test_path = '../datasets/other-sentence-level/{}_test.tsv'.format(dataset)
         elif 'GPT' in dataset:
-            self.train_path = 'preprocess_datasets_GPT/' + dataset + '_train.tsv'
-            self.dev_path = 'preprocess_datasets_GPT/' + dataset + '_dev.tsv'
-            self.test_path = 'preprocess_datasets_GPT/' + dataset + '_test.tsv'
+            self.train_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_train.tsv'
+            self.dev_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_dev.tsv'
+            self.test_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_test.tsv'
         elif 'top' in dataset:
-            self.train_path = 'preprocess_datasets_SRL/' + dataset + '_train.tsv'
-            self.dev_path = 'preprocess_datasets_SRL/' + dataset + '_dev.tsv'
-            self.test_path = 'preprocess_datasets_SRL/' + dataset + '_test.tsv'
+            self.train_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_train.tsv'
+            self.dev_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_dev.tsv'
+            self.test_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_test.tsv'
 
         print('================\ntraining set path: {}\n================'.format(self.train_path))
         self.read_data(dataset, do_normalize, needed_frames_num, do_balancing)
