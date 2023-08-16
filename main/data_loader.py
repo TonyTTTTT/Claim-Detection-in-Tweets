@@ -44,21 +44,17 @@ class DataLoader:
             self.dev_path = '../datasets/LESA/{}_dev.tsv'.format(dataset)
             self.test_path = '../datasets/LESA/{}_test.tsv'.format(dataset)
         elif dataset in sentence_level_dataset_names:
-            self.train_path = '../datasets/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
-            self.dev_path = '../datasets/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
-            self.test_path = '../datasets/other-sentence-level/{}_processed/{}_test.tsv'.format(dataset, dataset)
+            self.train_path = '../preprocess_datasets/other-sentence-level/{}_processed/{}_train.tsv'.format(dataset, dataset)
+            self.dev_path = '../preprocess_datasets/other-sentence-level/{}_processed/{}_dev.tsv'.format(dataset, dataset)
+            self.test_path = '../preprocess_datasets/other-sentence-level/{}_processed/{}_test.tsv'.format(dataset, dataset)
         elif dataset.startswith('sentence_level'):
-            self.train_path = '../datasets/other-sentence-level/{}_train.tsv'.format(dataset)
-            self.dev_path = '../datasets/other-sentence-level/{}_dev.tsv'.format(dataset)
-            self.test_path = '../datasets/other-sentence-level/{}_test.tsv'.format(dataset)
+            self.train_path = '../preprocess_datasets/other-sentence-level/{}_train.tsv'.format(dataset)
+            self.dev_path = '../preprocess_datasets/other-sentence-level/{}_dev.tsv'.format(dataset)
+            self.test_path = '../preprocess_datasets/other-sentence-level/{}_test.tsv'.format(dataset)
         elif 'GPT' in dataset:
-            self.train_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_train.tsv'
-            self.dev_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_dev.tsv'
-            self.test_path = '../datasets/preprocess_datasets_GPT/' + dataset + '_test.tsv'
-        elif 'top' in dataset:
-            self.train_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_train.tsv'
-            self.dev_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_dev.tsv'
-            self.test_path = '../datasets/preprocess_datasets_SRL/' + dataset + '_test.tsv'
+            self.train_path = '../preprocess_datasets/preprocess_datasets_GPT/' + dataset + '_train.tsv'
+            self.dev_path = '../preprocess_datasets/preprocess_datasets_GPT/' + dataset + '_dev.tsv'
+            self.test_path = '../preprocess_datasets/preprocess_datasets_GPT/' + dataset + '_test.tsv'
 
         print('================\ntraining set path: {}\n================'.format(self.train_path))
         self.read_data(dataset, do_normalize, needed_frames_num, do_balancing)
