@@ -1,18 +1,18 @@
 # Usage
-To reproduce the result, first config the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
+To reproduce the result, first config the hyperparameter in ./main/model_config.py then
+- using fine-tuned weights: run ./main/model_pred.py.
+- directly fine-tune: run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
 
-- hyper-parameter setting (in ./main/model_config.py)
-  - Baseline
-    - LESA: dataset_name, test_dataset_name = 'LESA'
-    - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b'
-  - Rewrite -> Model
-    - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
-    - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
-  - Split to Sentence-Level -> Model: present in same run of Baseline 
-  - Rewrite -> Split to Sentence-Level -> Model:
-    - LESA:
-    - CheckThatLab2022 1b:
-  - Training With Sentence-Level Dataset:  
+hyper-parameter setting (in ./main/model_config.py)
+- Baseline
+  - LESA: dataset_name, test_dataset_name = 'LESA'
+  - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b'
+- Rewrite -> Model
+  - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
+  - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
+- Split to Sentence-Level -> Model: present in same run of Baseline 
+- Rewrite -> Split to Sentence-Level -> Model: present in same run of Rewrite -> Model
+- Training With Sentence-Level Dataset:  
 
 # Code Structure & Description
 - /main: all the code related to the using of BERT-Classifier model, from data preprocessing to predicting.
