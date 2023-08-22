@@ -60,13 +60,13 @@ def normalizeTweet(tweets):
                 last_sen = tokenizer.tokenize(sentences[-1])
                 del_last_sen = True
                 for token in last_sen:
-                    if not token.startswith('#') and not token.startswith('http') and not token.startswith('@'):
+                    if not token.startswith('#') and not token.startswith('http'):
                         del_last_sen = False
                         break
                 if del_last_sen:
                     new_last_sen = []
                     for token in last_sen:
-                        if not token.startswith('#') and not token.startswith('@'):
+                        if not token.startswith('#'):
                             new_last_sen.append(token)
                     if new_last_sen != []:
                         sentences[-1] = " ".join(new_last_sen)
