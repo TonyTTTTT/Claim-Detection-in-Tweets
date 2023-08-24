@@ -35,14 +35,14 @@ split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_i
 
 
 
-text = 'China will admit coronavirus coming from its P4 lab BioWeapon.'
-tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
-tokenizer.model_max_length = 128
-text_encoding = tokenizer(text, truncation=True, padding='max_length')
-input_tensor = torch.tensor(text_encoding['input_ids']).resize(1, 128).to(device)
-
-print(text)
-print(model(input_tensor))
+# text = 'China will admit coronavirus coming from its P4 lab BioWeapon.'
+# tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False, normalization=False)
+# tokenizer.model_max_length = 128
+# text_encoding = tokenizer(text, truncation=True, padding='max_length')
+# input_tensor = torch.tensor(text_encoding['input_ids']).resize(1, 128).to(device)
+#
+# print(text)
+# print(model(input_tensor))
 
 # with open('bertweet-pred.tsv', 'w') as f:
 #     pred = output[0]
