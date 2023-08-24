@@ -27,7 +27,7 @@ trainer = Trainer(
 )
 
 output_frame = trainer.predict(test_dataset_frame)
-print('none operation:\n======================\nf1_macro: {}\nf1: {}\naccuracy: {}\nconfusion matrix: {}\n========================='.format(output_frame.metrics['test_f1_macro'], output_frame.metrics['test_f1'], output_frame.metrics['test_accuracy'], output_frame.metrics['test_confusion_matrix']))
+print('\nnone operation:\n======================\nf1_macro: {}\nf1: {}\naccuracy: {}\nconfusion matrix: {}\n========================='.format(output_frame.metrics['test_f1_macro'], output_frame.metrics['test_f1'], output_frame.metrics['test_accuracy'], output_frame.metrics['test_confusion_matrix']))
 
 
 dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
@@ -47,7 +47,7 @@ trainer = Trainer(
 
 output_frame = trainer.predict(test_dataset_frame)
 # print(output_frame)
-print('split by SRL:')
+print('\nsplit by SRL:')
 split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
 
 
