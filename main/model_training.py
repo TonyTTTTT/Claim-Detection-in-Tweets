@@ -64,7 +64,7 @@ def calculate_article_score_from_sentence(test_dataset, output, combine_method):
     f1_macro = f1_score(labels, preds, average='macro')
     agree = preds == labels
     wrong_predicted_idx = np.where(agree == False)[0].tolist()
-    print('\n=================================\n'
+    print('=================================\n'
           'using method: {}\n'
           'f1_macro at article-level: {}\nf1 at article-level: {}\nacc at article-level: {}\nconfusion matrix: {}'
           '\n=================================\n'.format(combine_method, f1_macro, f1, acc, confusionMatrix))

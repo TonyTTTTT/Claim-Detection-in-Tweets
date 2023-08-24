@@ -27,7 +27,7 @@ trainer = Trainer(
 )
 
 output_frame = trainer.predict(test_dataset_frame)
-print('none operation:\n{}'.format(output_frame))
+print('none operation:\n======================\nf1_macro: {}\nf1: {}\naccuracy: {}\nconfusion matrix: {}\n========================='.format(output_frame.metrics['test_f1_macro'], output_frame.metrics['test_f1'], output_frame.metrics['test_accuracy'], output_frame.metrics['test_confusion_matrix']))
 
 
 dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,

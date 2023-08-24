@@ -47,6 +47,7 @@ def normalizeTweet(tweets):
                                                                                      delete_emoji, replace_covid,
                                                                                      delete_tail_punc, replace_user,
                                                                                      recover_punc, delete_punc))
+
     if type(tweets) != list:
         tweets = [tweets]
 
