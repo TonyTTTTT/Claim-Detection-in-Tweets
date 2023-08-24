@@ -8,17 +8,33 @@ from model_training import calculate_article_score_from_sentence
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 mine_model_path = 'weights/{}_{}_{}'.format(dataset_name, test_dataset_name, run_name)
-print(mine_model_path)
+print('===========\nmodel path: {}\n==========='.format(mine_model_path))
+model = RobertaForSequenceClassification.from_pretrained(mine_model_path)
+model.eval()
+
+
+dataloader_frame = DataLoader(preprocess_function=none_operation, dataset=test_dataset_name,
+                              do_normalize=do_normalize, needed_frames_num=needed_frames_num,
+                              do_balancing=do_balancing)
+train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
+trainer = Trainer(
+    model=model,                         # the instantiated 🤗 Transformers model to be trained
+    # model_init=model_init,
+    # args=training_args,                  # training arguments, defined above
+    train_dataset=train_dataset_frame,         # training datasets
+    eval_dataset=test_dataset_frame,            # evaluation datasets
+    compute_metrics=compute_metrics
+)
+
+output_frame = trainer.predict(test_dataset_frame)
+print('none operation:\n{}'.format(output_frame))
+
 
 dataloader_frame = DataLoader(preprocess_function=split_into_frames, dataset=test_dataset_name,
                               do_normalize=do_normalize, needed_frames_num=needed_frames_num,
                               do_balancing=do_balancing)
 train_dataset_frame, dev_dataset_frame, test_dataset_frame = dataloader_frame.get_dataset(include_test=True)
-# config = AutoConfig.from_pretrained(mine_model_path)
-# model = AutoModel.from_config(config)
 
-model = RobertaForSequenceClassification.from_pretrained(mine_model_path)
-model.eval()
 
 trainer = Trainer(
     model=model,                         # the instantiated 🤗 Transformers model to be trained
@@ -30,7 +46,8 @@ trainer = Trainer(
 )
 
 output_frame = trainer.predict(test_dataset_frame)
-print(output_frame)
+# print(output_frame)
+print('split by SRL:')
 split_into_frames_f1_macro, split_into_frames_f1, split_into_frames_acc, split_into_frames_confusionMatrix, split_into_frames_wrong_predicted_idx = calculate_article_score_from_sentence(test_dataset_frame, output_frame, 'max')
 
 
