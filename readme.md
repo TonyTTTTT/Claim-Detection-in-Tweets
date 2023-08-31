@@ -1,8 +1,8 @@
 # Usage
 To reproduce the result, first setting the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
 
-### hyper-parameter setting
-in ./main/model_config.py. Each setting represents a scenario in Table 6.8 on page 57 of my paper. Please just change the parameter been mentioned.
+### hyper-parameter setting (in ./main/model_config.py)
+Each setting represents a scenario in Table 6.8 on page 57 of my paper. Please just change the parameter been mentioned.
 - Baseline
   - CheckThatLab2022 1b: ```dataset_name = 'CLEF2022_1b', test_dataset_name = 'CLEF2022_1b'```
   - LESA: ```dataset_name = 'LESA', test_dataset_name = 'LESA'```
