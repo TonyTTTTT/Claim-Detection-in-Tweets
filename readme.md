@@ -3,20 +3,20 @@ To reproduce the result, first config the hyperparameter in ./main/model_config.
 
 hyper-parameter setting (in ./main/model_config.py, please refer to page 57 in my paper for the following name)
 - Baseline
-  - CheckThatLab2022 1b: dataset_name, test_dataset_name = 'CLEF2022_1b'
-  - LESA: dataset_name, test_dataset_name = 'LESA'
+  - CheckThatLab2022 1b: ```dataset_name = 'CLEF2022_1b', test_dataset_name = 'CLEF2022_1b'```
+  - LESA: ```dataset_name = 'LESA', test_dataset_name = 'LESA'```
 - Rewrite -> Model
-  - CheckThatLab2022 1b: ```dataset_name, test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'```
-  - LESA: dataset_name, test_dataset_name = 'LESA_explain_by_GPT'
+  - CheckThatLab2022 1b: ```dataset_name= 'CLEF2022_1b_normalize_by_GPT', test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'```
+  - LESA: ```dataset_name = 'LESA_explain_by_GPT, test_dataset_name = 'LESA_explain_by_GPT'```
 - Split to Sentence-Level -> Model: present in same run of Baseline 
 - Rewrite -> Split to Sentence-Level -> Model: present in same run of Rewrite -> Model
-- Training With Sentence-Level Dataset: do_balancing = True, delete_dbquote = True
+- Training With Sentence-Level Dataset: ```do_balancing = True, delete_dbquote = True```
   - Baseline
-    - CheckThatLab2022 1b: dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b'
-    - LESA: dataset_name = 'LESA_CB', test_dataset_name = 'LESA'
+    - CheckThatLab2022 1b: ```dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b'```
+    - LESA: dataset_name = ```'LESA_CB', test_dataset_name = 'LESA'```
   - Rewrite -> Model
-    - CheckThatLab2022 1b: dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'
-    - LESA: dataset_name = 'LESA_CB', test_dataset_name = 'LESA_explain_by_GPT'
+    - CheckThatLab2022 1b: ```dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'```
+    - LESA: ```dataset_name = 'LESA_CB', test_dataset_name = 'LESA_explain_by_GPT'```
 
 
 # Code Structure & Description
