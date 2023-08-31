@@ -1,5 +1,5 @@
 # Usage
-To reproduce the result, first config the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
+To reproduce the result, first setting the hyperparameter in ./main/model_config.py then run ./main/model_training.py, it will involved model training and testing, which will eventually print the metric.
 
 ### hyper-parameter setting
 in ./main/model_config.py, the name in following can be refer to page 57 in my paper. Please just change the parameter been mentioned.
