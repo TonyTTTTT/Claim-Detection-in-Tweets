@@ -45,12 +45,12 @@ hyper-parameter setting (in ./main/model_config.py)
   
 # Dataset Introduction
 - /dataset: the original dataset.
-  - /CheckThatLab2022-1b: released in  
-  - /LESA: released in 
+  - /CheckThatLab2022-1b: released in this [gitlab link](https://gitlab.com/checkthat_lab/clef2022-checkthat-lab/clef2022-checkthat-lab/-/tree/main/task1/data/subtasks-english) 
+  - /LESA: released in this [github link](https://github.com/LCS2-IIITD/LESA-EACL-2021/tree/main/data)
   - /other-sentence-level
-    - /MT, /OC, /PE, /VG, /WD, /WTP: released in 
-    - /ClaimBuster: released in 
-    - /NewsClaims: released in 
+    - /MT, /OC, /PE, /VG, /WD, /WTP: released in this [github link](https://github.com/LCS2-IIITD/LESA-EACL-2021/tree/main/data)
+    - /ClaimBuster: released in this [link](https://zenodo.org/record/3836810#.YwSJzHZByUl)
+    - /NewsClaims: released in this [link](https://drive.google.com/file/d/1jlQ0kQLS0kLbrXIC1fh6oT2HsWppx5QT/view)
 - /preprocess_datasets: the dataset after undergoing the preprocessing proposed in this paper.
   - preprocess_datasets_GPT: the dataset after undergoing the rewrite of GPT.
   - preprocess_datasets_sentence: the dataset after undergoing split tweets into sentence-level using rule-based method.
