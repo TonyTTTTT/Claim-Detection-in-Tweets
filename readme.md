@@ -9,8 +9,8 @@ Each setting represents a scenario in Table 6.8 on page 57 of my paper. Please j
 - Rewrite -> Model
   - CheckThatLab2022 1b: ```dataset_name= 'CLEF2022_1b_normalize_by_GPT', test_dataset_name = 'CLEF2022_1b_normalize_by_GPT'```
   - LESA: ```dataset_name = 'LESA_explain_by_GPT, test_dataset_name = 'LESA_explain_by_GPT'```
-- Split to Sentence-Level -> Model: present in same run of Baseline 
-- Rewrite -> Split to Sentence-Level -> Model: present in same run of Rewrite -> Model
+- Split to Sentence-Level -> Model: ```present in same run of Baseline``` 
+- Rewrite -> Split to Sentence-Level -> Model: ```present in same run of Rewrite -> Model```
 - Training With Sentence-Level Dataset: ```do_balancing = True, delete_dbquote = True```
   - Split to Sentence-Level -> Model
     - CheckThatLab2022 1b: ```dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b'```
