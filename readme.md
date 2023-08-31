@@ -12,7 +12,7 @@ Each setting represents a scenario in Table 6.8 on page 57 of my paper. Please j
 - Split to Sentence-Level -> Model: present in same run of Baseline 
 - Rewrite -> Split to Sentence-Level -> Model: present in same run of Rewrite -> Model
 - Training With Sentence-Level Dataset: ```do_balancing = True, delete_dbquote = True```
-  - Baseline
+  - Split to Sentence-Level -> Model
     - CheckThatLab2022 1b: ```dataset_name = 'sentence_level_CB_OC', test_dataset_name = 'CLEF2022_1b'```
     - LESA: dataset_name = ```'LESA_CB', test_dataset_name = 'LESA'```
   - Rewrite -> Model
