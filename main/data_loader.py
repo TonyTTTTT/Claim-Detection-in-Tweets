@@ -108,39 +108,6 @@ class DataLoader:
         texts_balanced = texts[balanced_idx].tolist()
         labels_balanced = labels[balanced_idx].tolist()
 
-        # cnt_0 = 0
-        # cnt_1 = 0
-        # for label in labels:
-        #     if label == 0:
-        #         cnt_0 += 1
-        #     else: # label == 1:
-        #         cnt_1 += 1
-        #
-        # cnt_less = min(cnt_0, cnt_1)
-        # cnt_0 = 0
-        # cnt_1 = 0
-        # ids_balanced = []
-        # topic_ids_balanced = []
-        # texts_balanced = []
-        # labels_balanced = []
-        #
-        # idx = 0
-        # while cnt_0 < cnt_less or cnt_1 < cnt_less:
-        #     if labels[idx] == 0 and cnt_0 < cnt_less:
-        #         cnt_0 += 1
-        #         ids_balanced.append(ids[idx])
-        #         topic_ids_balanced.append(topic_ids[idx])
-        #         texts_balanced.append(texts[idx])
-        #         labels_balanced.append(labels[idx])
-        #     elif labels[idx] == 1 and cnt_1 < cnt_less:
-        #         cnt_1 += 1
-        #         ids_balanced.append(ids[idx])
-        #         topic_ids_balanced.append(topic_ids[idx])
-        #         texts_balanced.append(texts[idx])
-        #         labels_balanced.append(labels[idx])
-        #
-        #     idx += 1
-
         return ids_balanced, topic_ids_balanced, texts_balanced, labels_balanced
 
     def write_prediciton_to_file(self, preds, dataset_name, test_dataset_name, level):
