@@ -28,3 +28,6 @@ preprocess_datasets/preprocess_datasets_SRL
 
 # related paper
 paper
+
+# opeai api key
+openai_api_key

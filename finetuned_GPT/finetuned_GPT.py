@@ -3,7 +3,8 @@ import openai
 
 class FineTunedGPT:
     def __init__(self):
-        openai.api_key = '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'
+        with open('../openai_api_key', 'r') as f:
+            openai.api_key = f.readlines()[0]
 
     def get_response(self, prompt):
         res = openai.Completion.create(

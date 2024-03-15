@@ -9,7 +9,8 @@ from tenacity import (
 
 class ChatGPT:
     def __init__(self):
-        openai.api_key = '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'
+        with open('../openai_api_key', 'r') as f:
+            openai.api_key = f.readlines()[0]
 
     @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
     def get_response(self, messages):
